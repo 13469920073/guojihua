@@ -69,6 +69,7 @@
 				api.post(api.url.login , d , res =>{
 					// console.log("res: " + JSON.stringify(res));
 					uni.hideLoading();
+          uni.setStorageSync('token' ,112321);
 					uni.setStorageSync('loginuserinfo' ,res);
 					uni.$emit('userloginsuccess');
 					uni.showToast({
