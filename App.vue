@@ -13,7 +13,7 @@
 </script>
 
 <style>
-	/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
+	/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用2222 */
 	@import './common/uni.css';
 	/*每个页面公共css */
 	image{
