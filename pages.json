@@ -5,8 +5,7 @@
 			"style": {
 				"navigationBarTitleText": "bitmakeitx",
 				"enablePullDownRefresh": true,
-				
-				"navigationBarTextStyle": "#ffffff",
+				"navigationBarTextStyle": "white",
 				// "navigationBarBackgroundColor": "#ff4500",
 				"navigationBarBackgroundColor": "#0b60fa",
 				"backgroundColor": "#F8F8F8",
@@ -22,7 +21,7 @@
 			"path": "pages/contract/index",
 			"style": {
 				"navigationBarTitleText": "合约"		,
-				"navigationBarTextStyle": "#ffffff",
+				"navigationBarTextStyle": "white",
 				// "navigationBarBackgroundColor": "#ff4500",
 				"navigationBarBackgroundColor": "#0b60fa",
 				"backgroundColor": "#F8F8F8"
@@ -32,7 +31,7 @@
 			"path": "pages/publish/pub-select-type",
 			"style": {
 				"navigationBarTitleText": "钱包"		,
-				"navigationBarTextStyle": "#ffffff",
+				"navigationBarTextStyle": "white",
 				// "navigationBarBackgroundColor": "#ff4500",
 				"navigationBarBackgroundColor": "#0b60fa",
 				"backgroundColor": "#F8F8F8"
@@ -43,7 +42,7 @@
 			"path": "pages/me/me",
 			"style": {
 				"navigationBarTitleText": "个人中心",
-				"navigationBarTextStyle": "#ffffff",
+				"navigationBarTextStyle": "white",
 				// "navigationBarBackgroundColor": "#ff4500",
 				"navigationBarBackgroundColor": "#0b60fa",
 				"backgroundColor": "#F8F8F8",
@@ -52,19 +51,17 @@
 				}
 			}
 		},
-		
-		//////////个人中心
+		//个人中心
 		{
 			"path":"pages/home/home-list",
 			"style":{
 				"enablePullDownRefresh": true
 			}
 		},
-		
 		{
 			"path":"pages/login/login",
 			"style":{
-				// "navigationBarTitleText":"手机号登录"
+				"navigationBarTitleText":"登录"
 			}
 		},
 		{
@@ -140,7 +137,7 @@
 	},
 	
 	"globalStyle": {
-		"navigationBarTextStyle": "#000000",
+		"navigationBarTextStyle": "white",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"navigationBarTitleText":"",
 		"backgroundColor": "#E5E5E5"

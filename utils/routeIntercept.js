@@ -1,42 +1,49 @@
-/*
-* @Description: routeIntercept
-* @Version: v1.0
-* @Author: LANI
-* @Date: 2024-01-27 13:01
-*/
-let needLogin = [ //不需要登录访问的页面
-  "/pages/login/index",
-  "/pages/home/index",
-  "/pages/contract/index",
-]
-let list = ["navigateTo", "redirectTo", "reLaunch", "switchTab"];
-list.forEach(item => { //用遍历的方式分别为,uni.navigateTo,uni.redirectTo,uni.reLaunch,uni.switchTab这4个路由方法添加拦截器
-  console.log(item, 'router list item')
-  uni.addInterceptor(item, {
-    invoke(e) { // 调用前拦截
-      //获取用户的token
-      console.log(e, '|-调用前拦截,routerjs invoke')
-      const token = uni.getStorageSync('token')||''//获取token
-      //获取当前页面路径（即url去掉"?"和"?"后的参数）
-      console.log(token, '|-调用前拦截,如果token为空就拦截，不允许访问router index token')
-      const url = e.url.split('?')[0]
-      console.log(url, '|-调用前拦截,router index url')
-      console.log(needLogin.includes(url))    
-      if (!needLogin.includes(url) && token == '') { //
-        // uni.showToast({
-        //   title: '请先登录',
-        //   icon: 'none'
-        // })
-        uni.navigateTo({
-          url: "/pages/login/login.vue"
-        })
-        return false
-      }
- 
+//设置白名单，白名单中的路径不进行拦截 (登录，首页，合约)
+const whiteList = ['/pages/login/login','/pages/home/index','/pages/contract/index']
+// 登录页面路径
+const loginPage = "/pages/login/login"
+
+
+function hasPermission(url){
+  // 在白名单中或有token，直接跳转
+  const token= uni.getStorageSync('token')||''
+  if(whiteList.indexOf(url) === -1&&!token ) {
       return true
-    },
-    fail(err) { // 失败回调拦截
-      console.log(err);
-    },
-  })
+  }
+  return false
+}
+
+uni.addInterceptor('navigateTo', {
+  // 页面跳转前进行拦截, invoke根据返回值进行判断是否继续执行跳转
+  invoke (e) {
+      if(!hasPermission(e.url)){
+          uni.reLaunch({
+              url: '/pages/login/login'
+          })
+          return false
+      }
+      return true
+  },
+  success (e) {
+      // console.log(e)
+  }
 })
+
+uni.addInterceptor('switchTab', {
+  // tabbar页面跳转前进行拦截
+  invoke(e) {
+      if(hasPermission(e.url)){
+          uni.reLaunch({
+              url: '/pages/login/login'
+          })
+          return false
+      }
+      return true
+  },
+  success (e) {
+      // console.log(e)
+  }
+})
+
+
+
