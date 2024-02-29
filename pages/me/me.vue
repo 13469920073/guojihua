@@ -37,12 +37,13 @@
 		</view>
 		<view style="margin-top: 5px;">
 			<uni-list >
-				<uni-list-item @click='listSelected(1)' title="我的主页" thumb="../../static/images/me/me_list_icon1.png" />
-				<uni-list-item @click='listSelected(2)' title="消息" thumb="../../static/images/me/me_list_icon2.png" />
-				<uni-list-item  @click='listSelected(3)' title="收藏" thumb="../../static/images/me/me_list_icon3.png" />
-				<uni-list-item  @click='listSelected(4)' title="粉丝关注" thumb="../../static/images/me/me_list_icon4.png" />
-				<uni-list-item  @click='listSelected(5)' title="分享给好友" thumb="../../static/images/me/me_list_icon5.png" />
-				<uni-list-item  @click='listSelected(6)' title="设置" thumb="../../static/images/me/me_list_icon6.png" />
+				<uni-list-item @click='listSelected(1)' title="持仓记录" thumb="../../static/images/me/me_list_icon1.png" />
+				<uni-list-item @click='listSelected(2)' title="账单明细" thumb="../../static/images/me/me_list_icon2.png" />
+				<uni-list-item  @click='listSelected(3)' title="实名认证" thumb="../../static/images/me/me_list_icon3.png" />
+				<uni-list-item  @click='listSelected(4)' title="我的账户" thumb="../../static/images/me/me_list_icon4.png" />
+				<uni-list-item  @click='listSelected(5)' title="消息中心" thumb="../../static/images/me/me_list_icon5.png" />
+				<uni-list-item  @click='listSelected(6)' title="协议及隐私声明" thumb="../../static/images/me/me_list_icon5.png" />
+				<uni-list-item  @click='listSelected(7)' title="设置" thumb="../../static/images/me/me_list_icon6.png" />
 			</uni-list>
 		</view>
 	</view>

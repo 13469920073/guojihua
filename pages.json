@@ -21,7 +21,7 @@
 		{
 			"path": "pages/contract/index",
 			"style": {
-				"navigationBarTitleText": "合约"		,
+				"navigationBarTitleText": "合约",
 				"navigationBarTextStyle": "#ffffff",
 				// "navigationBarBackgroundColor": "#ff4500",
 				"navigationBarBackgroundColor": "#0b60fa",
@@ -29,9 +29,9 @@
 			}
 		},
 		{
-			"path": "pages/publish/pub-select-type",
+			"path": "pages/trade/index",
 			"style": {
-				"navigationBarTitleText": "钱包"		,
+				"navigationBarTitleText": "钱包",
 				"navigationBarTextStyle": "#ffffff",
 				// "navigationBarBackgroundColor": "#ff4500",
 				"navigationBarBackgroundColor": "#0b60fa",
@@ -124,12 +124,19 @@
 				"selectedColor":"#0b60fa"
 			},
 			{
-				"pagePath":"pages/publish/pub-select-type",
+				"pagePath":"pages/trade/index",
 				"iconPath":"static/tab/fabu-2.png",
 				"selectedIconPath":"static/tab/tab_icon_pub_selected@2x.png",
 				"text":"钱包",
 				"selectedColor":"#0b60fa"
 			},
+			// {
+			// 	"pagePath":"pages/publish/pub-select-type",
+			// 	"iconPath":"static/tab/fabu-2.png",
+			// 	"selectedIconPath":"static/tab/tab_icon_pub_selected@2x.png",
+			// 	"text":"钱包",
+			// 	"selectedColor":"#0b60fa"
+			// },
 			{
 				"pagePath":"pages/me/me",
 				"iconPath":"static/tab/wode@2x.png",
