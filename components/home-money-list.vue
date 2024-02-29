@@ -1,7 +1,7 @@
 <template>
 <view>
 	<view class="uni-list">
-		<view class="uni-list-cell-title">
+		<view class="uni-list-cell-title" v-on:click="btn">
 			数字货币
 		</view>
 		<view  style=" display: flex;flex-direction: column;align-items: center;">
@@ -107,6 +107,10 @@
 			//this.loadData();
 		},
 		methods: {
+      btn(){
+       					uni.setStorageSync('token' ,'12321');
+
+      },
 			loadData(){
 				var data = {"category":"sy" ,"subType":this.type ,'pageNumber':this.pageNumber};
 				if(this.type == '14' || this.type == '15' || this.type == '16' || this.type == '17'){
