@@ -1,5 +1,27 @@
 <template>
 	<view>
+		<view class="flex container">
+			<view class="uni-left">
+				<view class="text-xxxlg">
+					62277.3000
+				</view>
+				<view class="text-xmd">
+					+0.87%
+				</view>
+			</view>
+			<view class="uni-right flex">
+				<view style="text-align: right;">
+					<p>高：</p>
+					<p>低：</p>
+					<p>24H量：</p>
+				</view>
+				<view style="text-align: right;">
+					<p>62677.0600</p>
+					<p>62677.0600</p>
+					<p>62677.0600</p>
+				</view>
+			</view>
+		</view>
 		<view class="head-nav">
 			<view :class="navIndex==0?'activite':''" @click="checkIndex(0)">分时</view>
 			<view :class="navIndex==1?'activite':''" @click="checkIndex(1)">5分钟</view>
@@ -23,6 +45,14 @@
 		</view>
 		<view class="content" v-if="navIndex==4">
 			我是选项5
+		</view>
+		<view class="uni-bottom-item flex">
+			<text class="bg-green flex bottom-btn">
+				买涨
+			</text>
+			<text class="bg-red flex bottom-btn">
+				买跌
+			</text>
 		</view>
 
 	</view>
@@ -242,6 +272,7 @@
 		  dataZoom: [
 			{
 			  type: 'inside',
+			  show:false,
 			  xAxisIndex: [0, 1],
 			  start: 98,
 			  end: 100
@@ -251,6 +282,7 @@
 			  xAxisIndex: [0, 1],
 			  type: 'slider',
 			  top: '85%',
+			  show:false,
 			  start: 98,
 			  end: 100
 			}
@@ -696,16 +728,29 @@
 </script>
 
 <style scoped>
+	.container{
+		padding: 20px 16px;
+		justify-content: space-between;
+	}
+	.uni-left{
+		color:#3c3;
+	}
+	.text-xxxlg{
+		font-size:32px
+	}
 	.head-nav {
-		margin: 20rpx auto;
+		/* margin: 20rpx auto; */
+		padding: 16rpx 16px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		color: #CCCCCC;
+		border-top: 1px solid #eee;
+		border-bottom: 1px solid #eee
+		/* color: #CCCCCC; */
 	}
 
 	.activite {
-		color: #04c9c3;
+		color: #008fff;
 	}
 
 	.head-nav>view {
@@ -725,5 +770,22 @@
 }
 .gray-box {
   z-index: 1;
+}
+.uni-bottom-item{
+	position: fixed;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    padding: 8px 16px; 
+	    background: #fff;
+	    color: #fff;
+	    border-top: 1px solid #eee;
+		font-size: 16px;
+		justify-content: space-between;
+}
+.bottom-btn{
+	width: 47%;
+	    height: 40px;
+	    border-radius: 5px;
 }
 </style>

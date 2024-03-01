@@ -39,6 +39,7 @@
 		
 			</view>
 		</view><!-- cell -->
+
 </view>
 </view>
 </template>
@@ -232,7 +233,7 @@
 	background-color: #eee;
 }
 .uni-list-cell-title {
-	padding-left: 25px;
+	padding-left: 16px;
 	padding-top: 25px;
 	text-align: left;
 	font-size: 	18px;

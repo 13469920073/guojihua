@@ -76,14 +76,16 @@
 <style scoped>
 	.head-nav {
 		margin: 20rpx auto;
+		padding: 0 16px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		color: #CCCCCC;
+		border-bottom: 1px solid #eee
+		/* color: #CCCCCC; */
 	}
-
+	
 	.activite {
-		color: #04c9c3;
+		color: #008fff;
 	}
 
 	.head-nav>view {
