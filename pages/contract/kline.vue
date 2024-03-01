@@ -144,7 +144,7 @@
 			  color: '#000'
 			},
 			position: function (pos, params, el, elRect, size) {
-				console.log("=====>>>>>")
+				console.log("=====>>>>>修改提交")
 			  const obj = {
 				top: 10
 			  };
