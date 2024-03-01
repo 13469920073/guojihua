@@ -36,7 +36,7 @@
 				</view> -->
 			</view>
         </view>
-		<home-bill-list ref="homeList" />
+		<home-bill-list ref="homeList" @click="onClick" />
 		
 	</view>
 </template>
@@ -64,6 +64,15 @@
 			publish(item){
 				console.log("item: " + JSON.stringify(item));
 			},
+			onClick(e){
+				//var i = e.index;
+				console.log("======", e)
+				//var item = this.itemType[i];
+				uni.navigateTo({
+					url:'/pages/trade/transaction'
+					//url:'home-list?t=' + item['text'] + '&id=' + item['type']
+				})
+			}
 			
 			
 		}

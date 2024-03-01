@@ -210,11 +210,14 @@
 		},
 		openDetailPage(value){
 			// console.log("value: " + JSON.stringify(value));
-			let pid = value['pid'] , type = value['type'];
-			let category = api.postType(type) , itemTitle = baseData.titleForType[type];
-			if(!pid || !category)return;
-			uni.navigateTo({
-				url:'../home/detail?pid=' + pid + '&c=' + category + '&t=' + itemTitle
+			// let pid = value['pid'] , type = value['type'];
+			// let category = api.postType(type) , itemTitle = baseData.titleForType[type];
+			// if(!pid || !category)return;
+			// uni.navigateTo({
+			// 	url:'../home/detail?pid=' + pid + '&c=' + category + '&t=' + itemTitle
+			//})
+			 uni.navigateTo({
+				url:'../contract/kline'
 			})
 		}
 		}

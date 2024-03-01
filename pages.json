@@ -81,6 +81,23 @@
         "navigationBarTitleText": ""
       }
     },
+	//
+	{
+	  "path": "pages/trade/transaction",
+	  "style": {
+	    "enablePullDownRefresh": true,
+		"navigationBarTitleText": "账单提现",
+		"navigationBarTextStyle": "blank"
+	  }
+	},
+	{
+	  "path": "pages/contract/kline",
+	  "style": {
+	    "enablePullDownRefresh": true,
+		"navigationBarTitleText": "",
+		"navigationBarTextStyle": "blank"
+	  }
+	},
     {
       "path": "pages/me/about-us",
       "style": {

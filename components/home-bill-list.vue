@@ -3,7 +3,7 @@
 	<view class="uni-list">
 		<view class="uni-list-cell-title">
 			<span>最新账单</span>
-			<view class="uni-cell-title-more">更多</view>
+			<view class="uni-cell-title-more" @click="onClick()">更多</view>
 		</view>
 		<view  style=" display: flex;flex-direction: column;align-items: center;">
 			<view class="grid-item-wrap"  style="width: 100%;">
@@ -213,6 +213,9 @@
 			uni.navigateTo({
 				url:'../home/detail?pid=' + pid + '&c=' + category + '&t=' + itemTitle
 			})
+		},
+		onClick(index, num) {
+			this.$emit('click')
 		}
 		}
 	}
