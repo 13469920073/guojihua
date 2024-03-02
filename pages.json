@@ -91,6 +91,22 @@
 	  }
 	},
 	{
+	  "path": "pages/trade/account-recharge",
+	  "style": {
+	    "enablePullDownRefresh": true,
+		"navigationBarTitleText": "充值",
+		"navigationBarTextStyle": "blank"
+	  }
+	},
+	{
+	  "path": "pages/trade/account-recharge2",
+	  "style": {
+	    "enablePullDownRefresh": true,
+		"navigationBarTitleText": "充值",
+		"navigationBarTextStyle": "blank"
+	  }
+	},
+	{
 	  "path": "pages/contract/kline",
 	  "style": {
 	    "enablePullDownRefresh": true,

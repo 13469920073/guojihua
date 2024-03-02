@@ -12,7 +12,7 @@
 						</view>
 					</view>
 					<view class="grid-account-wallet uni-inline-item">
-						<view class="grid-account-left uni-inline-item">
+						<view class="grid-account-left uni-inline-item" @click="onRecharge">
 								<view class="left-icon icon"></view>
 								<view class="left-text">充值</view>
 						</view>
@@ -63,6 +63,12 @@
 		methods: {
 			publish(item){
 				console.log("item: " + JSON.stringify(item));
+			},
+			//充值
+			onRecharge(){
+				uni.navigateTo({
+					url:'/pages/trade/account-recharge'
+				})
 			},
 			onClick(e){
 				//var i = e.index;
