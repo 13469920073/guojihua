@@ -1,20 +1,21 @@
 <template>
 <view>
 	<view class="uni-list">
-		<view class="uni-list-cell-title" v-on:click="btn">
-			数字货币
+		<view class="uni-list-cell-title">
+			<span>最新账单</span>
+			<view class="uni-cell-title-more" @click="onClick()">更多</view>
 		</view>
 		<view  style=" display: flex;flex-direction: column;align-items: center;">
 			<view class="grid-item-wrap"  style="width: 100%;">
 					<view  style="display: flex;" >
 						<view class="grid-item-left" >
-							交易品种
+							时间
 						</view>
 						<view class="grid-item-right">
-							最新价
+							金额
 						</view>
 						<view class="grid-item-right">
-							涨跌幅 
+							状态 
 						</view>
 					</view>
 			</view>
@@ -38,6 +39,7 @@
 		
 			</view>
 		</view><!-- cell -->
+
 </view>
 </view>
 </template>
@@ -107,10 +109,6 @@
 			//this.loadData();
 		},
 		methods: {
-      btn(){
-       					uni.setStorageSync('token' ,'12321');
-
-      },
 			loadData(){
 				var data = {"category":"sy" ,"subType":this.type ,'pageNumber':this.pageNumber};
 				if(this.type == '14' || this.type == '15' || this.type == '16' || this.type == '17'){
@@ -210,15 +208,15 @@
 		},
 		openDetailPage(value){
 			// console.log("value: " + JSON.stringify(value));
-			// let pid = value['pid'] , type = value['type'];
-			// let category = api.postType(type) , itemTitle = baseData.titleForType[type];
-			// if(!pid || !category)return;
-			// uni.navigateTo({
-			// 	url:'../home/detail?pid=' + pid + '&c=' + category + '&t=' + itemTitle
-			//})
-			 uni.navigateTo({
-				url:'../contract/kline'
+			let pid = value['pid'] , type = value['type'];
+			let category = api.postType(type) , itemTitle = baseData.titleForType[type];
+			if(!pid || !category)return;
+			uni.navigateTo({
+				url:'../home/detail?pid=' + pid + '&c=' + category + '&t=' + itemTitle
 			})
+		},
+		onClick(index, num) {
+			this.$emit('click')
 		}
 		}
 	}
@@ -239,10 +237,22 @@
 	padding-top: 25px;
 	text-align: left;
 	font-size: 	18px;
-	font-weight: bold;
+	/* font-weight: bold; */
 	color: #333;
 }
-
+.uni-cell-title-more{
+	float: right;
+	    margin-right: 14px;
+	    position: relative;
+	    /* top: -0.106667rem; */
+	    color: #999;
+	    /* height: 0.64rem; */
+	    /* line-height: .693333rem; */
+	    font-size: 14px;
+	    padding-right: 14px;
+		background: url(../static/images/trade/more.png) no-repeat 100%/auto 48%;
+		
+}
 .uni-list-cell{
 	padding: 10px;
 	color: #333;

@@ -1,14 +1,14 @@
 <template>
 	<view style="display: flex;flex-direction: column;align-items: center;">
 		<view style="margin-top: 50px;">
-			<image src="../../static/images/new/600x153.png" mode="" style="width: 240px;height: 66px;"></image>
+			<image src="../../static/images/new/600x154.png" mode="" style="width: 100px;height: 100px;"></image>
 		</view>
 		
 		<view style="width: 100%; margin-top: 45px;">
 			<view style="padding: 20px;">
 				<input type="number" placeholder="请输入手机号" maxlength="11" v-model="phone"/>
 				<input type="text"  password="true" placeholder="请输入密码" v-model="pwd" style="margin-top: 6px;"/>
-				<button type="primary" style="margin-top: 60px; background-color: #FF4500;height: 45px;" v-on:click="login">登录</button>	
+				<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="login">登录</button>	
 			</view>
 			<view style="display: flex;">
 				<view style="margin-left: 30px;width: 100%;" v-on:click="register">
