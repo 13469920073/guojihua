@@ -92,12 +92,12 @@
 			},
 			login(){
 				uni.navigateTo({
-					url:'../login/login'
+					url:'/pages/login/login'
 				})
 			},
 			loginSuccess(){
-				this.isLogined = USER.isLogined();
-				this.userInfo = USER.userInfo();
+				this.isLogined = USER.isLogined();//判断是否登录
+				this.userInfo = USER.userInfo();//获取登录信息
 				this.avatar = this.userInfo['avatar_thumb'] || '../../static/images/default_avatar.png';
 				// console.log("user: " + JSON.stringify(this.userInfo));
 			},
