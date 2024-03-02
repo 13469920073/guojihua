@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view>
-			<view  style="padding: 25px; padding-top: 25px; display: flex;flex-direction: column;align-items: center;">
+			<view  style="padding: 14px; display: flex;flex-direction: column;align-items: center;">
 				<view class="grid-item-wrap" style="width: 100%;">
 					<view class="grid-account-sum">
 						<view class="grid-account-text">
@@ -88,10 +88,10 @@
 }
 
 .grid-item-wrap{
-	/* width: 9.2rem; */
-	    height: 200px;
+	/* width: 98%; */
+	    height: 160px;
 		text-align: left;
-		padding: 14px 12px 16px;
+		/* padding: 14px 12px 16px; */
 	    margin: 0 auto;
 	    background: url(../../static/images/trade/account-bg.png) 50% no-repeat;
 	    background-size: cover;
@@ -99,12 +99,12 @@
 	    color: #fff;
 }	
 .grid-account-sum{
-	
+	padding: 20px;
 }
 .grid-account-text{
 	text-align: left;
 	/* padding: 14px 12px 16px; */
-	font-size: 18px;
+	font-size: 16px;
 	color: #ddd;
 }
 .grid-account-price{
@@ -112,16 +112,16 @@
 }
 .grid-account-wallet{
 	width: 100%;
-	height: 80px;
+	/* height: 80px; */
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	background: #245ffb;
-	border-radius: 0 0 30px 30px
+	border-radius: 0 0 12px 12px
 }
 .grid-account-left, .grid-account-right{
 	width: 50%;
-	padding: 16px 14px 0;
+	padding: 10px 14px 10px;
 	justify-content: center
 }
 .grid-account-right{

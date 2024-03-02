@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="head-nav">
+		<view class="head-nav flex">
 			<view :class="navIndex==0?'activite':''" @click="checkIndex(0)">交易</view>
 			<view :class="navIndex==1?'activite':''" @click="checkIndex(1)">充值</view>
 			<view :class="navIndex==2?'activite':''" @click="checkIndex(2)">提现</view>
@@ -18,7 +18,7 @@
 		</view> -->
 		<view  style=" display: flex;flex-direction: column;align-items: center;">
 			<view class="grid-item-wrap"  style="width: 100%;">
-					<view  style="display: flex;" >
+					<view class="flex"  style="display: flex;" >
 						<view class="grid-item-left" >
 							时间
 						</view>
@@ -78,8 +78,11 @@
 		margin: 20rpx auto;
 		padding: 0 16px;
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		/* display: flex; */
+		/* justify-content: space-between;
+		align-items: center; */
 		border-bottom: 1px solid #eee
 		/* color: #CCCCCC; */
 	}
@@ -89,7 +92,10 @@
 	}
 
 	.head-nav>view {
-		padding-bottom: 10rpx;
+		/* padding-bottom: 10rpx; */
+		font-size: 14px;
+		    margin: 10px 0;
+		    padding: 0 10px;
 	}
 
 	.content {
@@ -106,8 +112,8 @@
 	}
 	
 	.grid-item-wrap{
-		margin-top: 15px;
-		padding-bottom: 15px;
+		/* margin-top: 15px; */
+		/* padding-bottom: 15px; */
 		/* border-color: #E5E5E5; */
 		border-bottom: 1px solid #E5E5E5;
 		/* border-width: 1px;
@@ -119,6 +125,7 @@
 		margin-top: 0px;
 		//border-width: 1px;
 		color: #9a9a9a;
+		text-align: center;
 		/* border-bottom-width: 0;
 		border-right-width: 0;
 		border-style: solid; */
@@ -126,7 +133,7 @@
 		border-color: #E5E5E5;
 		border-radius: 0px; */
 		font-size: 15px;
-		width: 50%;
+		width: 33.33%;
 	}
 	.text-xmd{
 		font-size:18px;
