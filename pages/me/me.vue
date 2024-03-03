@@ -83,11 +83,22 @@
 		
 		methods:{
 			listSelected :(i) =>{
+        console.log(111)
 				switch (i){
+          case 1:uni.navigateTo({
+						url:'position'
+					});
+          break;
+          case 2:uni.navigateTo({
+						url:'billing-detail'
+					});
+          break;
 					case 6:uni.navigateTo({
 						url:'setter'
-					});break;
-					default:break;
+					});
+          break;
+					default:
+           break;
 				}
 			},
 			login(){

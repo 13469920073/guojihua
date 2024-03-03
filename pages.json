@@ -114,7 +114,7 @@
 		"navigationBarTextStyle": "blank"
 	  }
 	},
-    {
+  {
       "path": "pages/me/about-us",
       "style": {
         "navigationBarTitleText": "关于我们"
@@ -126,6 +126,25 @@
         "navigationBarTitleText": "动态详情"
       }
     }
+    ,
+    {
+      "path": "pages/me/position",
+      "style": {
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "持仓",
+        "navigationBarTextStyle": "blank"
+      }
+    },
+    {
+      "path": "pages/me/billing-detail",
+      "style": {
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "账单明细",
+        "navigationBarTextStyle": "blank"
+      }
+    }
+
+    
   ],
   "tabBar": {
     "color": "#7A7E83",
