@@ -42,8 +42,8 @@
 				<uni-list-item  @click='listSelected(3)' title="实名认证" thumb="../../static/images/me/me_list_icon3.png" />
 				<uni-list-item  @click='listSelected(4)' title="我的账户" thumb="../../static/images/me/me_list_icon4.png" />
 				<uni-list-item  @click='listSelected(5)' title="消息中心" thumb="../../static/images/me/me_list_icon5.png" />
-				<uni-list-item  @click='listSelected(6)' title="协议及隐私声明" thumb="../../static/images/me/me_list_icon5.png" />
-				<uni-list-item  @click='listSelected(7)' title="设置" thumb="../../static/images/me/me_list_icon6.png" />
+				<uni-list-item  @click='listSelected(6)' title="协议及隐私声明" thumb="../../static/images/me/me_list_icon6.png" />
+				<uni-list-item  @click='listSelected(7)' title="版本号" thumb="../../static/images/me/me_list_icon7.png" />
 			</uni-list>
 		</view>
 	</view>
@@ -93,10 +93,10 @@
 						url:'billing-detail'
 					});
           break;
-					case 6:uni.navigateTo({
-						url:'setter'
-					});
-          break;
+		  case 6:uni.navigateTo({
+		            	url:'announcement'
+		            });
+		break;
 					default:
            break;
 				}

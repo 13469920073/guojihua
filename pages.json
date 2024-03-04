@@ -142,7 +142,15 @@
         "navigationBarTitleText": "账单明细",
         "navigationBarTextStyle": "blank"
       }
-    }
+    },
+	{
+	  "path": "pages/me/announcement",
+	  "style": {
+	    "enablePullDownRefresh": true,
+	    "navigationBarTitleText": "协议及隐私声明",
+	    "navigationBarTextStyle": "blank"
+	  }
+	}
 
     
   ],
@@ -155,20 +163,20 @@
       {
         "pagePath": "pages/home/index",
         "iconPath": "/static/tab/shouye@2x.png",
-        "selectedIconPath": "/static/tab/tab_icon_home_selected@2x.png",
+        "selectedIconPath": "/static/tab/souye_selected.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/contract/index",
-        "iconPath": "static/tab/fabu-2.png",
-        "selectedIconPath": "static/tab/tab_icon_pub_selected@2x.png",
+        "iconPath": "static/tab/heyue.png",
+        "selectedIconPath": "static/tab/heyue_selected.png",
         "text": "合约",
         "selectedColor": "#0b60fa"
       },
       {
         "pagePath": "pages/trade/index",
-        "iconPath": "static/tab/fabu-2.png",
-        "selectedIconPath": "static/tab/tab_icon_pub_selected@2x.png",
+        "iconPath": "static/tab/qianbao.png",
+        "selectedIconPath": "static/tab/qianbao_selected.png",
         "text": "钱包",
         "selectedColor": "#0b60fa"
       },
@@ -181,7 +189,7 @@
       // },
       {
         "pagePath": "pages/me/me",
-        "iconPath": "static/tab/wode@2x.png",
+        "iconPath": "static/tab/wode.png",
         "selectedIconPath": "static/tab/tab_icon_me_selected@2x.png",
         "text": "个人中心"
       }
