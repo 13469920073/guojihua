@@ -1,18 +1,25 @@
 <template>
-	<view style="display: flex;flex-direction: column;align-items: center;">
+	<view class="login-container" style="display: flex;flex-direction: column;align-items: center;">
 		<view style="margin-top: 50px;">
 			<image src="../../static/images/new/600x154.png" mode="" style="width: 100px;height: 100px;"></image>
 		</view>
-		
+		<view class="longin-head-nav flex">
+			<view class="switch-l" :class="navIndex==0?'activite':''" @click="checkIndex(0)">手机登录</view>
+			<view class="switch-l" :class="navIndex==1?'activite':''" @click="checkIndex(1)">邮箱登录</view>
+		</view>
 		<view style="width: 100%; margin-top: 45px;">
 			<view style="padding: 20px;">
-				<input type="number" placeholder="请输入手机号" maxlength="11" v-model="phone"/>
+				<view class="uni-login-input flex" v-if="navIndex==0">
+				<input type="number" placeholder="区号" maxlength="11" v-model="phone" style="width: 40px;"/>
+				<input type="number" placeholder="请输入手机号" maxlength="11" v-model="phone" style="width: 100%;"/>
+				</view>
+				<input type="number" v-if="navIndex==1" placeholder="请输入邮箱" maxlength="11" v-model="phone"/>
 				<input type="text"  password="true" placeholder="请输入密码" v-model="pwd" style="margin-top: 6px;"/>
 				<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="login">登录</button>	
 			</view>
 			<view style="display: flex;">
 				<view style="margin-left: 30px;width: 100%;" v-on:click="register">
-					<text class="login-btn">注册账号</text>
+					<text class="login-btn">用户注册</text>
 				</view>
 				<view style="flex-shrink: 0;margin-right: 30px;" v-on:click="findPassword">
 					<text class="login-btn">找回密码</text>
@@ -29,12 +36,17 @@
 	export default{
 		data(){
 			return {
+				navIndex:0,
 				phone:'',
 				pwd:''
 			}
 		},
 		
 		methods:{
+			checkIndex(i){
+				this.navIndex = i
+				console.log("手机登录")
+			},
 			login(){
 				var phone = this.phone;
 				var pwd = this.pwd;
@@ -90,7 +102,12 @@
 			},
 			register(){
 				uni.navigateTo({
-					url:"register"
+					url:"/register"
+				})
+			},
+			register(){
+				uni.navigateTo({
+					url:"/revise"
 				})
 			},
 			findPassword(){
@@ -101,19 +118,52 @@
 </script>
 
 <style>
+	.login-container{
+		width: 100%;
+		color: #fff;
+		    min-height: 100%;
+		    position: absolute;
+		    left: 0;
+		    top: 0;
+		    background: url(../../static/images/login-bg.png) 50% no-repeat;
+		    background-size: cover;
+	}
 	input{
 		padding: 15px;
-		text-align: center;
+		/* text-align: center; */
 		border-width: 0;
 		border-bottom-width: 1px;
 		border-color: #f0f0f0;
 		border-style: solid;
 		font-size: 15px;
 	}
+	.switch-l{
+		padding: 16px 0 8px;
+		margin: 0 14px;
+		    position: relative;
+			font-size: 16px;
+	}
+	.longin-head-nav{
+		width: 100%;
+		    height: 24px;
+		    margin: 0 auto 12px;
+		    color: #ccc;
+		    
+	}
+	.activite{
+		color: #fff;
+		border-bottom: 2px solid #fff;
+	}
+	.uni-login-input{
+		flex-wrap: nowrap;
+		align-items: center;
+		justify-content: flex-start;
+	}
 	.login-btn{
 		color: #434343;
 		font-size: 13px;
-		background-color: white;
+		color: #fff;
+		/* background-color: white; */
 		border-width: 0;
 		border-radius: 0;
 	}

@@ -61,8 +61,17 @@
       }
     },
     {
-      "path": "pages/login/register"
+      "path": "pages/login/register",
+	  "style": {
+	    "navigationBarTitleText": "用户注册"
+	  }
     },
+	{
+	  "path": "pages/login/revise",
+	  "style": {
+	    "navigationBarTitleText": "密码找回"
+	  }
+	},
     {
       "path": "pages/me/userinfo",
       "style": {

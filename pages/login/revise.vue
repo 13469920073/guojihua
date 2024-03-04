@@ -2,7 +2,7 @@
 	<view class="login-container" style="display: flex;flex-direction: column;align-items: center;">
 		<view style="width: 100%; margin-top: 45px;">
 			<view style="padding: 20px;">
-				<input type="number"" placeholder="请填写推荐人邀请码" maxlength="11" v-model="phone"/>
+				<!-- <input type="number"" placeholder="请填写推荐人邀请码" maxlength="11" v-model="phone"/> -->
 				<view class="uni-reguster-input">
 				<input type="number" v-if="navIndex==0" placeholder="请填写手机号" maxlength="11" v-model="phone"/>
 				<input type="number" v-if="navIndex==1" placeholder="请填写邮箱" maxlength="11" v-model="phone"/>
@@ -15,13 +15,9 @@
 				<input type="text"  placeholder="请填写验证码" v-model="pwd" style="margin-top: 6px;"/>
 				<text class="uni-abs-right">获取验证码</text>
 				</view>
-				<input type="text"  placeholder="请设置密码（6-24位数字+字母）" v-model="pwd" style="margin-top: 6px;"/>
-				<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="login">确认注册</button>	
-			</view>
-			<view style="display: flex;">
-				<view class="login-btn" v-on:click="register">
-					我已阅读并同意<text style="color: #f66;">《软件服务协议》</text>
-				</view>
+				<input type="text"  placeholder="请输入新密码" v-model="pwd" style="margin-top: 6px;"/>
+				<input type="text"  placeholder="请确认新密码" v-model="pwd" style="margin-top: 6px;"/>
+				<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="login">提交</button>	
 			</view>
 		</view>
 
