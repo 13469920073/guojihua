@@ -3,7 +3,7 @@
 		<view class="flex container">
 			<view class="uni-left">
 				<view class="text-xxxlg">
-					62277.3000
+					62277.3
 				</view>
 				<view class="text-xmd">
 					+0.87%
@@ -11,9 +11,9 @@
 			</view>
 			<view class="uni-right flex">
 				<view style="text-align: right;">
-					<p>高：</p>
-					<p>低：</p>
-					<p>24H量：</p>
+					<p>{{i18n.高}}：</p>
+					<p>{{i18n.低}}：</p>
+					<p>{{i18n.二十四小时}}：</p>
 				</view>
 				<view style="text-align: right;">
 					<p>62677.0600</p>
@@ -23,11 +23,13 @@
 			</view>
 		</view>
 		<view class="head-nav">
-			<view :class="navIndex==0?'activite':''" @click="checkIndex(0)">分时</view>
-			<view :class="navIndex==1?'activite':''" @click="checkIndex(1)">5分钟</view>
-			<view :class="navIndex==2?'activite':''" @click="checkIndex(2)">15分钟</view>
-			<view :class="navIndex==3?'activite':''" @click="checkIndex(3)">30分钟</view>
-			<view :class="navIndex==4?'activite':''" @click="checkIndex(4)">1小时</view>
+			<view :class="navIndex==0?'activite':''" @click="checkIndex(0)">{{i18n.分时}}</view>
+			<view :class="navIndex==1?'activite':''" @click="checkIndex(1)">{{i18n.五分钟}}</view>
+			<view :class="navIndex==2?'activite':''" @click="checkIndex(2)">{{i18n.十五分钟}}</view>
+			<view :class="navIndex==3?'activite':''" @click="checkIndex(3)">{{i18n.三十分钟}}</view>
+			<view :class="navIndex==4?'activite':''" @click="checkIndex(4)">{{i18n.一小时}}</view>
+			<view :class="navIndex==4?'activite':''" @click="checkIndex(5)">{{i18n.四小时}}</view>
+			<view :class="navIndex==4?'activite':''" @click="checkIndex(6)">{{i18n.一天}}</view>
 		</view>
 
 		<!-- 内容切换 -->
@@ -48,10 +50,10 @@
 		</view>
 		<view class="uni-bottom-item flex">
 			<text class="bg-green flex bottom-btn" v-on:click="findBuy('up')">
-				买涨
+				{{i18n.买涨}}
 			</text>
 			<text class="bg-red flex bottom-btn" v-on:click="findBuy('down')">
-				买跌
+				{{i18n.买跌}}
 			</text>
 		</view>
 		<view v-if="showPopup" class="mask" @click="togglePopup"></view>
@@ -61,9 +63,9 @@
 					<image src="../../static/images/dislikeicon_details@2x.png" mode="" style="width: 18px;height: 18px;padding:0 18px;"></image>
 				</view>
 				<view class="buy-con text-center">
-					<view class="flex buy-line"><text class="line-l">币种：</text><text>买涨</text></view>
-					<view class="flex buy-line"><text class="line-l">方向：</text><text>买涨</text></view>
-					<view class="flex buy-line"><text class="line-l">杠杆：</text>
+					<view class="flex buy-line"><text class="line-l">{{i18n.币种}}：</text><text>买涨</text></view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.方向}}：</text><text>买涨</text></view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.杠杆}}：</text>
 					<text>
 						{{quantity}}x
 					</text>
@@ -74,17 +76,17 @@
 						<button class="uni-add-quantity" :disabled="quantity==150" @click="increase">+</button>
 					</text>
 					</view>
-					<view class="flex buy-line"><text class="line-l">价格：</text><text>买涨</text></view>
-					<view class="flex buy-line"><text class="line-l">数量：</text><text><input type="number" class="buy-ipt" placeholder="请输入数量" maxlength="11"/></text></view>
-					<view class="flex buy-line"><text class="line-l">止盈：</text><text><input type="number" class="buy-ipt" placeholder="默认无上限" maxlength="11"/></text>%</view>
-					<view class="flex buy-line"><text class="line-l">止损：</text><text><input type="number" class="buy-ipt" placeholder="默认100" maxlength="11"/></text>%</view>
-					<view class="flex buy-line"><text class="line-l">保证金：</text><text>0</text></view>
-					<view class="flex buy-line"><text class="line-l">手续费：</text><text>0</text></view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.价格}}：</text><text>买涨</text></view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.数量}}：</text><text><input type="number" class="buy-ipt" placeholder="请输入数量" maxlength="11"/></text></view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.止盈}}：</text><text><input type="number" class="buy-ipt" placeholder="默认无上限" maxlength="11"/></text>%</view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.止损}}：</text><text><input type="number" class="buy-ipt" placeholder="默认100" maxlength="11"/></text>%</view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.保证金}}：</text><text>0</text></view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.手续费}}：</text><text>0</text></view>
 				</view>
 			</view>
 			<view class="btn-group flex">
-					<view class="btn-item text-xmd bg-green" @click="subBuyUp" v-if="tagIndex=='up'">买涨</view>
-					<view class="btn-item text-xmd bg-red" @click="subBuyDown" v-if="tagIndex=='down'">买跌</view>
+					<view class="btn-item text-xmd bg-green" @click="subBuyUp" v-if="tagIndex=='up'">{{i18n.买涨}}</view>
+					<view class="btn-item text-xmd bg-red" @click="subBuyDown" v-if="tagIndex=='down'">{{i18n.买跌}}</view>
 			</view>
 		</view>
 	</view>
@@ -112,6 +114,11 @@
 								optiontwo: {}
 
 			}
+		},
+		computed: {
+			    i18n (){
+			      return this.$t('contract')
+			    },	
 		},
 		onLoad() {
 					// console.log(777777);
@@ -169,7 +176,7 @@
 				  let values = [];
 				  let volumes = [];
 				  for (let i = 0; i < rawData.length; i++) {
-					  console.log("0000000",i)
+					 // console.log("0000000",i)
 					categoryData.push(rawData[i].splice(0, 1)[0]);
 					values.push(rawData[i]);
 					volumes.push([i, rawData[i][4], rawData[i][0] > rawData[i][1] ? 1 : -1]);
@@ -302,6 +309,7 @@
 			  axisLabel: { show: false },
 			  min: 'dataMin',
 			  max: 'dataMax',
+			  
 			  axisPointer: {
 				z: 10000
 			  }
@@ -315,6 +323,9 @@
 			  axisTick: { show: true },
 			  splitLine: { show: false },
 			  axisLabel: { show: true },
+			  axisLabel: {
+			              color: '#000' // 设置颜色
+			          },
 			  min: 'dataMin',
 			  max: 'dataMax'
 			}
@@ -324,7 +335,11 @@
 			  scale: true,
 			  splitArea: {
 				show: true
-			  }
+			  },
+			  axisLabel: {
+				  insideLeft:50,
+			              color: '#000' // 设置颜色
+			          },
 			},
 			{
 			  scale: true,

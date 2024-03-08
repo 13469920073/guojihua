@@ -20,29 +20,27 @@
       "path": "pages/contract/index",
       "style": {
         "navigationBarTitleText": "合约",
-        "navigationBarTextStyle": "white",
-        // "navigationBarBackgroundColor": "#ff4500",
-        "navigationBarBackgroundColor": "#0b60fa",
-        "backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "white",
+		 "navigationBarTextStyle":"#000000"
       }
     },
     {
       "path": "pages/trade/index",
       "style": {
         "navigationBarTitleText": "钱包",
-        "navigationBarTextStyle": "white",
+        "navigationBarTextStyle": "#000",
         // "navigationBarBackgroundColor": "#ff4500",
-        "navigationBarBackgroundColor": "#0b60fa",
-        "backgroundColor": "#F8F8F8"
+        "navigationBarBackgroundColor": "#fff",
+        "backgroundColor": "#000"
       }
     },
     {
       "path": "pages/me/me",
       "style": {
         "navigationBarTitleText": "个人中心",
-        "navigationBarTextStyle": "white",
+        "navigationBarTextStyle": "#000",
         // "navigationBarBackgroundColor": "#ff4500",
-        "navigationBarBackgroundColor": "#0b60fa",
+        "navigationBarBackgroundColor": "#fff",
         "backgroundColor": "#F8F8F8",
         "app-plus": {}
       }
@@ -57,7 +55,7 @@
     {
       "path": "pages/login/login",
       "style": {
-        "navigationBarTitleText": "登录"
+         // "navigationBarTitleText": "登录"
       }
     },
     {
@@ -112,6 +110,14 @@
 	  "style": {
 	    "enablePullDownRefresh": true,
 		"navigationBarTitleText": "充值",
+		"navigationBarTextStyle": "blank"
+	  }
+	},
+	{
+	  "path": "pages/trade/withdraw",
+	  "style": {
+	    "enablePullDownRefresh": true,
+		"navigationBarTitleText": "提现",
 		"navigationBarTextStyle": "blank"
 	  }
 	},

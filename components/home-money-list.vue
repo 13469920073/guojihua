@@ -2,19 +2,19 @@
 <view>
 	<view class="uni-list">
 		<view class="uni-list-cell-title" v-on:click="btn">
-			数字货币
+			{{i18n.数字货币}}
 		</view>
 		<view  style=" display: flex;flex-direction: column;align-items: center;">
 			<view class="grid-item-wrap"  style="width: 100%;">
 					<view  style="display: flex;" >
 						<view class="grid-item-left" >
-							交易品种
+							{{i18n.交易品种}}
 						</view>
 						<view class="grid-item-right">
-							最新价
+							{{i18n.最新价}}
 						</view>
 						<view class="grid-item-right">
-							涨跌幅 
+							 {{i18n.涨跌幅}}
 						</view>
 					</view>
 			</view>
@@ -92,6 +92,12 @@
 				noMore:0,
 				comType:'default'
 				}
+		},
+		computed: {
+			    i18n (){
+			      return this.$t('home')
+			    },
+					
 		},
 		mounted() {
 			// if(this.type == '14'){

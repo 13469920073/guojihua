@@ -40,7 +40,7 @@
 			 * 初始化echarts
 			 */
 			init() {
-				console.log("====",this.$el)
+				console.log("==w3333==",this.$el)
 				//this.chart = echarts.init(this.$el)
 				this.chart = echarts.init(this.$el, 'dark', {
 				      renderer: 'canvas',
@@ -58,16 +58,16 @@
 					if (option) {
 						console.log("=====>>>")
 						// tooltip
-						// if (option.tooltip) {
-						// 	// 判断是否设置tooltip的位置
-						// 	if (option.tooltip.positionStatus) {
-						// 		option.tooltip.position = this.tooltipPosition()
-						// 	}
-						// 	// 判断是否格式化tooltip
-						// 	if (option.tooltip.formatterStatus) {
-						// 		option.tooltip.formatter = this.tooltipFormatter(option.tooltip.formatterUnit, option.tooltip.formatFloat2, option.tooltip.formatThousands)
-						// 	}
-						// }
+						if (option.tooltip) {
+							// 判断是否设置tooltip的位置
+							if (option.tooltip.positionStatus) {
+								option.tooltip.position = this.tooltipPosition()
+							}
+							// 判断是否格式化tooltip
+							if (option.tooltip.formatterStatus) {
+								option.tooltip.formatter = this.tooltipFormatter(option.tooltip.formatterUnit, option.tooltip.formatFloat2, option.tooltip.formatThousands)
+							}
+						}
                     // 设置新的option
 					this.chart.setOption(option, option.notMerge)
 					}

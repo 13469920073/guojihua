@@ -1,9 +1,9 @@
 <template>
 	<view>
 		<view class="head-nav flex">
-			<view :class="navIndex==0?'activite':''" @click="checkIndex(0)">交易</view>
-			<view :class="navIndex==1?'activite':''" @click="checkIndex(1)">充值</view>
-			<view :class="navIndex==2?'activite':''" @click="checkIndex(2)">提现</view>
+			<view :class="navIndex==0?'activite':''" @click="checkIndex(0)">{{i18n.交易}}</view>
+			<view :class="navIndex==1?'activite':''" @click="checkIndex(1)">{{i18n.充值}}</view>
+			<view :class="navIndex==2?'activite':''" @click="checkIndex(2)">{{i18n.提现}}</view>
 		</view>
 
 		<!-- 内容切换 -->
@@ -20,13 +20,13 @@
 			<view class="grid-item-wrap"  style="width: 100%;">
 					<view class="flex"  style="display: flex;" >
 						<view class="grid-item-left" >
-							时间
+							{{i18n.时间}}
 						</view>
 						<view class="grid-item-right">
-							金额
+							{{i18n.金额}}
 						</view>
 						<view class="grid-item-right">
-							状态 
+							{{i18n.状态}} 
 						</view>
 					</view>
 			</view>
@@ -63,6 +63,12 @@
 				navIndex: 0,
 				items:[]
 			}
+		},
+		computed: {
+			    i18n (){
+			      return this.$t('wallet')
+			    },
+					
 		},
 		methods: {
 			checkIndex(index) {

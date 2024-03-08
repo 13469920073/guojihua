@@ -3,26 +3,27 @@
 		<view class="uni-account-card">
 			<view  style="padding: 14px; padding-top: 25px; display: flex;flex-direction: column;align-items: center;">
 				<h3 class="uni-account-title">
-					{{i18n.收款账户}}<text class="rgcz">{{i18n.人工充值}}</text>
+					{{i18n.提现申请}}
 				</h3>
-				<view class="grid-item-wrap flex" style="width: 100%;">
-					<view class="grid-item-left" :class="navIndex==k?'activite':''" v-for="(arr , k) in itemType" :key="k" v-on:click="publish(arr,k)">
-						{{arr.title}}
-				    </view>
-				</view>
+			
 				
 				<view class="table-from" style="">
-					<view class="flex">{{i18n.账户名称}}<text class="table-input"><input v-model="from.name"  /></text></view> 
-					<view class="flex">{{i18n.账户地址}}<text class="table-input"><input v-model="from.address"/></text></view> 
-					<view style="display: flex; align-items: center;margin-top: 10px;">
-						<view style="margin-left: 5px;color: #f66;text-align: left;">{{i18n.注意}}</view> 
+					<view class="flex">{{i18n.账户名称}}<text class="table-input"><input :placeholder="i18n.请输入数量" v-model="from.name"  /></text></view> 
+					
+					<view class="grid-item-wrap flex" style="width: 100%;">
+						<view class="grid-item-left">
+							111111
+					    </view>
 					</view>
+					
+					
+					<view class="flex">{{i18n.金额}}<text class="table-input"><input :placeholder="i18n.请输入数量"  v-model="from.address"/></text></view> 
+					
 				</view>
 			</view>
         </view>
 		<view class="flex" style="padding: 20px;">
-		    <image v-on:click="oncheck" :src=" isCheck ? '../../static/images/trade/checked.png' : '../../static/images/trade/check.png'" mode="" style="width: 20px;height: 20px;"></image>
-			<text>{{i18n.转账完成}}</text>
+			<text>{{i18n.出金时间}}</text>
 		</view>
 		<view style="padding: 20px;">
 			<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="next">{{i18n.下一步}}</button>	
@@ -144,19 +145,6 @@
 	justify-content: space-around;
 }	
 
-.grid-item-left , .grid-item-right{
-	margin-top: 0px;
-	/* border-width: 1px;
-	border-bottom-width: 0;
-	border-right-width: 0; */
-	/* border-style: solid; */
-	border: 1px solid #ccc;
-	 padding: 0 10px;
-	/* border-color: #E5E5E5; */
-	border-radius: 6px;
-	font-size: 14px;
-	/* width: 50%; */
-}
 .table-from{
 	display: flex; 
 	flex-direction: column; 

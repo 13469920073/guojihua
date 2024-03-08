@@ -4,25 +4,25 @@
 			<image src="../../static/images/new/600x154.png" mode="" style="width: 100px;height: 100px;"></image>
 		</view>
 		<view class="longin-head-nav flex">
-			<view class="switch-l" :class="navIndex==0?'activite':''" @click="checkIndex(0)">手机登录</view>
-			<view class="switch-l" :class="navIndex==1?'activite':''" @click="checkIndex(1)">邮箱登录</view>
+			<view class="switch-l" :class="navIndex==0?'activite':''" @click="checkIndex(0)">{{i18n.手机登录}}</view>
+			<view class="switch-l" :class="navIndex==1?'activite':''" @click="checkIndex(1)">{{i18n.邮箱登录}}</view>
 		</view>
 		<view style="width: 100%; margin-top: 45px;">
 			<view style="padding: 20px;">
 				<view class="uni-login-input flex" v-if="navIndex==0">
-				<input type="number" placeholder="区号" maxlength="11" v-model="phone" style="width: 40px;"/>
-				<input type="number" placeholder="请输入手机号" maxlength="11" v-model="phone" style="width: 100%;"/>
+				<input type="number" :placeholder="i18n.区号" maxlength="11" v-model="phone" style="width: 40px;"/>
+				<input type="number" :placeholder="i18n.请输入手机号" maxlength="11" v-model="phone" style="width: 100%;"/>
 				</view>
-				<input type="number" v-if="navIndex==1" placeholder="请输入邮箱" maxlength="11" v-model="phone"/>
-				<input type="text"  password="true" placeholder="请输入密码" v-model="pwd" style="margin-top: 6px;"/>
-				<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="login">登录</button>	
+				<input type="number" v-if="navIndex==1" :placeholder="i18n.请输入邮箱" maxlength="11" v-model="phone"/>
+				<input type="text"  password="true" :placeholder="i18n.请输入密码" v-model="pwd" style="margin-top: 6px;"/>
+				<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="login">{{i18n.登录}}</button>	
 			</view>
 			<view style="display: flex;">
 				<view style="margin-left: 30px;width: 100%;" v-on:click="register">
-					<text class="login-btn">用户注册</text>
+					<text class="login-btn">{{i18n.用户注册}}</text>
 				</view>
 				<view style="flex-shrink: 0;margin-right: 30px;" v-on:click="findPassword">
-					<text class="login-btn">找回密码</text>
+					<text class="login-btn">{{i18n.找回密码}}</text>
 				</view>
 			</view>
 		</view>
@@ -41,7 +41,18 @@
 				pwd:''
 			}
 		},
-		
+		computed: {
+			    i18n (){
+			      return this.$t('login')
+			    },	
+		},
+		onLoad(opt) {
+			// uni.setNavigationBarTitle({
+			//     title: '登录',
+			// 	 backgroundColor: '#000000',
+			// 	navigationStyle:"custom"
+			// });
+		},
 		methods:{
 			checkIndex(i){
 				this.navIndex = i
@@ -102,17 +113,17 @@
 			},
 			register(){
 				uni.navigateTo({
-					url:"/register"
-				})
-			},
-			register(){
-				uni.navigateTo({
-					url:"/revise"
+					url:"/pages/login/register"
 				})
 			},
 			findPassword(){
+				uni.navigateTo({
+					url:"/pages/login/revise"
+				})
+			},
+			// findPassword(){
 				
-			}
+			// }
 		}
 	}
 </script>
@@ -167,7 +178,10 @@
 		border-width: 0;
 		border-radius: 0;
 	}
-
+.custom-navbar {
+  /* 设置背景透明 */
+  background-color: transparent;
+}
 /* 	uni-button:after {
 	    content: " ";
 	    width: 200%;

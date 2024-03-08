@@ -18,9 +18,11 @@
 			}
 		},
 		
-		onLoad() {
-			
-			// console.log("itemType: " + JSON.stringify(itemType));
+		onLoad(opt) {
+			console.log("=====",this.$t('tab'))
+			uni.setNavigationBarTitle({
+			    title: this.$t('tab').合约
+			});
 		},
 		methods: {
 			publish(item){

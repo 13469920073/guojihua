@@ -2,20 +2,20 @@
 <view>
 	<view class="uni-list">
 		<view class="uni-list-cell-title">
-			<span>最新账单</span>
-			<view class="uni-cell-title-more" @click="onClick()">更多</view>
+			<span>{{i18n.最新账单}}</span>
+			<view class="uni-cell-title-more" @click="onClick()">{{i18n.更多}}</view>
 		</view>
 		<view  style=" display: flex;flex-direction: column;align-items: center;">
 			<view class="grid-item-wrap"  style="width: 100%;">
 					<view  style="display: flex;" >
 						<view class="grid-item-left" >
-							时间
+							{{i18n.时间}}
 						</view>
 						<view class="grid-item-right">
-							金额
+							{{i18n.金额}}
 						</view>
 						<view class="grid-item-right">
-							状态 
+							{{i18n.状态}} 
 						</view>
 					</view>
 			</view>
@@ -94,6 +94,12 @@
 				noMore:0,
 				comType:'default'
 				}
+		},
+		computed: {
+			    i18n (){
+			      return this.$t('wallet')
+			    },
+					
 		},
 		mounted() {
 			// if(this.type == '14'){

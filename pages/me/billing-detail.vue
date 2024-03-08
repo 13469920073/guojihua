@@ -1,17 +1,17 @@
 <template>
     <view>
       <view class="header_title">
-        <span :class="pattern===1?'active':''" @click="isshow(1)">交易</span>
-        <span :class="pattern===2?'active':''" @click="isshow(2)">充值</span>
-        <span :class="pattern===3?'active':''" @click="isshow(3)">提现</span>
+        <span :class="pattern===1?'active':''" @click="isshow(1)">{{i18n.交易}}</span>
+        <span :class="pattern===2?'active':''" @click="isshow(2)">{{i18n.充值}}</span>
+        <span :class="pattern===3?'active':''" @click="isshow(3)">{{i18n.提现}}</span>
       </view>
       <view style="height:8upx;background-color:#f6f6f6"></view>
       <view >
         <view v-if="list.length">
          <view class="table_title">
-           <view>时间</view>
-           <view>金额</view>
-           <view>状态</view>
+           <view>{{i18n.时间}}</view>
+           <view>{{i18n.金额}}</view>
+           <view>{{i18n.状态}}</view>
         </view>
          <view class="table_title" v-for="(item ,index) in list" :key="index">
           <view style="color:#333433">{{item.date}}111</view>
@@ -24,7 +24,7 @@
 			  <view v-else>
         <view class="img_title">
           <img src="../../assets/img/available.png" alt="">
-          <p style="font-size:38upx;color:#c4c4c4">暂无数据</p>
+          <p style="font-size:38upx;color:#c4c4c4">{{i18n.暂无数据}}</p>
         </view>
 
       </view>
@@ -45,6 +45,11 @@
 		  	pattern:1,
         list:[{date:'2321',money:'12312',state:12}]
 			}
+		},
+		computed: {
+			    i18n (){
+			      return this.$t('personal')
+			    },	
 		},
 		onLoad() {
 		

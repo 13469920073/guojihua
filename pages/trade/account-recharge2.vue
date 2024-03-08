@@ -3,26 +3,26 @@
 		<view class="uni-account-card">
 			<view  style="padding: 14px; padding-top: 25px; display: flex;flex-direction: column;align-items: center;">
 				<h3 class="uni-account-title">
-					填写信息
+					{{i18n.填写信息}}
 				</h3>
 				<view class="table-from" style="">
-					<view class="flex">充值币种<text class="table-input"><input v-model="from.name"  /></text></view> 
-					<view class="flex">充值金额<text class="table-input"><input placeholder="请输入数量" v-model="from.pice"/></text></view>
-					<view class="flex">凭证图片
+					<view class="flex">{{i18n.充值币种}}<text class="table-input"><input v-model="from.name"  /></text></view> 
+					<view class="flex">{{i18n.充值金额}}<text class="table-input"><input :placeholder="i18n.请输入数量" v-model="from.pice"/></text></view>
+					<view class="flex">{{i18n.凭证图片}}
 					<view @click="selectVoucher">
 						<image v-if="!voucher" src="../../static/images/trade/photo.png" class="uni-pic" ></image>
 						<image v-if="voucher" :src="voucher" class="uni-pic" ></image>	
 					</view>
 					</view> 
 					<view style="display: flex; align-items: center;margin-top: 10px;">
-						<view style="margin-left: 5px;color: #f66;">*请仔细核对转账流水信息，审核成功后充值成功</view> 
+						<view style="margin-left: 5px;color: #f66;text-align: left;">{{i18n.核对转账}}</view> 
 					</view>
 				</view>
 			</view>
         </view>
 		<view style="padding: 20px;">
-			<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="next">提交</button>	
-			<button style="margin-top: 10px;height: 45px;" v-on:click="step">上一步</button>	
+			<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="next">{{i18n.提交}}</button>	
+			<button style="margin-top: 10px;height: 45px;" v-on:click="step">{{i18n.上一步}}</button>	
 		</view>
 	</view>
 </template>
@@ -41,7 +41,11 @@
 				is_avatar_change:false,
 			}
 		},
-		
+		computed: {
+			    i18n (){
+			      return this.$t('wallet')
+			    },	
+		},
 		onLoad(option) {
 					this.from = JSON.parse(decodeURIComponent(option.obj));
 					console.log("this.from",this.from)

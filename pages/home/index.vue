@@ -1,5 +1,6 @@
 <template>
 	<view class="content">
+		<uni-select></uni-select>
 		<uni-swiper-dot :info="swiperImages" :current="current" :mode="mode" :dots-styles="dotsStyles">
 			<swiper class="swiper-box" @change="change" autoplay="true" style="height: 180px;">
 				<swiper-item v-for="(item ,index) in swiperImages" :key="index">
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+	import uniSelect from '@/components/uni-select/uni-select.vue';
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 	import uniSwiperDot from '@/components/uni-swiper-dot/uni-swiper-dot.vue';
     import uniGrid from '@/components/uni-grid/uni-grid.vue';
@@ -27,6 +29,7 @@
 
 	export default {
 		components: {
+			uniSelect,
 			uniSwiperDot,
 			uniGrid,
 			uniGridList,

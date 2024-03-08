@@ -37,13 +37,13 @@
 		</view>
 		<view style="margin-top: 5px;">
 			<uni-list >
-				<uni-list-item @click='listSelected(1)' title="持仓记录" thumb="../../static/images/me/me_list_icon1.png" />
-				<uni-list-item @click='listSelected(2)' title="账单明细" thumb="../../static/images/me/me_list_icon2.png" />
-				<uni-list-item  @click='listSelected(3)' title="实名认证" thumb="../../static/images/me/me_list_icon3.png" />
-				<uni-list-item  @click='listSelected(4)' title="我的账户" thumb="../../static/images/me/me_list_icon4.png" />
-				<uni-list-item  @click='listSelected(5)' title="消息中心" thumb="../../static/images/me/me_list_icon5.png" />
-				<uni-list-item  @click='listSelected(6)' title="协议及隐私声明" thumb="../../static/images/me/me_list_icon6.png" />
-				<uni-list-item  @click='listSelected(7)' title="版本号" thumb="../../static/images/me/me_list_icon7.png" />
+				<uni-list-item @click='listSelected(1)' :title="i18n.持仓记录" thumb="../../static/images/me/me_list_icon1.png" />
+				<uni-list-item @click='listSelected(2)' :title="i18n.账单明细" thumb="../../static/images/me/me_list_icon2.png" />
+				<uni-list-item  @click='listSelected(3)' :title="i18n.实名认证" thumb="../../static/images/me/me_list_icon3.png" />
+				<uni-list-item  @click='listSelected(4)' :title="i18n.我的账户" thumb="../../static/images/me/me_list_icon4.png" />
+				<uni-list-item  @click='listSelected(5)' :title="i18n.消息中心" thumb="../../static/images/me/me_list_icon5.png" />
+				<uni-list-item  @click='listSelected(6)' :title="i18n.协议及隐私声明" thumb="../../static/images/me/me_list_icon6.png" />
+				<uni-list-item  @click='listSelected(7)' :title="i18n.版本号" thumb="../../static/images/me/me_list_icon7.png" />
 			</uni-list>
 		</view>
 	</view>
@@ -80,7 +80,11 @@
 				this.loginSuccess();return;
 			}
 		},
-		
+		computed: {
+			    i18n (){
+			      return this.$t('personal')
+			    },	
+		},
 		methods:{
 			listSelected :(i) =>{
         console.log(111)

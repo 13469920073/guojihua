@@ -69,6 +69,14 @@ form {
 .uni-page-head{
 	padding:35upx; 
 	text-align: center;
+	color: #000 !important;
+	/* background-color: transparent !important;
+	border-color: transparent !important; */
+	/* height: calc(100% - 0px - env(safe-area-inset-top)) !important;
+	    top: -44px !important; */
+}
+.uni-btn-icon{
+	color: #000 !important;
 }
 .uni-page-head-title {
 	display: inline-block;

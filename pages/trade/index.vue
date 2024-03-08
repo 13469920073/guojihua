@@ -5,7 +5,7 @@
 				<view class="grid-item-wrap" style="width: 100%;">
 					<view class="grid-account-sum">
 						<view class="grid-account-text">
-							账户余额<span>(USDT)</span>
+							{{i18n.账户余额}}<span>(USDT)</span>
 						</view>
 						<view class="grid-account-price">
 							368236.5198
@@ -14,11 +14,11 @@
 					<view class="grid-account-wallet uni-inline-item">
 						<view class="grid-account-left uni-inline-item" @click="onRecharge">
 								<view class="left-icon icon"></view>
-								<view class="left-text">充值</view>
+								<view class="left-text">{{i18n.充值}}</view>
 						</view>
-						<view class="grid-account-right uni-inline-item">
+						<view class="grid-account-right uni-inline-item" @click="onCash">
 								<view class="right-icon icon"></view>
-								<view class="right-text">提现</view>
+								<view class="right-text">{{i18n.提现}}</view>
 						</view>
 					</view>
 				</view>
@@ -55,7 +55,12 @@
 				itemType:itemType,
 			}
 		},
-		
+		computed: {
+			    i18n (){
+			      return this.$t('wallet')
+			    },
+					
+		},
 		onLoad() {
 			
 			// console.log("itemType: " + JSON.stringify(itemType));
@@ -68,6 +73,12 @@
 			onRecharge(){
 				uni.navigateTo({
 					url:'/pages/trade/account-recharge'
+				})
+			},
+			//提现
+			onCash(){
+				uni.navigateTo({
+					url:'/pages/trade/withdraw'
 				})
 			},
 			onClick(e){

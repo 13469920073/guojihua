@@ -1,8 +1,8 @@
 <template>
     <view>
       <view class="header_title">
-        <span :class="pattern===1?'active':''" @click="isshow(1)">持仓中</span>
-        <span :class="pattern===2?'active':''" @click="isshow(2)">已完成</span>
+        <span :class="pattern===1?'active':''" @click="isshow(1)">{{i18n.持仓中}}</span>
+        <span :class="pattern===2?'active':''" @click="isshow(2)">{{i18n.已完成}}</span>
       </view>
       <view style="height:8upx;background-color:#f6f6f6"></view>
       <view v-if="list.length">
@@ -69,6 +69,11 @@
 		  	pattern:1,
         list:[]
 			}
+		},
+		computed: {
+			    i18n (){
+			      return this.$t('personal')
+			    },	
 		},
 		onLoad() {
 		
