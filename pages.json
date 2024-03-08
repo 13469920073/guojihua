@@ -21,24 +21,24 @@
       "style": {
         "navigationBarTitleText": "合约",
 		"navigationBarBackgroundColor": "white",
-		 "navigationBarTextStyle":"#000000"
+		 "navigationBarTextStyle":"white"
       }
     },
     {
       "path": "pages/trade/index",
       "style": {
         "navigationBarTitleText": "钱包",
-        "navigationBarTextStyle": "#000",
+        "navigationBarTextStyle": "white",
         // "navigationBarBackgroundColor": "#ff4500",
         "navigationBarBackgroundColor": "#fff",
-        "backgroundColor": "#000"
+        "backgroundColor": "white"
       }
     },
     {
       "path": "pages/me/me",
       "style": {
         "navigationBarTitleText": "个人中心",
-        "navigationBarTextStyle": "#000",
+        "navigationBarTextStyle": "white",
         // "navigationBarBackgroundColor": "#ff4500",
         "navigationBarBackgroundColor": "#fff",
         "backgroundColor": "#F8F8F8",
@@ -118,6 +118,14 @@
 	  "style": {
 	    "enablePullDownRefresh": true,
 		"navigationBarTitleText": "提现",
+		"navigationBarTextStyle": "blank"
+	  }
+	},
+  {
+	  "path": "pages/trade/my-account",
+	  "style": {
+	    "enablePullDownRefresh": true,
+		"navigationBarTitleText": "我的账户",
 		"navigationBarTextStyle": "blank"
 	  }
 	},

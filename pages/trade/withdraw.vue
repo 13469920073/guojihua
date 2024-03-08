@@ -8,16 +8,18 @@
 			
 				
 				<view class="table-from" style="">
-					<view class="flex">{{i18n.账户名称}}<text class="table-input"><input :placeholder="i18n.请输入数量" v-model="from.name"  /></text></view> 
-					
+					<view class="table-from_title" @click="onSkip"> 
+	            <view >{{form.titleName?form.titleName:i18n.请选择提现账户}}</view>
+               <img src="../../assets/img/right.png" alt="">
+            </view> 
 					<view class="grid-item-wrap flex" style="width: 100%;">
-						<view class="grid-item-left">
-							111111
-					    </view>
+						<view class="grid-item-left" v-if="form.title&&form.name">
+							<p>{{form.title}}</p>
+              <p>账户名称：{{form.name}}</p>
+              <p>账户地址：{{form.address}}</p>
+					  </view>
 					</view>
-					
-					
-					<view class="flex">{{i18n.金额}}<text class="table-input"><input :placeholder="i18n.请输入数量"  v-model="from.address"/></text></view> 
+					<view class="flex" style="width:100%">{{i18n.金额}}:<input :placeholder="i18n.请输入数量"  v-model="form.money" type="number" class="uni-input"/></view> 
 					
 				</view>
 			</view>
@@ -25,7 +27,7 @@
 		<view class="flex" style="padding: 20px;">
 			<text>{{i18n.出金时间}}</text>
 		</view>
-		<view style="padding: 20px;">
+		<view style="padding: 20px; width:60%">
 			<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="next">{{i18n.下一步}}</button>	
 		</view>
 	</view>
@@ -63,7 +65,14 @@
 					name:'',
 					address:''
 				}],
-				from:{}
+				form:{
+          titleName:'',
+          title:'',
+          name:'',
+          address:'',
+          examine:'',
+          money:''
+        }
 			}
 		},
 		computed: {
@@ -71,14 +80,16 @@
 			      return this.$t('wallet')
 			    },	
 		},
-		onLoad() {
-			
+		onLoad(option) {
+			this.form = JSON.parse(decodeURIComponent(option.obj));
+      this.form.titleName=this.form.title+'('+this.form.name+')'
+console.log(	this.form)
 			// console.log("itemType: " + JSON.stringify(itemType));
 		},
 		methods: {
 			publish(item,index){
 				console.log("item: ",item);
-				this.from = item
+				this.form = item
 				this.navIndex = index
 			},
 			oncheck(){
@@ -87,10 +98,10 @@
 			},
 			//下一步
 			next(){
-				let obj= this.from
-				if(!this.isCheck){
+				let obj= this.form
+				if(!this.form.money){
 					uni.showToast({
-					    title: '请勾选提交打款信息',
+					    title: '请先输入数量',
 					    icon: 'none',
 					    duration: 2000
 					})
@@ -101,7 +112,12 @@
 					})
 				}
 				console.log("===")
-			}
+			},
+      onSkip(){
+          uni.navigateTo({
+						url:'/pages/trade/my-account'
+					})
+      }
 			
 		}
 	}
@@ -112,10 +128,14 @@
 	text-align: center;
 	padding-top: 0px;
 	padding-bottom: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 	
 }
 .uni-account-card{
 	/* height: 200px; */
+  width:50%;
 	margin: 14px;
 	border-radius: 6px;
 	background-color: #fafafa;
@@ -174,10 +194,35 @@
 	border-width: 0;
 	border-radius: 0;
 }
-/* .grid-item-left {
-	border-left-width: 0;
+.grid-item-left {
+  width: 100%;
+	text-align: left;
 }
-.grid-item-wrap:nth-child(-n+2){
+.grid-item-left p{
+  width: 100%;
+  text-align: left;
+}
+.uni-input{
+  margin-left: 20upx;
+  text-align: left;
+  width: 60%;
+}
+.table-from_title{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+}
+.table-from_title>view{
+  width: 100%;
+  text-align: left;
+}
+.table-from_title>img{
+  width: 25px;
+  height: 25px;
+}
+/* .grid-item-wrap:nth-child(-n+2){
 	border-top-width: 0;
 } */
 </style>
