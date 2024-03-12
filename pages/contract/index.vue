@@ -17,9 +17,7 @@
 				itemType:itemType,
 			}
 		},
-		
-		onLoad(opt) {
-			console.log("=====",this.$t('tab'))
+		onShow(opt) {
 			uni.setNavigationBarTitle({
 			    title: this.$t('tab').合约
 			});

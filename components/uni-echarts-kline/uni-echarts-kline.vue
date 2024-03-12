@@ -40,7 +40,8 @@
 			 * 初始化echarts
 			 */
 			init() {
-				console.log("==w3333==",this.$el)
+				echarts.env.touchEventsSupported = false;
+				echarts.env.wxa = false;
 				//this.chart = echarts.init(this.$el)
 				this.chart = echarts.init(this.$el, 'dark', {
 				      renderer: 'canvas',
@@ -56,7 +57,6 @@
 				if (this.chart) {
 					// 因App端，回调函数无法从renderjs外传递，故在此自定义设置相关回调函数
 					if (option) {
-						console.log("=====>>>")
 						// tooltip
 						if (option.tooltip) {
 							// 判断是否设置tooltip的位置

@@ -61,6 +61,11 @@
 			    },
 					
 		},
+		onShow(opt) {
+			uni.setNavigationBarTitle({
+			    title: this.$t('tab').钱包
+			});
+		},
 		onLoad() {
 			
 			// console.log("itemType: " + JSON.stringify(itemType));

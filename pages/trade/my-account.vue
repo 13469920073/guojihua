@@ -57,12 +57,12 @@
 	padding-bottom: 56px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  /* align-items: flex-start; */
 	
 }
 .content_box{
   padding: 10px;
-  width: 50%;
+  /* width: 50%; */
   height: 130px;
   	margin: 14px;
 	border-radius: 6px;

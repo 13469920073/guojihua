@@ -129,7 +129,7 @@
 				mounted() {
 					this.logstatrt();
 					this.logstatrtone();
-					this.logstatrttwo();
+					//this.logstatrttwo();
 				},
 		methods: {
 			checkIndex(index) {
@@ -238,6 +238,7 @@
 		  tooltip: {
 			trigger: 'axis',
 			triggerOn:'click',
+			 confine: true, 
 			axisPointer: {
 			  type: 'cross'
 			},
@@ -268,7 +269,9 @@
 			}
 		  },
 		  tooltip: {
-			trigger: 'axis'
+			trigger: 'axis',
+			triggerOn:'click',
+			 confine: true, 
 		  },
 		  visualMap: {
 			show: false,
@@ -381,7 +384,10 @@
 				borderColor0: undefined
 			  },
 			  tooltip: {
+				  triggerOn:'click',
+				   confine: true, 
 				formatter: function (param) {
+				 console.log("====>>>>>param",param)
 				  param = param[0];
 				  return [
 					'Date: ' + param.name + '<hr size=1 style="margin: 3px 0">',
@@ -422,7 +428,10 @@
 				  }
 				],
 				tooltip: {
+					triggerOn:'click',
+					 confine: true, 
 				  formatter: function (param) {
+					console.log("====>>param",param)
 					return param.name + '<br>' + (param.data.coord || '');
 				  }
 				}
@@ -432,7 +441,7 @@
 				data: [
 				  [
 					{
-					  name: 'from lowest to highest',
+					  name: '从最高到最低',
 					  type: 'min',
 					  valueDim: 'lowest',
 					  symbol: 'circle',
@@ -465,12 +474,12 @@
 					}
 				  ],
 				  {
-					name: 'min line on close',
+					name: '关闭时的最小线',
 					type: 'min',
 					valueDim: 'close'
 				  },
 				  {
-					name: 'max line on close',
+					name: '关闭时的最大线',
 					type: 'max',
 					valueDim: 'close'
 				  }
@@ -527,284 +536,6 @@
 		  ]
 		}
 						},
-						logstatrttwo() {
-							var m2R2Data = [{
-									value: 335,
-									value1: 234,
-									legendname: 'Ⅰ类',
-									name: "Ⅰ类",
-									itemStyle: {
-										color: "#8d7fec"
-									}
-								},
-								{
-									value: 310,
-									value1: 314,
-									legendname: 'Ⅱ类',
-									name: "Ⅱ类",
-									itemStyle: {
-										color: "#5085f2"
-									}
-								},
-								{
-									value: 234,
-									value1: 235,
-									legendname: 'Ⅲ类',
-									name: "Ⅲ类",
-									itemStyle: {
-										color: "#e75fc3"
-									}
-								},
-								{
-									value: 154,
-									value1: 213,
-									legendname: 'Ⅳ类',
-									name: "Ⅳ类",
-									itemStyle: {
-										color: "#f87be2"
-									}
-								},
-								{
-									value: 335,
-									value1: 321,
-									legendname: 'Ⅴ类',
-									name: "Ⅴ类",
-									itemStyle: {
-										color: "#f2719a"
-									}
-								},
-			 
-							];
-			 
-							this.optiontwo = {
-								title: [{
-										text: '全网调控情况',
-										textStyle: {
-											fontSize: 16,
-											color: "black"
-										},
-										left: "35%"
-									},
-									{
-										text: '全网均温',
-										subtext: 44.5 + '℃',
-										textStyle: {
-											fontSize: 15,
-											color: "black"
-										},
-										subtextStyle: {
-											fontSize: 20,
-											color: 'black'
-										},
-										textAlign: "center",
-										x: '40%',
-										y: '44%',
-									}
-								],
-								tooltip: {
-									trigger: 'item',
-									formatter: function(parms) {
-										var str = parms.seriesName + "</br>" +
-											parms.marker + "" + parms.data.legendname + "</br>" +
-											"当前温度：" + parms.data.value + "</br>" +
-											"目标温度：" + parms.data.value1 + "</br>" +
-											"占比：" + parms.percent + "%";
-										return str;
-									}
-								},
-								legend: {
-									type: "scroll",
-									orient: 'vertical',
-									left: '80%',
-									align: 'left',
-									top: 'middle',
-									textStyle: {
-										color: '#8C8C8C'
-									},
-			 
-								},
-								series: [{
-									name: '全网调控情况',
-									type: 'pie',
-									center: ['40%', '50%'],
-									radius: ['40%', '65%'],
-									clockwise: false, //饼图的扇区是否是顺时针排布
-									avoidLabelOverlap: false,
-									itemStyle: { //图形样式
-										normal: {
-											borderColor: '#ffffff',
-											borderWidth: 1,
-										},
-									},
-									label: {
-										normal: {
-											show: true,
-											position: 'outter',
-											formatter: function(parms) {
-												return parms.data.legendname
-											}
-										}
-									},
-									labelLine: {
-										normal: {
-											length: 15,
-											length2: 13,
-											smooth: true,
-										}
-									},
-									data: m2R2Data
-								}]
-							};
-						},
-						/**
-						 * 更新数据
-						 */
-						updateClick() {
-							this.option.series=[{
-										name: '人保',
-										type: 'bar',
-										data: [10, 10, 10, 10, 10],
-										// "barWidth": "30",
-										itemStyle: {
-											normal: {
-												color: {
-													type: 'linear',
-													x: 0.5,
-													y: 0.5,
-													r: 0.5,
-													colorStops: [{
-															offset: 0,
-															color: '#00FFE3' // 0% 处的颜色
-														},
-														{
-															offset: 1,
-															color: '#4693EC' // 100% 处的颜色
-														}
-													],
-													globalCoord: false // 缺省为 false
-												}
-											}
-										}
-										// "barGap": "0.2"
-									},
-									{
-										name: '太保',
-										type: 'bar',
-										data: [16, 14.8, 14.1, 15, 16.3],
-			 
-										color: {
-											type: 'linear',
-											x: 0.5,
-											y: 0.5,
-											r: 0.5,
-											colorStops: [{
-													offset: 0,
-													color: '#248ff7' // 0% 处的颜色
-												},
-												{
-													offset: 1,
-													color: '#6851f1' // 100% 处的颜色
-												}
-											],
-											globalCoord: false // 缺省为 false
-										}
-									},
-									{
-										name: '平安',
-										type: 'bar',
-										data: [10.2, 9.2, 9.1, 9.85, 8.9],
-										color: {
-											type: 'linear',
-											x: 0.5,
-											y: 0.5,
-											r: 0.5,
-											colorStops: [{
-													offset: 0,
-													color: '#fccb05' // 0% 处的颜色
-												},
-												{
-													offset: 1,
-													color: '#f5804d' // 100% 处的颜色
-												}
-											],
-											globalCoord: false // 缺省为 false
-										}
-									},
-									{
-										name: '人保增速',
-										type: 'line',
-										yAxisIndex: 1,
-			 
-										data: [0, 6.01, 5.26, 1.48],
-										lineStyle: {
-											normal: {
-												width: 2
-											}
-										},
-										itemStyle: {
-											normal: {
-												color: '#86d370'
-											}
-										},
-										smooth: true
-									},
-									{
-										name: '太保增速',
-										type: 'line',
-										yAxisIndex: 1,
-			 
-										data: [0, -4.73, 6.38, 8.67],
-										lineStyle: {
-											normal: {
-												width: 2
-											}
-										},
-										itemStyle: {
-											normal: {
-												color: '#3496f8'
-											}
-										},
-										smooth: true
-									},
-									{
-										name: '平安增速',
-										type: 'line',
-										yAxisIndex: 1,
-			 
-										data: [0, -1.09, 8.24, -9.64],
-										lineStyle: {
-											normal: {
-												width: 2
-											}
-										},
-										itemStyle: {
-											normal: {
-												color: '#fbc30d'
-											}
-										},
-										smooth: true
-									}
-								]
-							// this.option = {
-							// 	notMerge: true, // 自定义变量：true代表不合并数据，比如从折线图变为柱形图则需设置为true；false或不写代表合并
-							// 	xAxis: {
-							// 		type: 'category',
-							// 		data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-							// 	},
-							// 	yAxis: {
-							// 		type: 'value'
-							// 	},
-							// 	series: [{
-							// 		data: [120, 200, 150, 80, 70, 110, 130],
-							// 		type: 'bar',
-							// 		showBackground: true,
-							// 		backgroundStyle: {
-							// 			color: 'rgba(220, 220, 220, 0.8)'
-							// 		}
-							// 	}]
-							// };
-						}
-
 		}
 	}
 </script>

@@ -67,7 +67,11 @@
 				avatar:''
 			}
 		},
-		
+		onShow(opt) {
+			uni.setNavigationBarTitle({
+			    title: this.$t('tab').个人中心
+			});
+		},
 		onLoad() {
 			uni.$on('userloginsuccess' , res => {
 				this.loginSuccess();

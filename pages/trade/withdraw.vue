@@ -27,7 +27,7 @@
 		<view class="flex" style="padding: 20px;">
 			<text>{{i18n.出金时间}}</text>
 		</view>
-		<view style="padding: 20px; width:60%">
+		<view style="padding: 20px;">
 			<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="next">{{i18n.下一步}}</button>	
 		</view>
 	</view>
@@ -130,12 +130,12 @@ console.log(	this.form)
 	padding-bottom: 56px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  /* align-items: flex-start; */
 	
 }
 .uni-account-card{
 	/* height: 200px; */
-  width:50%;
+  /* width:50%; */
 	margin: 14px;
 	border-radius: 6px;
 	background-color: #fafafa;
