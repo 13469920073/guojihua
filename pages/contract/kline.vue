@@ -272,6 +272,12 @@
 			trigger: 'axis',
 			triggerOn:'click',
 			 confine: true, 
+			 backgroundColor: 'rgba(0, 0, 0, 0.5)',
+			 textStyle: {
+			         color: '#FFF',
+			         // fontFamily: 'Arial',
+			         // fontSize: 14,
+			     },
 		  },
 		  visualMap: {
 			show: false,
@@ -386,6 +392,7 @@
 			  tooltip: {
 				  triggerOn:'click',
 				   confine: true, 
+				// backgroundColor: 'rgba(0, 0, 0, 0.3)',
 				formatter: function (param) {
 				 console.log("====>>>>>param",param)
 				  param = param[0];
@@ -430,6 +437,7 @@
 				tooltip: {
 					triggerOn:'click',
 					 confine: true, 
+					// backgroundColor: 'rgba(0, 0, 0, 0.3)',
 				  formatter: function (param) {
 					console.log("====>>param",param)
 					return param.name + '<br>' + (param.data.coord || '');
