@@ -93,7 +93,7 @@
 	  "path": "pages/trade/transaction",
 	  "style": {
 	    "enablePullDownRefresh": true,
-		"navigationBarTitleText": "账单提现",
+		"navigationBarTitleText": "账单明细",
 		"navigationBarTextStyle": "blank"
 	  }
 	},

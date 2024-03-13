@@ -4,17 +4,17 @@
 			<image src="../../static/images/new/600x154.png" mode="" style="width: 100px;height: 100px;"></image>
 		</view>
 		<view class="longin-head-nav flex">
-			<view class="switch-l" :class="navIndex==0?'activite':''" @click="checkIndex(0)">{{i18n.手机登录}}</view>
-			<view class="switch-l" :class="navIndex==1?'activite':''" @click="checkIndex(1)">{{i18n.邮箱登录}}</view>
+			<view class="switch-l" :class="loginWay==0?'activite':''" @click="checkIndex(0)">{{i18n.手机登录}}</view>
+			<view class="switch-l" :class="loginWay==1?'activite':''" @click="checkIndex(1)">{{i18n.邮箱登录}}</view>
 		</view>
 		<view style="width: 100%; margin-top: 45px;">
 			<view style="padding: 20px;">
-				<view class="uni-login-input flex" v-if="navIndex==0">
+				<view class="uni-login-input flex" v-if="loginWay==0">
 				<input type="number" :placeholder="i18n.区号" maxlength="11" v-model="phone" style="width: 40px;"/>
-				<input type="number" :placeholder="i18n.请输入手机号" maxlength="11" v-model="phone" style="width: 100%;"/>
+				<input type="number" :placeholder="i18n.请输入手机号" maxlength="11" v-model="phonenumber" style="width: 100%;"/>
 				</view>
-				<input type="number" v-if="navIndex==1" :placeholder="i18n.请输入邮箱" maxlength="11" v-model="phone"/>
-				<input type="text"  password="true" :placeholder="i18n.请输入密码" v-model="pwd" style="margin-top: 6px;"/>
+				<input type="text" v-if="loginWay==1" :placeholder="i18n.请输入邮箱" maxlength="11" v-model="email"/>
+				<input type="password"  password="true" :placeholder="i18n.请输入密码" v-model="passWord" style="margin-top: 6px;"/>
 				<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="login">{{i18n.登录}}</button>	
 			</view>
 			<view style="display: flex;">
@@ -36,7 +36,11 @@
 	export default{
 		data(){
 			return {
-				navIndex:0,
+				//loginWay:0,
+				phonenumber:'', //手机号
+				email:'', //邮箱
+				passWord:'', //密码
+				loginWay:0, //登录方式
 				phone:'',
 				pwd:''
 			}
@@ -55,12 +59,14 @@
 		},
 		methods:{
 			checkIndex(i){
-				this.navIndex = i
-				console.log("手机登录")
+				this.loginWay = i
+				console.log("手机登录",this,loginWay)
 			},
 			login(){
-				var phone = this.phone;
-				var pwd = this.pwd;
+				var phone = this.phonenumber;
+				var pwd = this.passWord;
+				var type = this.loginWay;
+				var email = this.email;
 				if(phone.length != 11){
 					uni.showToast({
 						title:"请输入正确的手机号",
@@ -83,16 +89,21 @@
 					}); return; 
 				} 
 				
-				var d = {'phone_number':phone , 'pwd':pwd};
+				var d = {
+				'phonenumber':phone ,
+				'passWord':pwd,
+				'loginWay':type,
+				'email':email,
+				};
 				uni.showLoading({
 					title: '登录中',
 					mask: true
 				});
 				
-				api.post(api.url.login , d , res =>{
-					// console.log("res: " + JSON.stringify(res));
+				api.post(api.url.login , d, res =>{
+					console.log("res登录》》》》》: " + JSON.stringify(res));
 					uni.hideLoading();
-          uni.setStorageSync('token' ,112321);
+                    uni.setStorageSync('token' ,112321);
 					uni.setStorageSync('loginuserinfo' ,res);
 					uni.$emit('userloginsuccess');
 					uni.showToast({

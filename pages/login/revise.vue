@@ -1,22 +1,22 @@
 <template>
 	<view class="login-container" style="display: flex;flex-direction: column;align-items: center;">
 		<view style="width: 100%; margin-top: 45px;">
-			<view style="padding: 20px;">
+			<view style="padding: 20px;color: #fff;">
 				<!-- <input type="number"" placeholder="请填写推荐人邀请码" maxlength="11" v-model="phone"/> -->
 				<view class="uni-reguster-input">
-				<input type="number" v-if="navIndex==0" :placeholder="i18n.请输入手机号" maxlength="11" v-model="phone"/>
-				<input type="number" v-if="navIndex==1" :placeholder="i18n.请输入邮箱" maxlength="11" v-model="phone"/>
+				<input type="number" v-if="loginWay==0" :placeholder="i18n.请输入手机号" maxlength="11" v-model="phonenumber"/>
+				<input type="number" v-if="loginWay==1" :placeholder="i18n.请输入邮箱" maxlength="11" v-model="email"/>
 				<view class="uni-iphone-right">
-					<view class="switch-l" :class="navIndex==0?'activite':''" @click="checkIndex(0)">{{i18n.手机}}</view>
-					<view class="switch-l" :class="navIndex==1?'activite':''" @click="checkIndex(1)">{{i18n.邮箱}}</view>
+					<view class="switch-l" :class="loginWay==0?'activite':''" @click="checkIndex(0)">{{i18n.手机}}</view>
+					<view class="switch-l" :class="loginWay==1?'activite':''" @click="checkIndex(1)">{{i18n.邮箱}}</view>
 				</view>
 				</view>
 				<view class="uni-reguster-input">
 				<input type="text"  :placeholder="i18n.请输入验证码" v-model="pwd" style="margin-top: 6px;"/>
 				<text class="uni-abs-right">{{i18n.获取验证码}}</text>
 				</view>
-				<input type="text" password="true" :placeholder="i18n.请输入新密码" v-model="pwd" style="margin-top: 6px;"/>
-				<input type="text" password="true" :placeholder="i18n.请确认新密码" v-model="pwd" style="margin-top: 6px;"/>
+				<input type="text" password="true" :placeholder="i18n.请输入新密码" v-model="passWord" style="margin-top: 6px;"/>
+				<input type="text" password="true" :placeholder="i18n.请确认新密码" v-model="newPwd" style="margin-top: 6px;"/>
 				<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="login">{{i18n.提交}}</button>	
 			</view>
 		</view>
@@ -30,7 +30,12 @@
 	export default{
 		data(){
 			return {
-				navIndex:0,
+				loginWay:0,
+				inviteCode:'', //邀请码
+				phonenumber:'', //手机号
+				email:'', //邮箱
+				passWord:'', //密码
+				newPwd:'',
 				phone:'',
 				pwd:''
 			}
@@ -42,12 +47,15 @@
 		},
 		methods:{
 			checkIndex(i){
-				this.navIndex = i
+				this.loginWay = i
 				console.log("手机登录")
 			},
 			login(){
-				var phone = this.phone;
-				var pwd = this.pwd;
+				var phone = this.phonenumber;
+				var pwd = this.passWord;
+				var type = this.loginWay;
+				// var type = this.loginWay;
+				var email = this.email;
 				if(phone.length != 11){
 					uni.showToast({
 						title:"请输入正确的手机号",
@@ -68,22 +76,31 @@
 						title:"请输入正确的手机号",
 						icon:"none"
 					}); return; 
-				} 
+				}
+				if (this.newPwd !== phone) {
+					uni.showToast({
+						title:"两次输入的密码不一致",
+						icon:"none"
+					}); return; 
+				}
 				
-				var d = {'phone_number':phone , 'pwd':pwd};
+				var d = {
+					'phonenumber':phone,
+				 'passWord':pwd,
+				 'loginWay':type,
+				 'email':email,
+				 };
 				uni.showLoading({
 					title: '登录中',
 					mask: true
 				});
 				
-				api.post(api.url.login , d , res =>{
-					// console.log("res: " + JSON.stringify(res));
+				api.put(api.url.changepwd , d , res =>{
+					console.log("修改成功====res: " + JSON.stringify(res));
 					uni.hideLoading();
-          uni.setStorageSync('token' ,112321);
-					uni.setStorageSync('loginuserinfo' ,res);
-					uni.$emit('userloginsuccess');
+					console.log("登录成功", res)
 					uni.showToast({
-						title:'登录成功!',
+						title:'修改成功!',
 						success:function(res){
 							setTimeout(function(){
 								uni.navigateBack()

@@ -98,9 +98,13 @@
 					});
           break;
           case 2:uni.navigateTo({
-						url:'billing-detail'
-					});
+					url:'/pages/trade/transaction'
+				});
           break;
+		  case 4:uni.navigateTo({
+		  			url:'/pages/trade/my-account'
+		  		});
+		  break;
 		  case 6:uni.navigateTo({
 		            	url:'announcement'
 		            });

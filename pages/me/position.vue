@@ -50,7 +50,7 @@
       <view v-else>
         <view class="img_title">
           <img src="../../assets/img/available.png" alt="">
-          <p style="font-size:38upx;color:#c4c4c4">暂无数据</p>
+          <p style="font-size:32upx;color:#c4c4c4">{{i18n.暂无数据}}</p>
         </view>
 
       </view>
@@ -95,11 +95,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 32upx;
+  font-size: 28upx;
 }
 .header_title>span{
   text-align: center;
-  width: 60px;
+  /* width: 60px; */
   margin: 0 40upx;
 }
 .active{

@@ -1,6 +1,7 @@
 //api接口定义
 var URL = {
-	base:'http://39.106.164.101:80/tt/',
+	//base:'http://39.106.164.101:80/tt/',
+	base:'http://139.9.65.136:8098/',
 	getsy:'getPostList.php',
 	detail:'getSinglePost.php',
 	publish:'publish.php',
@@ -13,8 +14,13 @@ var URL = {
 	delete_sc:'deletesc.php',
 	sh:'sh.php',
 	daren:'darenList.php',
-	login:'login.php',
-	register:'register.php',
+	login:'customer/member/login', //登录接口
+	register:'customer/member/register',  //用户注册
+	changepwd:'customer/member/changepwd',  //密码重置
+	gettradelist:'customer/member/gettradelist',  //交易列表
+	getincomelist:'customer/member/getincomelist',  //充值列表
+	getoutlaylist:'customer/member/getoutlaylist',  //提现列表
+	getmemberaccountlist:'customer/member/getmemberaccountlist',  //我的账户列表
 	get_checkcode:'sendCheckCode.php',
 	get_msglist:'message.php',
 	jubao:'jubao.php',
@@ -109,6 +115,82 @@ function uniPost(url , pars , success , error){
 });
 }
 
+/**get
+ * type:请求类型
+ * url:地址
+ * pars:参数
+ * success:成功回调
+ * error:失败回调
+ */
+function uniGet(url , pars , success , error){
+	uni.getNetworkType({
+		success: (res) => {
+			console.log("---netType: " + JSON.stringify(res));
+			// if(res.networkType == 'none')uni.showToast({title:'无法连接网络' , icon:"none"});
+		}
+	});
+
+	var _url = URL.base + url;
+	uni.request({url:_url,method:"GET",
+		header:{"content-type":"application/x-www-form-urlencoded"},
+		dataType:"json",
+		data:pars,
+		success: res =>{
+			// console.log("====res: " + JSON.stringify(res));
+			var data = res.data;
+			if(data.status == 200) {
+				console.log("request ok");
+				success(data.body);
+			}else{
+				if(error)error(data['msg'] || '服务器返回错误');
+			}
+		},
+		fail: (data, code) => {
+			var err = '请求网络失败' + JSON.stringify(data);
+			console.log("post error: " + err)
+			if(error){error(err);}
+		}
+});
+}
+
+/**put
+ * type:请求类型
+ * url:地址
+ * pars:参数
+ * success:成功回调
+ * error:失败回调
+ */
+function uniPut(url , pars , success , error){
+	uni.getNetworkType({
+		success: (res) => {
+			console.log("---netType: " + JSON.stringify(res));
+			// if(res.networkType == 'none')uni.showToast({title:'无法连接网络' , icon:"none"});
+		}
+	});
+
+	var _url = URL.base + url;
+	uni.request({url:_url,method:"GET",
+		header:{"content-type":"application/x-www-form-urlencoded"},
+		dataType:"json",
+		data:pars,
+		success: res =>{
+			// console.log("====res: " + JSON.stringify(res));
+			var data = res.data;
+			if(data.status == 200) {
+				console.log("request ok");
+				success(data.body);
+			}else{
+				if(error)error(data['msg'] || '服务器返回错误');
+			}
+		},
+		fail: (data, code) => {
+			var err = '请求网络失败' + JSON.stringify(data);
+			console.log("post error: " + err)
+			if(error){error(err);}
+		}
+});
+}
+
 /**
  * @param {Object} url
  * @param {Object} pars
@@ -143,6 +225,8 @@ function uniUploadFile(url , pars , files, success , error){
 
 module.exports = {
 	post:uniPost,
+	get:uniGet,
+	put:uniPut,
 	url:URL,
 	uploadfile:uniUploadFile,
 	postType:getItemCategory

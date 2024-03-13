@@ -57,10 +57,13 @@
 </template>
 
 <script>
+	var api = require('@/common/p/api.js');
 	export default {
 		data() {
 			return {
 				navIndex: 0,
+				pageNum:1,
+				pageSize:20,
 				items:[]
 			}
 		},
@@ -70,11 +73,45 @@
 			    },
 					
 		},
+		onPageScroll(){
+			console.log("监听页面下滑到底")
+		},
+		
 		methods: {
 			checkIndex(index) {
 				console.log(index)
 				this.navIndex = index;
+				this.getDataList(index)
 			},
+			//获取账单明细
+			getDataList(i){
+				var url = ''
+				if(i == 0){
+					url = api.url.gettradelist
+				}else if(i == 1){
+					url = api.url.getincomelist  //入金
+				}else if(i == 2){
+					url = api.url.getoutlaylist //提现
+				}
+				var d = {
+				'pageNum':this.pageNum ,
+				'pageSize':this.pageSize
+				};
+				uni.showLoading({
+					title: '数据加载中..',
+					mask: true
+				});
+				api.post(url, d, res =>{
+					console.log("获取成功》》》》》: " + JSON.stringify(res));
+		
+				} ,error =>{
+					uni.hideLoading();
+					uni.showToast({
+						title:error,
+						icon:"none"
+					})
+				})
+			}
 		}
 	}
 </script>
