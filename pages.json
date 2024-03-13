@@ -173,6 +173,16 @@
 	    "navigationBarTitleText": "协议及隐私声明",
 	    "navigationBarTextStyle": "blank"
 	  }
+	  
+	},
+	{
+	  "path": "pages/me/setter",
+	  "style": {
+	    "enablePullDownRefresh": true,
+	    "navigationBarTitleText": "设置",
+	    "navigationBarTextStyle": "blank"
+	  }
+	  
 	}
 
     

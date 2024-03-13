@@ -3,10 +3,12 @@
 <!-- 		<image src="../../static/images/default_avatar.png" style="width: 80px; height: 80px; margin-top: 30px;border-radius: 50%;" ></image> -->
 		<view style="margin-top: 0px;">
 			<uni-list >
-				<uni-list-item @click='listSelected(1)' title="黑名单" />
-				<uni-list-item  @click='listSelected(2)' title="清空缓存" :showBadge="showCache" :badgeText="cacheSize"/>
-				<uni-list-item  @click='listSelected(3)' title="意见反馈" />
-				<uni-list-item  @click='listSelected(4)' title="关于我们" />
+				<uni-list-item @click='listSelected(1)' title="头像" />
+				<uni-list-item @click='listSelected(2)' title="平台" />
+				<!-- <uni-list-item  @click='listSelected(2)' title="清空缓存" :showBadge="showCache" :badgeText="cacheSize"/> -->
+				<uni-list-item  @click='listSelected(3)' title="登录账号" />
+				<uni-list-item  @click='listSelected(4)' title="用户昵称" />
+				<uni-list-item  @click='listSelected(5)' title="关于我们" />
 			</uni-list>
 		</view>
 		

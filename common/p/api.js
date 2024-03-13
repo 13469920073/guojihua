@@ -81,28 +81,33 @@ function uniPost(url , pars , success , error){
 	});
 
 	var _url = URL.base + url;
-	// var token , userJsonStr = localStorage.getItem("loginuserinfo");
-	// if(userJsonStr){
-	// 	var _u = JSON.parse(userJsonStr);
-	// 	if(_u && _u['token']){
-	// 		token = _u['token'];pars['t'] = token;
-	// 		if(pars['z'] != 1){//1不需要当前uid , 获取他人
-	// 			pars['uid'] = _u['user_id'];//UID和token一起为了验证用户合法性
-	// 		}
-	// 		// pars['z'] && delete pars.z;
-	// 	}
-	// }
+	var token, 
+	userJsonStr = localStorage.getItem("loginuserinfo");
+	if(userJsonStr){
+		var _u = JSON.parse(userJsonStr).data;
+		if(_u && _u['token']){
+			token = _u['token'];
+			//pars['token'] = token;
+			// if(pars['z'] != 1){//1不需要当前uid , 获取他人
+			// 	pars['uid'] = _u['user_id'];//UID和token一起为了验证用户合法性
+			// }
+			// pars['z'] && delete pars.z;
+		}
+	}
 		
 	uni.request({url:_url,method:"POST",
-		header:{"content-type":"application/x-www-form-urlencoded"},
+		header:{
+			"content-type":"application/json",
+			'token': token,
+			},
 		dataType:"json",
 		data:pars,
 		success: res =>{
-			// console.log("====res: " + JSON.stringify(res));
+		console.log("====res: ",res);
 			var data = res.data;
-			if(data.status == 200) {
+			if(data.code == 200) {
 				console.log("request ok");
-				success(data.body);
+				success(data);
 			}else{
 				if(error)error(data['msg'] || '服务器返回错误');
 			}
@@ -131,8 +136,19 @@ function uniGet(url , pars , success , error){
 	});
 
 	var _url = URL.base + url;
+	var token,
+	userJsonStr = localStorage.getItem("loginuserinfo");
+	if(userJsonStr){
+		var _u = JSON.parse(userJsonStr).data;
+		if(_u && _u['token']){
+			token = _u['token'];
+		}
+	}
 	uni.request({url:_url,method:"GET",
-		header:{"content-type":"application/x-www-form-urlencoded"},
+		header:{
+			"content-type":"application/json",
+			'token': token,
+			},
 		dataType:"json",
 		data:pars,
 		success: res =>{
@@ -169,8 +185,19 @@ function uniPut(url , pars , success , error){
 	});
 
 	var _url = URL.base + url;
+	var token,
+	userJsonStr = localStorage.getItem("loginuserinfo");
+	if(userJsonStr){
+		var _u = JSON.parse(userJsonStr).data;
+		if(_u && _u['token']){
+			token = _u['token'];
+		}
+	}
 	uni.request({url:_url,method:"GET",
-		header:{"content-type":"application/x-www-form-urlencoded"},
+		header:{
+			"content-type":"application/json",
+			'token': token,
+			},
 		dataType:"json",
 		data:pars,
 		success: res =>{

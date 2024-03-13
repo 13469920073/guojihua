@@ -39,11 +39,11 @@
 			<uni-list >
 				<uni-list-item @click='listSelected(1)' :title="i18n.持仓记录" thumb="../../static/images/me/me_list_icon1.png" />
 				<uni-list-item @click='listSelected(2)' :title="i18n.账单明细" thumb="../../static/images/me/me_list_icon2.png" />
-				<uni-list-item  @click='listSelected(3)' :title="i18n.实名认证" thumb="../../static/images/me/me_list_icon3.png" />
+				<uni-list-item  @click='listSelected(3)' :title="i18n.实名认证" thumb="../../static/images/me/me_list_icon3.png" :showBadge="showCache" :badgeText="cacheSize" />
 				<uni-list-item  @click='listSelected(4)' :title="i18n.我的账户" thumb="../../static/images/me/me_list_icon4.png" />
 				<uni-list-item  @click='listSelected(5)' :title="i18n.消息中心" thumb="../../static/images/me/me_list_icon5.png" />
 				<uni-list-item  @click='listSelected(6)' :title="i18n.协议及隐私声明" thumb="../../static/images/me/me_list_icon6.png" />
-				<uni-list-item  @click='listSelected(7)' :title="i18n.版本号" thumb="../../static/images/me/me_list_icon7.png" />
+				<uni-list-item  @click='listSelected(7)' :title="i18n.版本号" thumb="../../static/images/me/me_list_icon7.png" :showBadge="showCache" :badgeText="cacheSize" />
 			</uni-list>
 		</view>
 	</view>
@@ -63,6 +63,8 @@
 		data(){
 			return {
 				isLogined:false,
+				showCache:true,
+				cacheSize:'0.0M',
 				userInfo:{},
 				avatar:''
 			}
@@ -73,7 +75,9 @@
 			});
 		},
 		onLoad() {
+			console.log("判断是否登录1111")
 			uni.$on('userloginsuccess' , res => {
+				console.log("判断是否登录222")
 				this.loginSuccess();
 			})
 			uni.$on('xiugaiuserinfosuccess',res => {
@@ -115,11 +119,13 @@
 			},
 			login(){
 				uni.navigateTo({
-					url:'/pages/login/login'
+					// url:'/pages/login/login'
+					url:'/pages/me/setter'
 				})
 			},
 			loginSuccess(){
 				this.isLogined = USER.isLogined();//判断是否登录
+				console.log("判断是否登录3333", this.isLogined)
 				this.userInfo = USER.userInfo();//获取登录信息
 				this.avatar = this.userInfo['avatar_thumb'] || '../../static/images/default_avatar.png';
 				// console.log("user: " + JSON.stringify(this.userInfo));

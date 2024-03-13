@@ -27,6 +27,11 @@ module.exports = {
 		  "我已阅读并同意":"I have read and agree to the ",
 		  "服务协议":"《User agreement》",
 		   "注册":"Confirm",
+		   "请输入邀请码":"Please input invitation code",
+		   "请输入验证码":"Please input Country code",
+		   "请输入正确的手机号":"Please input Phone number",
+		   "请输入正确的邮箱":"Please input Email",
+		   "请输入密码":"Please input Password",
 	},
 	home:{
 		 "数字货币": "Matkets",

@@ -60,23 +60,19 @@
 		methods:{
 			checkIndex(i){
 				this.loginWay = i
-				console.log("手机登录",this,loginWay)
+				console.log("手机登录",this.loginWay)
 			},
 			login(){
 				var phone = this.phonenumber;
 				var pwd = this.passWord;
 				var type = this.loginWay;
 				var email = this.email;
+				var param={}
+				if(type == 0){
+					//手机号登录
 				if(phone.length != 11){
 					uni.showToast({
-						title:"请输入正确的手机号",
-						icon:"none"
-					});return;
-				}
-				
-				if(pwd.length < 6){
-					uni.showToast({
-						title:"请输入正确的密码",
+						title:this.i18n.请输入正确的手机号,
 						icon:"none"
 					});return;
 				}
@@ -84,27 +80,43 @@
 				// /^1(3|4|5|7|8)\d{9}$/
 				if(!(/^1[0-9]{10}$/.test(phone))){ 
 					uni.showToast({
-						title:"请输入正确的手机号",
+						title:this.i18n.请输入正确的手机号,
 						icon:"none"
 					}); return; 
 				} 
-				
-				var d = {
-				'phonenumber':phone ,
-				'passWord':pwd,
-				'loginWay':type,
-				'email':email,
-				};
+				param={
+					'loginAccount':phone,
+					'passWord':pwd,
+				}
+				}else{
+					//邮箱登录
+					if(!(/^(.+)@(.+)$/.test(email))){
+						uni.showToast({
+							title:this.i18n.请输入正确的邮箱,
+							icon:"none"
+						}); return; 
+					} 
+					param={
+						'email':email,
+						'passWord':pwd,
+					}
+				}
+				if(!pwd){
+					uni.showToast({
+						title:this.i18n.请输入密码,
+						icon:"none"
+					});return;
+				}
 				uni.showLoading({
 					title: '登录中',
 					mask: true
 				});
 				
-				api.post(api.url.login , d, res =>{
-					console.log("res登录》》》》》: " + JSON.stringify(res));
+				api.post(api.url.login , param, res =>{
+					console.log("token>>>>>>: " ,res.data.token);
 					uni.hideLoading();
-                    uni.setStorageSync('token' ,112321);
-					uni.setStorageSync('loginuserinfo' ,res);
+                    uni.setStorageSync('token' ,res.data.token);
+					uni.setStorageSync('loginuserinfo' ,res.data);
 					uni.$emit('userloginsuccess');
 					uni.showToast({
 						title:'登录成功!',

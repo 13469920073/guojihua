@@ -23,6 +23,24 @@
 				chart: null,
 			}
 		},
+		beforeDestroy() {
+		
+		    this.chart = null;
+		
+		  },
+		  onUnload() {
+		        if (this.chart) {
+		          this.chart.dispose(); // 页面销毁时释放echarts实例
+		        }
+		      },
+		      onShow() {
+		        if (this.chart) {
+		          this.chart.resize(); // 页面显示时触发重绘
+		        }
+		      },
+		onLoad(options) {
+			console.log("====")
+        },
 		mounted() {
 			if (typeof window.echarts === 'object') {
 				this.init()
@@ -36,16 +54,21 @@
 			}
 		},
 		methods: {
+			
 			/**
 			 * 初始化echarts
 			 */
 			init() {
-				echarts.env.touchEventsSupported = false;
+				echarts.env.touchEventsSupported = true;
 				echarts.env.wxa = false;
+				echarts.env.canvasSupported = false;
+				echarts.env.svgSupported = true;
+				echarts.env.domSupported = true;
+
 				//this.chart = echarts.init(this.$el)
 				this.chart = echarts.init(this.$el, 'dark', {
 				      renderer: 'canvas',
-				      useDirtyRect: false
+				      useDirtyRect: false,
 				    });
 				this.update(this.option)
 			},
