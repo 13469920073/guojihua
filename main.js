@@ -23,6 +23,7 @@ Vue.prototype._i18n = i18n;
 
 
 import lyzmldatepicker from './components/lyzml-datepicker/lyzml-datepicker.vue';
+import './utils/routeIntercept';
 
 Vue.config.productionTip = false;
 
