@@ -13,7 +13,7 @@
 		</view>
 		
 		<view v-if="isLogined" style="align-items: center;width: 100%;">
-			<button @click="logout" style="margin-top: 70px; background-color: #FF4500;color: white;height: 45px; width: 95%;font-size: 17px;">退出登录</button>
+			<button @click="logout" style="margin-top: 70px; background-color:#0080ff;color: white;height: 45px; width: 95%;font-size: 17px;">退出登录</button>
 		</view>
 		
 		<view style="position: fixed;bottom: 8px;text-align: center;width: 100%;font-size: 13px;color: #999;">©️2024bitmakeitxAPP</view>
@@ -24,6 +24,7 @@
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	var USER = require('@/common/p/user.js');
+	var api = require('@/common/p/api.js');
 	
 	export default {
 		components:{
@@ -38,11 +39,11 @@
 			}
 		},
 		onLoad() {
-			plus.cache.calculate(size => {
-				let s = parseFloat(size / (1024 * 1024)).toFixed(2) + "M";
-				console.log(s);
-				this.cacheSize = s;
-			})
+			// plus.cache.calculate(size => {
+			// 	let s = parseFloat(size / (1024 * 1024)).toFixed(2) + "M";
+			// 	console.log(s);
+			// 	this.cacheSize = s;
+			// })
 		},
 		methods:{
 			listSelected (i) {
@@ -79,9 +80,18 @@
 				    content: '退出会删除本地用户信息,确定退出?',
 				    success: function (res) {
 				        if (res.confirm) {
+							api.get(api.url.logout , {}, res =>{
+								console.log("退出成功 " ,res.data.token);
 							uni.removeStorageSync('loginuserinfo');
 							uni.$emit('userloginsuccess');
 							uni.navigateBack();
+							} ,error =>{
+								uni.hideLoading();
+								uni.showToast({
+									title:error,
+									icon:"none"
+								})
+							})
 				        } 
 				    }
 				});

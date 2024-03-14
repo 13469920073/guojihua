@@ -14,6 +14,7 @@ var URL = {
 	delete_sc:'deletesc.php',
 	sh:'sh.php',
 	daren:'darenList.php',
+	logout:'customer/member/logout', //退出当前登录
 	login:'customer/member/login', //登录接口
 	register:'customer/member/register',  //用户注册
 	changepwd:'customer/member/changepwd',  //密码重置
@@ -21,6 +22,8 @@ var URL = {
 	getincomelist:'customer/member/getincomelist',  //充值列表
 	getoutlaylist:'customer/member/getoutlaylist',  //提现列表
 	getmemberaccountlist:'customer/member/getmemberaccountlist',  //我的账户列表
+	delapplicationaccount:'customer/member/delapplicationaccount',  //客户删除账号
+	addapplicationaccount:'customer/member/addapplicationaccount',  //客户新增账号
 	get_checkcode:'sendCheckCode.php',
 	get_msglist:'message.php',
 	jubao:'jubao.php',
@@ -193,13 +196,65 @@ function uniPut(url , pars , success , error){
 			token = _u['token'];
 		}
 	}
-	uni.request({url:_url,method:"GET",
+	uni.request({url:_url,method:"PUT",
 		header:{
-			"content-type":"application/json",
+			"Content-Type": "application/x-www-form-urlencoded",
 			'token': token,
 			},
 		dataType:"json",
 		data:pars,
+		success: res =>{
+			// console.log("====res: " + JSON.stringify(res));
+			var data = res.data;
+			if(data.status == 200) {
+				console.log("request ok");
+				success(data.body);
+			}else{
+				if(error)error(data['msg'] || '服务器返回错误');
+			}
+		},
+		fail: (data, code) => {
+			var err = '请求网络失败' + JSON.stringify(data);
+			console.log("post error: " + err)
+			if(error){error(err);}
+		}
+});
+}
+/**delete
+ * type:请求类型
+ * url:地址
+ * pars:参数
+ * success:成功回调
+ * error:失败回调
+ */
+function uniDelete(url , pars , success , error){
+	uni.getNetworkType({
+		success: (res) => {
+			console.log("---netType: " + JSON.stringify(res));
+			// if(res.networkType == 'none')uni.showToast({title:'无法连接网络' , icon:"none"});
+		}
+	});
+
+	var _url = URL.base + url;
+	var token,
+	userJsonStr = localStorage.getItem("loginuserinfo");
+	if(userJsonStr){
+		var _u = JSON.parse(userJsonStr).data;
+		if(_u && _u['token']){
+			token = _u['token'];
+		}
+	}
+	console.log("parsparspars",pars)
+	uni.request({
+		url:_url,
+		method:"DELETE",
+		data:pars,
+		header:{
+			"content-type":"application/json",
+			'token': token,
+			},
+		//dataType:"json",
+		//pars,
 		success: res =>{
 			// console.log("====res: " + JSON.stringify(res));
 			var data = res.data;
@@ -254,6 +309,7 @@ module.exports = {
 	post:uniPost,
 	get:uniGet,
 	put:uniPut,
+	delete:uniDelete,
 	url:URL,
 	uploadfile:uniUploadFile,
 	postType:getItemCategory

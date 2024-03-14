@@ -115,7 +115,7 @@ console.log(	this.form)
 			},
       onSkip(){
           uni.navigateTo({
-						url:'/pages/trade/my-account'
+						url:'/pages/trade/my-account?tag='+'trade'
 					})
       }
 			

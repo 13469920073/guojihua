@@ -5,8 +5,10 @@
 //用户ID
 function getLoginUid(){
 	var u = getUserInfo();
+	console.log("判断是否登录====》》》》",u)
 	if(!u){return ;}
-	return u['user_id'];
+	return u['token'];
+	//return u['user_id'];
 }
 
 //是否登录
@@ -21,6 +23,7 @@ function userHasLogined(){
 
 function getUserInfo(){
 	var s = uni.getStorageSync('loginuserinfo');
+	console.log("获取登录信息==》》》===",s)
 	return s;
 }
 
