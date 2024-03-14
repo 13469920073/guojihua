@@ -130,6 +130,14 @@
 	  }
 	},
 	{
+	  "path": "pages/trade/bindcard",
+	  "style": {
+	    "enablePullDownRefresh": true,
+		"navigationBarTitleText": "新增账户",
+		"navigationBarTextStyle": "blank"
+	  }
+	},
+	{
 	  "path": "pages/contract/kline",
 	  "style": {
 	    "enablePullDownRefresh": true,
@@ -173,6 +181,24 @@
 	    "navigationBarTitleText": "协议及隐私声明",
 	    "navigationBarTextStyle": "blank"
 	  }
+	  
+	},
+	{
+	  "path": "pages/me/msgcenter",
+	  "style": {
+	    "enablePullDownRefresh": true,
+	    "navigationBarTitleText": "消息中心",
+	    "navigationBarTextStyle": "blank"
+	  }
+	},
+	{
+	  "path": "pages/me/setter",
+	  "style": {
+	    "enablePullDownRefresh": true,
+	    "navigationBarTitleText": "设置",
+	    "navigationBarTextStyle": "blank"
+	  }
+	  
 	}
 
     
@@ -185,7 +211,7 @@
     "list": [
       {
         "pagePath": "pages/home/index",
-        "iconPath": "/static/tab/shouye@2x.png",
+        "iconPath": "/static/tab/shouye.png",
         "selectedIconPath": "/static/tab/souye_selected.png",
         "text": "首页"
       },
@@ -213,7 +239,7 @@
       {
         "pagePath": "pages/me/me",
         "iconPath": "static/tab/wode.png",
-        "selectedIconPath": "static/tab/tab_icon_me_selected@2x.png",
+        "selectedIconPath": "static/tab/wode_selected.png",
         "text": "个人中心"
       }
     ]

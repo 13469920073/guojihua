@@ -102,6 +102,7 @@
 					mask: true
 				});
 				api.post(url, d, res =>{
+					uni.hideLoading();
 					console.log("获取成功》》》》》: " + JSON.stringify(res));
 		
 				} ,error =>{

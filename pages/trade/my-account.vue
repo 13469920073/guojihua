@@ -3,13 +3,13 @@
     <view class="content_box" v-for="(item,index) in list" :key="index" @click="onpush(item)">
       <view class="box1">
 	  {{item.title}}&nbsp&nbsp{{item.examine}}
-	  <text style="color: red;">{{i18n.删除}}</text>
+	  <text style="color: red;" v-if="obj.tag == 'me'" v-on:click="handleDel(item)">{{i18n.删除}}</text>
 	  </view>
       <view class="box2">{{i18n.账户名称}} ：{{item.name}}</view>
       <view class="box3">{{i18n.账户地址}} ：{{item.address}}</view>
     </view>
        
-<view style="padding: 20px;">
+<view style="padding: 20px;" v-if="obj.tag == 'me'">
 			<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="add">{{i18n.添加账户}}</button>	
 		</view>
 	</view>
@@ -30,6 +30,7 @@
 		data() {
 			return {
 				navIndex:'0',
+				obj:{},
 				pageNum:1,
 				pageSize:20,
 				isCheck:false,
@@ -47,7 +48,9 @@
 			      return this.$t('wallet')
 			    },	
 		},
-		onLoad() {
+		onLoad(opt) {
+			console.log("obj: ",opt);
+			this.obj = opt
 		    this.getDataList();
 		  },
 		methods: {
@@ -71,15 +74,43 @@
 					})
 				})
 			},
-			//添加账户
-			add(){
-				console.log("======")
+			//删除账号
+			handleDel(row){
+				uni.showModal({
+				    title: '提示',
+				    content: '是否确定删除？',
+				    success: res => {
+				        if (res.confirm) {
+				api.delete(api.url.delapplicationaccount ,{id:1}, res =>{
+					console.log("删除成功: " ,res);
+					uni.showToast({
+						title:'删除成功!',
+						success:function(res){
+							this.getDataList();
+							console.log("删除成功")
+							//setTimeout(function(){
+								//uni.navigateBack()
+							//} , 500);
+						}
+					})
+					})
+				}
+			
+				}
+				})
 			},
       onpush(item){
+		 if(this.obj.tag == 'me'){return false}
         	uni.navigateTo({
 						url:'/pages/trade/withdraw?obj='+encodeURIComponent(JSON.stringify(item))
 					})
-      }
+      },
+	  //添加账户
+	  add(){
+	  	uni.navigateTo({
+	  				url:'/pages/trade/bindcard'
+	  			})
+	  },
 	
 			
 		}

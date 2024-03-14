@@ -5,21 +5,21 @@
 				<input type="number"" :placeholder="i18n.邀请码" maxlength="11" v-model="inviteCode"/>
 				<view class="uni-reguster-input">
 				<input type="number" v-if="loginWay==0" :placeholder="i18n.请输入手机号" maxlength="11" v-model="phonenumber"/>
-				<input type="number" v-if="loginWay==1" :placeholder="i18n.请输入邮箱" maxlength="11" v-model="email"/>
+				<input type="text" v-if="loginWay==1" :placeholder="i18n.请输入邮箱" v-model="email"/>
 				<view class="uni-iphone-right">
 					<view class="switch-l" :class="loginWay==0?'activite':''" @click="checkIndex(0)">{{i18n.手机}}</view>
 					<view class="switch-l" :class="loginWay==1?'activite':''" @click="checkIndex(1)">{{i18n.邮箱}}</view>
 				</view>
 				</view>
-				<view class="uni-reguster-input">
+				<!-- <view class="uni-reguster-input">
 				<input type="text"  :placeholder="i18n.请输入验证码" v-model="pwd" style="margin-top: 6px;"/>
 				<text class="uni-abs-right">{{i18n.获取验证码}}</text>
-				</view>
+				</view> -->
 				<input type="text"  :placeholder="i18n.设置密码" v-model="passWord" style="margin-top: 6px;"/>
 				<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="register">{{i18n.注册}}</button>	
 			</view>
 			<view style="display: flex;">
-				<view class="login-btn" v-on:click="register">
+				<view class="login-btn">
 					{{i18n.我已阅读并同意}}<text style="color: #f66;">{{i18n.服务协议}}</text>
 				</view>
 			</view>
@@ -35,7 +35,7 @@
 		data(){
 			return {
 				loginWay:0,
-				inviteCode:'', //邀请码
+				inviteCode:'486307', //邀请码
 				phonenumber:'', //手机号
 				email:'', //邮箱
 				passWord:'', //密码
@@ -55,43 +55,64 @@
 			},
 			register(){
 				var phone = this.phonenumber;
+				var email = this.email
 				var pwd = this.passWord;
 				var type = this.loginWay;
 				var code = this.inviteCode
-				if(phone.length != 11){
+				var param={
+					   "inviteCode": code,
+					   "loginAccount": "",
+					   "passWord":pwd,
+					   "phonenumber": ""
+				}
+				if(!code){
 					uni.showToast({
-						title:"请输入正确的手机号",
+						title:this.i18n.请输入邀请码,
+						icon:"none"
+					});return;
+				}
+				if(type == 0){
+					if(phone.length != 11){
+						uni.showToast({
+							title:this.i18n.请输入正确的手机号,
+							icon:"none"
+						});return;
+					}
+					// /^1[0-9]{10}$/
+					// /^1(3|4|5|7|8)\d{9}$/
+					if(!(/^1[0-9]{10}$/.test(phone))){ 
+						uni.showToast({
+							title:this.i18n.请输入正确的手机号,
+							icon:"none"
+						}); return; 
+					} 
+					param.phonenumber = phone;
+					param.loginAccount = phone;
+						
+				}else{
+					if(!(/^(.+)@(.+)$/.test(email))){
+						uni.showToast({
+							title:this.i18n.请输入正确的邮箱,
+							icon:"none"
+						}); return; 
+					} 
+					param.email = email
+					param.loginAccount = email;
+				}
+				if(!pwd){
+					uni.showToast({
+						title:this.i18n.请输入密码,
 						icon:"none"
 					});return;
 				}
 				
-				if(pwd.length < 6){
-					uni.showToast({
-						title:"请输入正确的密码",
-						icon:"none"
-					});return;
-				}
-				// /^1[0-9]{10}$/
-				// /^1(3|4|5|7|8)\d{9}$/
-				if(!(/^1[0-9]{10}$/.test(phone))){ 
-					uni.showToast({
-						title:"请输入正确的手机号",
-						icon:"none"
-					}); return; 
-				} 
 				
-				var d = {
-					'phonenumber':phone ,
-					 'passWord':pwd,
-					 'loginWay':type,
-					 'inviteCode':code,
-					 };
 				uni.showLoading({
 					title: '注册中',
 					mask: true
 				});
 				
-				api.post(api.url.register , d , res =>{
+				api.post(api.url.register , param , res =>{
 					// console.log("注册成功 " + JSON.stringify(res));
 					uni.hideLoading();
          
@@ -111,11 +132,7 @@
 					})
 				})
 			},
-			register(){
-				uni.navigateTo({
-					url:"register"
-				})
-			},
+		
 			findPassword(){
 				
 			}

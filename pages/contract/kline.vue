@@ -121,6 +121,7 @@
 			    },	
 		},
 		onLoad() {
+		
 					// console.log(777777);
 				},
 				components: {
@@ -150,6 +151,13 @@
 			togglePopup(){
 				this.showPopup = false
 			},
+			// calcContentHeight() {
+			//       const headerHeight = this.$refs.header.offsetHeight
+			// 	  console.log("headerHeight",headerHeight)
+			//       const footerHeight = this.$refs.footer.offsetHeight
+			//       const contentHeight = window.innerHeight - headerHeight - footerHeight
+			//       this.$refs.content.style.height = contentHeight + 'px'
+			//     },
 			//杆杠
 			handleInput(event) {
 							const value = parseInt(event.target.value);
@@ -237,7 +245,7 @@
 		  },
 		  tooltip: {
 			trigger: 'axis',
-			triggerOn:'click',
+			// triggerOn:'click',
 			 confine: true, 
 			axisPointer: {
 			  type: 'cross'
@@ -270,7 +278,7 @@
 		  },
 		  tooltip: {
 			trigger: 'axis',
-			triggerOn:'click',
+			//triggerOn:'click',
 			 confine: true, 
 			 backgroundColor: 'rgba(0, 0, 0, 0.5)',
 			 textStyle: {
@@ -362,20 +370,25 @@
 		  ],
 		  dataZoom: [
 			{
-			  type: 'inside',
 			  show:false,
+			  type: 'inside',
+			  moveOnMouseWheel:false,
+			  preventDefaultMouseMove:false,
 			  xAxisIndex: [0, 1],
 			  start: 98,
-			  end: 100
+			  end: 100,
+			  zoomLock: false
 			},
 			{
-			  show: true,
+			  show: false,
+			  moveOnMouseWheel:false,
+			  preventDefaultMouseMove:false,
 			  xAxisIndex: [0, 1],
 			  type: 'slider',
 			  top: '85%',
-			  show:false,
 			  start: 98,
-			  end: 100
+			  end: 100,
+			  zoomLock: false
 			}
 		  ],
 		  series: [
@@ -390,7 +403,7 @@
 				borderColor0: undefined
 			  },
 			  tooltip: {
-				  triggerOn:'click',
+				//  triggerOn:'click',
 				   confine: true, 
 				// backgroundColor: 'rgba(0, 0, 0, 0.3)',
 				formatter: function (param) {
@@ -435,7 +448,7 @@
 				  }
 				],
 				tooltip: {
-					triggerOn:'click',
+				//	triggerOn:'click',
 					 confine: true, 
 					// backgroundColor: 'rgba(0, 0, 0, 0.3)',
 				  formatter: function (param) {
@@ -580,6 +593,7 @@
 
 	.content {
 		/* background: #008000; */
+		width: 100%;
 		height: 100%;
 	}
 	.viewimg {

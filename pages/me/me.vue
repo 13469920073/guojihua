@@ -1,15 +1,15 @@
 <template>
 	<view class="content">
 		<view style="padding: 10px;padding-top: 25px;">
-			<view v-if="!isLogined"  v-on:click="login" style="display: flex; align-items: center;">
+			<view v-if="isLogined"  v-on:click="login" style="display: flex; align-items: center;">
 				<view style="width: 100%;align-items: center;display: flex;padding: 5px 0;">
 					<image src="../../static/images/default_sdk_login@2x.png" style="width: 60px; height: 60px;"  ></image>
-					<text style="font-size: 15px; color: #888;margin-left: 15px;">请前往登录</text>
+					<text style="font-size: 15px; color: #888;margin-left: 15px;">{{userName}}</text>
 				</view>
 			
 				<image src="../../static/images/arrow_icon@2x.png" style="width: 20px;height: 20px;flex-shrink: 0;margin-right: 5px;"></image>
 			</view>
-			<view v-else>
+		<!-- 	<view v-else>
 				<view @click="xiugaiInfo" style="display: flex;align-items: center;padding-bottom: 0px;">
 					<view style="margin-left: 10px;width: 100%;">
 						<view style="font-size: 20px;">{{userInfo.name || userInfo.nickName}}</view> 
@@ -33,17 +33,17 @@
 						</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		<view style="margin-top: 5px;">
 			<uni-list >
 				<uni-list-item @click='listSelected(1)' :title="i18n.持仓记录" thumb="../../static/images/me/me_list_icon1.png" />
 				<uni-list-item @click='listSelected(2)' :title="i18n.账单明细" thumb="../../static/images/me/me_list_icon2.png" />
-				<uni-list-item  @click='listSelected(3)' :title="i18n.实名认证" thumb="../../static/images/me/me_list_icon3.png" />
+				<uni-list-item  @click='listSelected(3)' :title="i18n.实名认证" thumb="../../static/images/me/me_list_icon3.png" :showBadge="showCache" :badgeText="cacheSize" />
 				<uni-list-item  @click='listSelected(4)' :title="i18n.我的账户" thumb="../../static/images/me/me_list_icon4.png" />
 				<uni-list-item  @click='listSelected(5)' :title="i18n.消息中心" thumb="../../static/images/me/me_list_icon5.png" />
 				<uni-list-item  @click='listSelected(6)' :title="i18n.协议及隐私声明" thumb="../../static/images/me/me_list_icon6.png" />
-				<uni-list-item  @click='listSelected(7)' :title="i18n.版本号" thumb="../../static/images/me/me_list_icon7.png" />
+				<uni-list-item  @click='listSelected(7)' :title="i18n.版本号" thumb="../../static/images/me/me_list_icon7.png" :showBadge="showCache" :badgeText="version" />
 			</uni-list>
 		</view>
 	</view>
@@ -62,7 +62,11 @@
 		},
 		data(){
 			return {
+				userName:"NO.48312",
 				isLogined:false,
+				showCache:true,
+				cacheSize:'未认证',
+				version:'1.0.0',
 				userInfo:{},
 				avatar:''
 			}
@@ -73,7 +77,9 @@
 			});
 		},
 		onLoad() {
+			console.log("判断是否登录1111",USER)
 			uni.$on('userloginsuccess' , res => {
+				console.log("判断是否登录222")
 				this.loginSuccess();
 			})
 			uni.$on('xiugaiuserinfosuccess',res => {
@@ -102,11 +108,15 @@
 				});
           break;
 		  case 4:uni.navigateTo({
-		  			url:'/pages/trade/my-account'
+		  			url:'/pages/trade/my-account?tag='+'me'
+		  		});
+		  break;
+		  case 5:uni.navigateTo({
+		  			url:'msgcenter'
 		  		});
 		  break;
 		  case 6:uni.navigateTo({
-		            	url:'announcement'
+		            	url:'announcement',
 		            });
 		break;
 					default:
@@ -115,12 +125,15 @@
 			},
 			login(){
 				uni.navigateTo({
-					url:'/pages/login/login'
+					// url:'/pages/login/login'
+					url:'/pages/me/setter'
 				})
 			},
 			loginSuccess(){
 				this.isLogined = USER.isLogined();//判断是否登录
+				console.log("判断是否登录3333", this.isLogined)
 				this.userInfo = USER.userInfo();//获取登录信息
+				console.log("获取登录信息",this.userInfo)
 				this.avatar = this.userInfo['avatar_thumb'] || '../../static/images/default_avatar.png';
 				// console.log("user: " + JSON.stringify(this.userInfo));
 			},
@@ -131,7 +144,7 @@
 			getUserProfile(){
 				var uinfo = {"uid":USER.uid(), "type":"3"};
 				api.post(api.url.update_profile , uinfo , res =>{
-					// console.log(JSON.stringify(res));
+					console.log("获取登录信息",JSON.stringify(res));
 					uni.setStorageSync('loginuserinfo' ,res);
 					this.loginSuccess();
 					
