@@ -24,22 +24,17 @@
 			<view style="width: 100%;" v-on:click="openDetailPage(value)">
 				<view  style="display: flex;" >
 					<view class="grid-item-left" >
-						<p class="text-ind-1">
-							<span class="text-xmd">{{value.currency}}</span>
-							<span class="text-gray">/USDT</span>
-						</p>
+					  {{formattedDate(value.createTime)}}
 					</view>
 					<view class="grid-item-right" style="color: #333;">
-						60421.1000{{value.currency}}
+						{{value.fee}}
 					</view>
 					<view class="grid-item-right">
-						+6.45% {{value.currency}}
+						{{statusArr[value.status]}}
 					</view>
 				</view>
-		
 			</view>
 		</view><!-- cell -->
-
 </view>
 </view>
 </template>
@@ -73,29 +68,14 @@
 		data(){
 			return{
 				itemType:[],
-				// items:[{
-				// 	currency:'BTC'
-				// },{
-				// 	currency:'ETH'
-				// },{
-				// 	currency:'EOS'
-				// },{
-				// 	currency:'HBC'
-				// },{
-				// 	currency:'LTC'
-				// },{
-				// 	currency:'XRP'
-				// },{
-				// 	currency:'BCH'
-				// },{
-				// 	currency:'ADA'
-				// },{
-				// 	currency:'TRX'
-				// },{
-				// 	currency:'RNB'
-				// }],
 				pageNumber:1,
 				noMore:0,
+				statusArr:{
+					'1':'出金',
+					'2':'入金',
+					'3':'建仓',
+					'4':'平仓',
+				},
 				comType:'default'
 				}
 		},
@@ -119,6 +99,10 @@
 			//this.loadData();
 		},
 		methods: {
+			formattedDate(time){
+				var newTime = time.substring(0, 16);
+				return newTime.replace('T', ' ');
+			},
 			loadData(){
 				var data = {"category":"sy" ,"subType":this.type ,'pageNumber':this.pageNumber};
 				if(this.type == '14' || this.type == '15' || this.type == '16' || this.type == '17'){
@@ -265,7 +249,7 @@
 }
 .uni-list-cell{
 	padding: 10px;
-	color: #333;
+	color: #333 !important;
 }
 .uni-list-cell:after{
 	left: 0;
@@ -285,7 +269,7 @@
 .grid-item-left , .grid-item-right{
 	margin-top: 0px;
 	//border-width: 1px;
-	color: #9a9a9a;
+	/* color: #9a9a9a; */
 	/* border-bottom-width: 0;
 	border-right-width: 0;
 	border-style: solid; */
@@ -293,7 +277,7 @@
 	border-color: #E5E5E5;
 	border-radius: 0px; */
 	font-size: 15px;
-	width: 50%;
+	/* width: 50%; */
 }
 .text-xmd{
 	font-size:18px;
@@ -302,6 +286,12 @@
 .text-gray{
 	font-size:12px;
 	color: #9a9a9a;
+}
+.grid-item-left{
+	width: 40%;
+}
+.grid-item-right{
+	width: 30%;
 }
 /* .grid-item-left {
 	border-left-width: 0;

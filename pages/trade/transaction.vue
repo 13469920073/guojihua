@@ -22,21 +22,20 @@
 			</view>
 		</view>
 		</view>
-		 <view v-if="items.length" style="margin-top: 90px;">
+		<view v-if="items.length" style="margin-top: 90px;">
 		<view class="uni-list-cell"  hover-class="uni-list-cell-hover" v-for="(value ,key) in items" :key="key" style="flex-direction: column;align-items: flex-start;">
 			<view style="width: 100%;" v-on:click="openDetailPage(value)">
 				<view class="flex"  style="justify-content: space-between" >
 					<view class="grid-item-left" >
 						<p class="text-ind-1">
-							<span class="text-xmd">{{formattedDate(value.createTime)}}</span>
-							<!-- <span class="text-gray">/USDT</span> -->
+							<span class="text-xmd">{{formattedDate(value.time)}}</span>
 						</p>
 					</view>
 					<view class="grid-item-right" style="color: #333;">
-						{{value.outlayNum}}
+						{{value.amount}}
 					</view>
 					<view class="grid-item-right">
-						{{value.status == '1'?'平仓':'建仓'}}
+						{{value.status}}
 					</view>
 				</view>
 		
@@ -64,7 +63,11 @@
 				pageNum:1,
 				pageSize:10,
 				totalPages:null, //总页数
-				items:[]
+				items:[],
+				statusArr1:{
+					'1':'建仓',
+					'2':'平仓'
+				},
 			}
 		},
 		computed: {
@@ -107,7 +110,7 @@
 			getDataList(i){
 				var url = ''
 				if(i == 0){
-					url = api.url.gettradelist
+					url = api.url.gettradelist //交易
 				}else if(i == 1){
 					url = api.url.getincomelist  //入金
 				}else if(i == 2){
@@ -124,10 +127,39 @@
 				api.post(url, d, res =>{
 					uni.hideLoading();
 					if(this.pageNum === 1){
-					    this.totalPages =res.data.totalPage; // 更新总页数
+					    this.totalPages = res.data.totalPage; // 更新总页数
 					    this.items = []; // 清空之前的数据
 					}
-					const newData = res.data.result || []; // 从返回结果中提取数据部分
+					let arr=[];
+					
+					res.data.result.forEach(item => {
+						//交易
+						if(i == 0){
+							arr.push({
+							    time: item.createTime,
+							    amount: item.tradePrice,
+							    status: item.status == "1" ?"建仓":"平仓",	
+							})
+						}else if(i == 1){
+							arr.push({
+							    time: item.createTime,
+							    amount: item.incomeNum,
+							    status: item.status == "2"?"待审核":(item.status == "3"?"通过":"不通过"),	
+							})
+						}else if(i == 2){
+							arr.push({
+							    time: item.createTime,
+							    amount: item.outlayNum,
+							    status: item.status == "2"?"审核中":(item.status == "3"?"成功":"失败"),
+							})
+						}
+						
+					   
+					   // arr1.push(obj);
+					});
+					
+					
+					const newData = arr || []; // 从返回结果中提取数据部分
 					this.items = [...this.items, ...newData]; // 将新数据追加到已有数据的尾部
 					      
 					++this.pageNum; // 更新当前页数
@@ -241,5 +273,10 @@
 	.img_title{
 	  text-align: center;
 	  margin-top: 30%;
+	  position:absolute;
+	  top:50%; 
+	  left:50%;
+	  margin-top:-100px;
+	  margin-left:-100px;
 	}
 </style>

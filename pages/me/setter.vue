@@ -8,7 +8,7 @@
 				<!-- <uni-list-item  @click='listSelected(2)' title="清空缓存" :showBadge="showCache" :badgeText="cacheSize"/> -->
 				<uni-list-item  @click='listSelected(3)' title="登录账号" />
 				<uni-list-item  @click='listSelected(4)' title="用户昵称" />
-				<uni-list-item  @click='listSelected(5)' title="关于我们" />
+				<uni-list-item  @click='listSelected(5)' title="修改密码" />
 			</uni-list>
 		</view>
 		
@@ -49,28 +49,30 @@
 			listSelected (i) {
 				switch (i){
 					case 2://清除缓存
-					uni.showModal({
-					    title: '提示',
-					    content: '此操作会删除本地缓存信息,确定清除?',
-					    success: res => {
-					        if (res.confirm) {
-								// uni.showLoading({
-								// 	title:'清除缓存'
-								// });
-								// plus.cache.clear(() => {
-								// 	this.cacheSize = '0.0M';
-								// 	uni.hideLoading();
+					// uni.showModal({
+					//     title: '提示',
+					//     content: '此操作会删除本地缓存信息,确定清除?',
+					//     success: res => {
+					//         if (res.confirm) {
+					// 			// uni.showLoading({
+					// 			// 	title:'清除缓存'
+					// 			// });
+					// 			// plus.cache.clear(() => {
+					// 			// 	this.cacheSize = '0.0M';
+					// 			// 	uni.hideLoading();
 									
-								// });
-					        } else if (res.cancel) {
-					            console.log('取消');
-					        }
-					    }
+					// 			// });
+					//         } else if (res.cancel) {
+					//             console.log('取消');
+					//         }
+					//     }
+					// });
+					break;
+					case 5:
+					uni.navigateTo({
+						url:'about-us'
 					});
 					break;
-					case 4:uni.navigateTo({
-						url:'about-us'
-					});break;
 					default:break;
 				}
 			},

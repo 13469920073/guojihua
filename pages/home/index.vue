@@ -10,6 +10,7 @@
 				</swiper-item>
 			</swiper>
 		</uni-swiper-dot>
+		<uni-scroll-notice :items="noticeList" />
 		<uni-grid-list :options="itemType" :show-border="false" :items="dataTopList"  :column-num="4"  @click="onClick"/>
 		<home-money-list @loadingStatus="loadingStatus" ref="homeList" :items="dataList" />
 		<!-- <home-list @loadingStatus="loadingStatus" ref="homeList" />-->
@@ -23,6 +24,7 @@
 	import uniSwiperDot from '@/components/uni-swiper-dot/uni-swiper-dot.vue';
     import uniGrid from '@/components/uni-grid/uni-grid.vue';
 	import uniGridList from '@/components/uni-grid-list/uni-grid-list.vue';
+	import uniScrollNotice from '@/components/uni-scroll-notice/uni-scroll-notice.vue';
 	import homeMoneyList from '@/components/home-money-list.vue';
 	import homeList from '@/components/home-list.vue';
 	var baseData = require("@/common/p/base-data.js");
@@ -35,7 +37,8 @@
 			uniGridList,
 			homeList,
 			homeMoneyList,
-			uniLoadMore
+			uniLoadMore,
+			uniScrollNotice
 		},
 		data() {
 			return {
@@ -43,7 +46,7 @@
 					{url: "../../static/images/home/home_top_banner1.png"},
 					{url: '../../static/images/home/home_top_banner2.png'},
 					{url: '../../static/images/home/home_top_banner3.png'}],
-
+                noticeList:[],
 				current: 0,
 				mode: 'default',
 				dotsStyles: {						
@@ -72,6 +75,7 @@
 			// 	// e['image'] = '../../static/images/' + ig;
 			// });
 			this.getData()
+			this.getNotice()
 			// this.itemType = _topItems;
 		},
 		onShow() {
@@ -100,6 +104,7 @@
 			     // 模拟请求数据的过程
 			     setTimeout(() => {
 				  this.getData()
+				  //this.getNotice()
 			     }, 1000);
 			   },
 			   startTimer() {
@@ -109,6 +114,17 @@
 			     if (this.intervalId) {
 			       clearInterval(this.intervalId);
 			     }
+			   },
+			   //获取公示栏
+			   getNotice(){
+				   var that = this;
+				   uni.request({
+				           url:"https://api.taurusen.site/api/home/home/getHomeHot",
+				           success(res){
+				   			const { notice } = res.data.data
+				   		    that.noticeList = notice
+				           },
+				       })
 			   },
 			getData(){
 				var that = this;

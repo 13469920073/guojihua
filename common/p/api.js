@@ -30,6 +30,8 @@ var URL = {
 	getmemberaccountlist:'customer/member/getmemberaccountlist',  //我的账户列表
 	delapplicationaccount:'customer/member/delapplicationaccount',  //客户删除账号
 	addapplicationaccount:'customer/member/addapplicationaccount',  //客户新增账号
+	// addapplicationaccount:'customer/member/addapplicationaccount',  //持仓中
+	// addapplicationaccount:'customer/member/addapplicationaccount',  //持仓已经完成
 	get_checkcode:'sendCheckCode.php',
 	get_msglist:'message.php',
 	jubao:'jubao.php',

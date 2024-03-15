@@ -9,6 +9,9 @@
 view{
 	font-size:28upx; 
 	line-height:1.8;
+	color: #333;
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
 }
 progress, checkbox-group{
 	width: 100%;

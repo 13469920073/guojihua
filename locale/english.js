@@ -95,11 +95,21 @@ module.exports = {
 		 "核对转账": "*Please check the transfer flow information carefully. After the verification, the recharge is successful.",
 		 "提交": "Confirm",
 		 "上一步": "Return",
-		 "请输入数量": "Please input amount"
+		 "请输入数量": "Please input amount",
+		 
 	},
 	personal:{
+		"买涨": "Buy",
+		"买跌": "Sell",
+		"开仓价": "Opening price",
+		"杠杆倍数": "Lever",
+		"数量": "Amount",
+		"平仓价": "Closing price",
+		"手续费": "Handling fee",
+		"盈亏": "Profit",
 		// "请前往登录": "Position record",
 		 "持仓记录": "Position record",
+		 "持仓": "Order",
 		 "账单明细": "Historical Bill",
 		 "实名认证": "Real Name Verification",
 		 "我的账户": "My account",

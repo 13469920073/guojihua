@@ -147,6 +147,7 @@
 }
 .grid-account-price{
 	font-size: 26px;
+	color: #fff;
 }
 .grid-account-wallet{
 	width: 100%;
@@ -183,6 +184,7 @@
 }
 .left-text, .right-text{
 	margin-left: 10px;
+	color: #fff;
 }
 /* .grid-item-left , .grid-item-right{
 	margin-top: 0px;
