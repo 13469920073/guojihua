@@ -196,6 +196,13 @@ var itemStatus = {
 	'1':'已通过',
 	'2':'未通过',
 };
+//动态审核状态
+var itemStatusArr = {
+	'0':'未认证',
+	'1':'审核中',
+	'2':'通过',
+	'3':'不通过'
+};
 
 function postSubType(t1,t2){
 	var s ='';
@@ -216,5 +223,6 @@ module.exports = {
 	itemStatus:itemStatus,
 	homeTopItems:homeTopItems,
 	homeTopListItems:homeTopListItems,
-	postSubType:postSubType
+	postSubType:postSubType,
+	itemStatusArr:itemStatusArr
 }

@@ -7,14 +7,21 @@
 				</h3>
 				<view class="grid-item-wrap flex" style="width: 100%;">
 					<view class="grid-item-left" :class="navIndex==k?'activite':''" v-for="(arr , k) in itemType" :key="k" v-on:click="publish(arr,k)">
-						{{arr.title}}
+						{{arr.type}}
 				    </view>
 				</view>
 				
 				<view class="table-from" style="">
-					<view class="flex">{{i18n.账户名称}}<text class="table-input"><input v-model="from.name"  /></text></view> 
-					<view class="flex">{{i18n.账户地址}}<text class="table-input"><input v-model="from.address"/></text></view> 
-					<view style="display: flex; align-items: center;margin-top: 10px;">
+					<view class="flex" style="width: 100%;margin: 10px 0;">
+					{{i18n.账户名称}}
+					<text class="table-input">
+						<input v-model="from.accountName" disabled class="uni-input"  /></text>
+					</view> 
+					<view class="flex" style="width: 100%;">{{i18n.账户地址}}
+					<text class="table-input">
+						<input v-model="from.address" disabled class="uni-input"/></text>
+					</view> 
+					<view style="display: flex; align-items: center;margin-top: 18px;">
 						<view style="margin-left: 5px;color: #f66;text-align: left;">{{i18n.注意}}</view> 
 					</view>
 				</view>
@@ -42,27 +49,27 @@
 				navIndex:'0',
 				isCheck:false,
 				itemType:[{
-					title:'USDT',
-					name:'USDT（trc-20）',
-					address:'11dcdicjdiijcnxisdlbcvldsu'
+					type:'USDT',
+					accountName:'USDT（TRC-20）',
+					address:'TJDduy6Mo8J6wVkb9c3v55js5hMva65e91'
 				},{
-					title:'USDT',
-					name:'',
-					address:'22dcdicjdiijcnxisdlbcvldsu'
+					type:'USDT',
+					accountName:'USDT（ERC-20）',
+					address:'0x695c7317a67d7dc7ac2df08f17edf28b22545c11'
 				},{
-					title:'USDT',
-					name:'',
-					address:'33dcdicjdiijcnxisdlbcvldsu'
+					type:'BTC',
+					accountName:'BTC',
+					address:'32zTcPmmv4EunXNhmQz27vWb4LzNTx4aaV'
 				},{
-					title:'BTC',
-					name:'',
-					address:'44dcdicjdiijcnxisdlbcvldsu'
-				},{
-					title:'ETH',
-					name:'',
-					address:''
+					type:'ETH',
+					accountName:'ETH（ERC-20）',
+					address:'0x695c7317a67d7dc7ac2df08f17edf28b22545c11'
 				}],
-				from:{}
+				from:{
+					accountName:'USDT（TRC-20）', //账户名称
+					address:'TJDduy6Mo8J6wVkb9c3v55js5hMva65e91', //账户地址
+					type:'USDT', //货币
+				}
 			}
 		},
 		computed: {
@@ -151,7 +158,7 @@
 	border-right-width: 0; */
 	/* border-style: solid; */
 	border: 1px solid #ccc;
-	 padding: 0 10px;
+	 padding: 0 16px;
 	/* border-color: #E5E5E5; */
 	border-radius: 6px;
 	font-size: 14px;
@@ -173,6 +180,11 @@
 .table-input{
 	margin-left: 10px;
 	font-size: 14px;
+	flex: 1;
+}
+.uni-input{
+	margin-left: 10px;
+	text-align: left;
 }
 .activite{
 	border-color: #0080ff;

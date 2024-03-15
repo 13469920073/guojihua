@@ -32,6 +32,12 @@ form {
 .bg-red{
 	background: #f66;
 }
+.text-red {
+    color: #f66 !important;
+}
+.text-green{
+	color: #3c3 !important;
+}
 .uni-flex {
 	display: flex;
 	flex-direction: row;

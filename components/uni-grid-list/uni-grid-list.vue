@@ -1,12 +1,11 @@
 <template>
 	<view :class="{'uni-grid-no-border':!showBorder,'uni-grid-no-out-border':showBorder && !showOutBorder}" class="uni-grid">
-		<view v-for="(items,i) in gridGroup" :key="i" class="uni-grid__flex">
+		<view class="uni-grid__flex">
 			<view v-for="(item,index) in items" :hover-start-time="20" :hover-stay-time="70" :key="index" :class="[index == columnNum ? 'uni-grid-item-last' : '','uni-grid-item-' + type]" :style="{visibility:item.seize ? 'hidden' : 'inherit'}" class="uni-grid-item" hover-class="uni-grid-item-hover" @click="onClick(i,index)">
-				<view v-if="!item.seize" class="uni-grid-item__content">
-					<!-- <image :src="item.image" class="uni-grid-item-image" /> -->
-					<text class="uni-grid-item-text">{{ item.text }}</text>
-					<h2 class="uni-grid-item-money colorGreen">{{ item.money }}</h2>
-					<text class="uni-grid-item-text colorGreen">{{ item.rate }}</text>
+				<view class="uni-grid-item__content">
+					<text class="uni-grid-item-text">{{ item.sname }}</text>
+					<h2 class="uni-grid-item-money" :class="item.increPer >0 ?'text-green': 'text-red'">{{ item.nowPri }}</h2>
+					<text class="uni-grid-item-text" :class="item.increPer >0 ?'text-green': 'text-red'">{{ item.increPer }}%</text>
 				</view>
 			</view>
 		</view>
@@ -22,6 +21,10 @@
 				default () {
 					return []
 				}
+			},
+			items: {
+			    type: Array,
+			    default: () => []
 			},
 			type: { // 布局格式，长方形oblong，正方形square
 				type: String,

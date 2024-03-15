@@ -1,6 +1,6 @@
 <template>
 <view>
-	<view class="uni-list">
+	<view class="uni-list" style="padding-bottom: 50px;">
 		<view class="uni-list-cell-title">
 			<span>{{i18n.最新账单}}</span>
 			<view class="uni-cell-title-more" @click="onClick()">{{i18n.更多}}</view>
@@ -30,10 +30,10 @@
 						</p>
 					</view>
 					<view class="grid-item-right" style="color: #333;">
-						60421.1000
+						60421.1000{{value.currency}}
 					</view>
 					<view class="grid-item-right">
-						+6.45% 
+						+6.45% {{value.currency}}
 					</view>
 				</view>
 		
@@ -64,32 +64,36 @@
 			type:{
 				type:String,
 				default:'0'
+			},
+			items: {
+			    type: Array,
+			    default: () => []
 			}
 		},
 		data(){
 			return{
 				itemType:[],
-				items:[{
-					currency:'BTC'
-				},{
-					currency:'ETH'
-				},{
-					currency:'EOS'
-				},{
-					currency:'HBC'
-				},{
-					currency:'LTC'
-				},{
-					currency:'XRP'
-				},{
-					currency:'BCH'
-				},{
-					currency:'ADA'
-				},{
-					currency:'TRX'
-				},{
-					currency:'RNB'
-				}],
+				// items:[{
+				// 	currency:'BTC'
+				// },{
+				// 	currency:'ETH'
+				// },{
+				// 	currency:'EOS'
+				// },{
+				// 	currency:'HBC'
+				// },{
+				// 	currency:'LTC'
+				// },{
+				// 	currency:'XRP'
+				// },{
+				// 	currency:'BCH'
+				// },{
+				// 	currency:'ADA'
+				// },{
+				// 	currency:'TRX'
+				// },{
+				// 	currency:'RNB'
+				// }],
 				pageNumber:1,
 				noMore:0,
 				comType:'default'

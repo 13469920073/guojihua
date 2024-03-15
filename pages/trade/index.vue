@@ -36,7 +36,7 @@
 				</view> -->
 			</view>
         </view>
-		<home-bill-list ref="homeList" @click="onClick" />
+		<home-bill-list ref="homeList" @click="onClick" :items="dataList" />
 		
 	</view>
 </template>
@@ -45,6 +45,7 @@
 	import homeBillList from '@/components/home-bill-list.vue';
 	
 	var itemType = require("@/common/p/base-data.js").itemType;
+	var api = require('@/common/p/api.js');
 	export default {
 		components:{
 			homeBillList
@@ -53,6 +54,9 @@
 		data() {
 			return {
 				itemType:itemType,
+				dataList:[],
+				pageNum:1,
+				pageSize:10,
 			}
 		},
 		computed: {
@@ -65,12 +69,24 @@
 			uni.setNavigationBarTitle({
 			    title: this.$t('tab').钱包
 			});
+			this.getData()
 		},
 		onLoad() {
 			
 			// console.log("itemType: " + JSON.stringify(itemType));
 		},
 		methods: {
+			getData(){
+				let param={
+					pageNum:this.pageNum,
+					pageSize:this.pageSize
+				}
+				api.post(api.url.getoperhistorylist ,param, res =>{
+					console.log("获取成功====》》》: " ,res);
+					this.dataList = res.data.result
+					
+					})
+			},
 			publish(item){
 				console.log("item: " + JSON.stringify(item));
 			},

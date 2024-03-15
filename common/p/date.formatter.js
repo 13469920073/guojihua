@@ -16,7 +16,17 @@ function dateFromTimestamp(time , isfull) {
 }
 
 function _formatter(m){return m<10?'0'+m:m }
-
+/**
+ * 格式化时间
+ */
+function formattedDate(time){
+	console.log(time)
+		let noT = time.replace(/T/, ' ');
+		  // 移除秒数和可能的"Z"
+		let noSeconds = noT.replace(/\.\d*Z?/, '');
+		let noColon = noSeconds.replace(/[:-]/g, '');
+		return noColon;
+}
 /**
  * 格式化时间的辅助类，将一个时间转换成x小时前、y天前等
  */
@@ -59,4 +69,9 @@ var dateUtils = {
 			return new Date(a[0], a[1] - 1, a[2], a[3], a[4], a[5]);
 		}
 	};
+	module.exports = {
+		dateFromTimestamp:dateFromTimestamp,
+		formattedDate:formattedDate,
+		dateUtils:dateUtils,
+	}
 		

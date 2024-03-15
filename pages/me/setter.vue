@@ -74,6 +74,7 @@
 					default:break;
 				}
 			},
+			//退出登录
 			logout:function(){
 				uni.showModal({
 				    title: '提示',

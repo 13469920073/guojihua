@@ -7,7 +7,7 @@
         "enablePullDownRefresh": true,
         "navigationBarTextStyle": "white",
         // "navigationBarBackgroundColor": "#ff4500",
-        "navigationBarBackgroundColor": "#0b60fa",
+        "navigationBarBackgroundColor": "#fff",
         "backgroundColor": "#F8F8F8",
         "app-plus": {
           "titleNView": {
