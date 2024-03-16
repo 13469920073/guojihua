@@ -79,7 +79,9 @@
 				// uni.setNavigationBarTitle({
 				//     title: this.$t('tab').合约
 				// });
-				
+				this.$emit('localeClick', {
+					locale: this._i18n.locale
+				})
 				console.log("===this._i18n===",this._i18n.locale)
 				// if(this._i18n.locale == ){
 					

@@ -47,32 +47,32 @@
 			return {}
 		},
 		computed: {
-			gridGroup() {
-				let group = []
-				let groupItem = []
-				this.options && this.options.forEach((item, index) => {
-					groupItem.push(item)
-					if (index % this.columnNum === this.columnNum - 1) {
-						group.push(groupItem)
-						groupItem = []
-					}
-				})
-				if (groupItem.length > 0) {
-					// if (this.columnNum > groupItem.length) {
-					// 	for (let i = 0, length = groupItem.length; i < this.columnNum - length; i++) {
-					// 		groupItem.push({
-					// 			seize: true
-					// 		})
-					// 	}
-					// }
-					group.push(groupItem)
-				}
-				groupItem = null
-				return group
-			}
+			// gridGroup() {
+			// 	let group = []
+			// 	let groupItem = []
+			// 	this.options && this.options.forEach((item, index) => {
+			// 		groupItem.push(item)
+			// 		if (index % this.columnNum === this.columnNum - 1) {
+			// 			group.push(groupItem)
+			// 			groupItem = []
+			// 		}
+			// 	})
+			// 	if (groupItem.length > 0) {
+			// 		// if (this.columnNum > groupItem.length) {
+			// 		// 	for (let i = 0, length = groupItem.length; i < this.columnNum - length; i++) {
+			// 		// 		groupItem.push({
+			// 		// 			seize: true
+			// 		// 		})
+			// 		// 	}
+			// 		// }
+			// 		group.push(groupItem)
+			// 	}
+			// 	groupItem = null
+			// 	return group
+			// }
 		},
 		mounted() {
-			this.columnNumber = this.gridGroup[0].length
+			//this.columnNumber = this.gridGroup[0].length
 		},
 		methods: {
 			onClick(index, num) {

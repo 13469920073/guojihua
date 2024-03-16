@@ -32,6 +32,10 @@
 		onHide() {
 		    this.stopTimer();
 		  },
+		  destroyed() {
+		  	 //关闭定时器
+		       this.stopTimer();
+		  },
 		 mounted() {
 		     // this.getDataList()
 		    },

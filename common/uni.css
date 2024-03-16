@@ -41,6 +41,9 @@ form {
 .text-green{
 	color: #3c3 !important;
 }
+.text-white{
+	color: #fff;
+}
 .uni-flex {
 	display: flex;
 	flex-direction: row;

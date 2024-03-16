@@ -8,7 +8,7 @@
 			<view class="switch-l" :class="loginWay==1?'activite':''" @click="checkIndex(1)">{{i18n.邮箱登录}}</view>
 		</view>
 		<view style="width: 100%; margin-top: 45px;">
-			<view style="padding: 20px;">
+			<view class="text-white" style="padding: 20px;">
 				<view class="uni-login-input flex" v-if="loginWay==0">
 				<input type="number" :placeholder="i18n.区号" maxlength="11" v-model="phone" style="width: 40px;"/>
 				<input type="number" :placeholder="i18n.请输入手机号" maxlength="11" v-model="phonenumber" style="width: 100%;"/>
@@ -180,6 +180,7 @@
 		margin: 0 14px;
 		    position: relative;
 			font-size: 16px;
+			color: #ccc;
 	}
 	.longin-head-nav{
 		width: 100%;
@@ -196,6 +197,7 @@
 		flex-wrap: nowrap;
 		align-items: center;
 		justify-content: flex-start;
+		color: #fff;
 	}
 	.login-btn{
 		color: #434343;

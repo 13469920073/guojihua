@@ -151,8 +151,12 @@
 					//this.logstatrttwo();
 				},
 				onHide() {
-					console.log("关闭页面")
+					//关闭定时器
 				    this.stopTimer();
+				  },
+				  destroyed() {
+					  //关闭定时器
+				       this.stopTimer();
 				  },
 		methods: {
 			fetchData() {

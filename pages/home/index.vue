@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<uni-select></uni-select>
+		<uni-select @localeClick="localeClick"></uni-select>
 		<uni-swiper-dot :info="swiperImages" :current="current" :mode="mode" :dots-styles="dotsStyles">
 			<swiper class="swiper-box" @change="change" autoplay="true" style="height: 180px;">
 				<swiper-item v-for="(item ,index) in swiperImages" :key="index">
@@ -74,11 +74,14 @@
 			// 	// var ig = e['image'];
 			// 	// e['image'] = '../../static/images/' + ig;
 			// });
+			let lang = this._i18n.locale
+			console.log("获取新4的语言",lang)
 			this.getData()
-			this.getNotice()
+			this.getNotice(lang)
 			// this.itemType = _topItems;
 		},
 		onShow() {
+			
 			// uni.setNavigationBarTitle({
 			//     title: this.$t('tab').合约
 			// });
@@ -98,8 +101,16 @@
 		onHide() {
 		    this.stopTimer();
 		  },
-		
+		destroyed() {
+			 //关闭定时器
+		     this.stopTimer();
+		},
+		 
 		methods: {
+			//切换
+			localeClick(lang){
+				this.getNotice(lang.locale)
+			},
 			fetchData() {
 			     // 模拟请求数据的过程
 			     setTimeout(() => {
@@ -116,10 +127,16 @@
 			     }
 			   },
 			   //获取公示栏
-			   getNotice(){
+			   getNotice(val){
+				   console.log("=valval==",val)
+				   let lang = val == 'china'?'zh-CN,zh;q=0.9':(val == 'japan'?'ja':'en')
+				   console.log("langlanglang",lang)
 				   var that = this;
 				   uni.request({
 				           url:"https://api.taurusen.site/api/home/home/getHomeHot",
+						   header:{
+						   	"Lang-Locale":lang,
+						   	},
 				           success(res){
 				   			const { notice } = res.data.data
 				   		    that.noticeList = notice
