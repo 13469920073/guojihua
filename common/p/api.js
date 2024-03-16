@@ -93,13 +93,16 @@ function uniPost(url, pars, success, error) {
 
   var _url = URL.base + url;
   var token;
+  var header={
+	   "content-type": "application/json",
+  }
   let userinfo = ''
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
   if (userJsonStr) {
     var _u = userJsonStr.data;
     if (_u && _u['token']) {
-      token = _u['token'];
+      header.token = _u['token'];
       //pars['token'] = token;
       // if(pars['z'] != 1){//1不需要当前uid , 获取他人
       // 	pars['uid'] = _u['user_id'];//UID和token一起为了验证用户合法性
@@ -109,10 +112,7 @@ function uniPost(url, pars, success, error) {
   }
   uni.request({
     url: _url, method: "POST",
-    header: {
-      "content-type": "application/json",
-      'token': token,
-    },
+    header: header,
     dataType: "json",
     data: pars,
     success: res => {
