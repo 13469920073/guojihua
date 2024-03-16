@@ -208,7 +208,7 @@
 			// 	url:'../home/detail?pid=' + pid + '&c=' + category + '&t=' + itemTitle
 			//})
 			 uni.navigateTo({
-				url:'../contract/kline?coinType=' + pid
+				url:'/pages/contract/kline?coinType=' + pid
 			})
 		}
 		}

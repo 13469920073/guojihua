@@ -1,5 +1,5 @@
 //设置白名单，白名单中的路径不进行拦截 (登录，首页，合约)
-const whiteList = ['/pages/login/login', '/pages/home/index', '/pages/contract/index','/','pages/contract/kline']
+const whiteList = ['/pages/login/login', '/pages/home/index', '/pages/contract/index','/','/pages/contract/kline']
 // 登录页面路径
 const loginPage = "/pages/login/login"
 
@@ -10,7 +10,9 @@ function hasPermission(url) {
   t = uni.getStorageSync('token')||''
   let token=t===''?t:JSON.parse(t)
   console.log(whiteList.indexOf(url) === -1 , !token)
-  if (whiteList.indexOf(url) === -1 && !token) {
+  const urls=url.split('?')[0]
+  console.log(urls)
+  if (whiteList.indexOf(urls) === -1 && !token) {
     return true
   }
   return false
