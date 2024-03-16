@@ -99,16 +99,8 @@ function uniPost(url, pars, success, error) {
   let userinfo = ''
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
-  if (userJsonStr) {
-    var _u = userJsonStr.data;
-    if (_u && _u['token']) {
-      header.token = _u['token'];
-      //pars['token'] = token;
-      // if(pars['z'] != 1){//1不需要当前uid , 获取他人
-      // 	pars['uid'] = _u['user_id'];//UID和token一起为了验证用户合法性
-      // }
-      // pars['z'] && delete pars.z;
-    }
+  if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
+      header.token = userJsonStr['token'];
   }
   uni.request({
     url: _url, method: "POST",
@@ -128,6 +120,8 @@ function uniPost(url, pars, success, error) {
           showCancel:false,
           success: function (res) {
               if (res.confirm) {
+                uni.removeStorageSync('loginuserinfo');
+                uni.removeStorageSync('token');
                 uni.navigateTo({
                   url: '/pages/login/login'
                 })
@@ -167,12 +161,9 @@ function uniGet(url, pars, success, error) {
   let userinfo = ''
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
-  if (userJsonStr) {
-    var _u = userJsonStr.data;
-    if (_u && _u['token']) {
-      token = _u['token'];
-    }
-  }
+  if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
+    header.token = userJsonStr['token'];
+}
   uni.request({
     url: _url, method: "GET",
     header: {
@@ -194,6 +185,8 @@ function uniGet(url, pars, success, error) {
           showCancel:false,
           success: function (res) {
               if (res.confirm) {
+                uni.removeStorageSync('loginuserinfo');
+                uni.removeStorageSync('token');
                 uni.navigateTo({
                   url: '/pages/login/login'
                 })
@@ -233,12 +226,9 @@ function uniPut(url, pars, success, error) {
   let userinfo = ''
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
-  if (userJsonStr) {
-    var _u = userJsonStr.data;
-    if (_u && _u['token']) {
-      token = _u['token'];
-    }
-  }
+  if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
+    header.token = userJsonStr['token'];
+}
   uni.request({
     url: _url, method: "PUT",
     header: {
@@ -260,6 +250,8 @@ function uniPut(url, pars, success, error) {
           showCancel:false,
           success: function (res) {
               if (res.confirm) {
+                uni.removeStorageSync('loginuserinfo');
+                uni.removeStorageSync('token');
                 uni.navigateTo({
                   url: '/pages/login/login'
                 })
@@ -298,12 +290,9 @@ function uniDelete(url, pars, success, error) {
   let userinfo = ''
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
-  if (userJsonStr) {
-    var _u = userJsonStr.data;
-    if (_u && _u['token']) {
-      token = _u['token'];
-    }
-  }
+  if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
+    header.token = userJsonStr['token'];
+}
   uni.request({
     url: `${_url}?id=${pars.id}`,
     method: "DELETE",
@@ -326,6 +315,8 @@ function uniDelete(url, pars, success, error) {
           showCancel:false,
           success: function (res) {
               if (res.confirm) {
+                uni.removeStorageSync('loginuserinfo');
+                uni.removeStorageSync('token');
                 uni.navigateTo({
                   url: '/pages/login/login'
                 })
@@ -360,12 +351,9 @@ function uniUploadFile(url, filePath, success, error) {
   let userinfo = ''
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
-  if (userJsonStr) {
-    var _u = userJsonStr.data;
-    if (_u && _u['token']) {
-      token = _u['token'];
-    }
-  }
+  if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
+    header.token = userJsonStr['token'];
+}
   //用户权限验证参数
   const formData = new FormData();
   formData.append('file', filePath);
@@ -399,6 +387,8 @@ function uniUploadFile(url, filePath, success, error) {
           showCancel:false,
           success: function (res) {
               if (res.confirm) {
+                uni.removeStorageSync('loginuserinfo');
+                uni.removeStorageSync('token');
                 uni.navigateTo({
                   url: '/pages/login/login'
                 })

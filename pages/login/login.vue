@@ -119,17 +119,19 @@
 				});
 				
 				api.post(api.url.login , param, res =>{
-					console.log("token>>>>>>: " ,res.data.token);
-					uni.hideLoading();
           uni.setStorageSync('token' ,JSON.stringify(res.data.token));
 					uni.setStorageSync('loginuserinfo',JSON.stringify(res.data));
+					console.log("token>>>>>>: " ,res.data.token);
+					uni.hideLoading();
 					uni.$emit('userloginsuccess');
 					uni.showToast({
 						title:'登录成功!',
 						success:function(res){
 							setTimeout(function(){
-								uni.navigateBack()
-							} , 500);
+                uni.switchTab({
+                  url:'/pages/home/index'
+                })
+ 							} , 500);
 						}
 					})
 	
