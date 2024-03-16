@@ -162,7 +162,7 @@ function uniGet(url, pars, success, error) {
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
   if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
-    header.token = userJsonStr['token'];
+    token = userJsonStr['token'];
 }
   uni.request({
     url: _url, method: "GET",
@@ -227,7 +227,7 @@ function uniPut(url, pars, success, error) {
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
   if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
-    header.token = userJsonStr['token'];
+    token = userJsonStr['token'];
 }
   uni.request({
     url: _url, method: "PUT",
@@ -291,7 +291,7 @@ function uniDelete(url, pars, success, error) {
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
   if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
-    header.token = userJsonStr['token'];
+    token = userJsonStr['token'];
 }
   uni.request({
     url: `${_url}?id=${pars.id}`,
@@ -352,7 +352,7 @@ function uniUploadFile(url, filePath, success, error) {
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
   if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
-    header.token = userJsonStr['token'];
+    token = userJsonStr['token'];
 }
   //用户权限验证参数
   const formData = new FormData();

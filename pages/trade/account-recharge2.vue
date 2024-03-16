@@ -123,11 +123,16 @@
 					
 				}
 				api.post(api.url.applicationrecharge ,this.from, res =>{
-					console.log("提交成功====》》》: " ,res);
-					// this.getDataList();
-					// uni.showToast({
-					// 	title:'删除成功!',
-					// })
+					uni.showToast({
+						title:'充值成功!',
+						success:function(res){
+							setTimeout(function(){
+								uni.switchTab({
+								  url:'/pages/trade/index'
+								})
+							} , 500);
+						}
+					})
 					})
 				console.log("===")
 			},

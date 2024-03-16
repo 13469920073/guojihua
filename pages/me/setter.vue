@@ -87,7 +87,9 @@
 								console.log("退出成功 " ,res.data.token);
 							uni.removeStorageSync('loginuserinfo');
 							uni.$emit('userloginsuccess');
-							uni.navigateBack();
+							uni.navigateTo({
+								 url:'/pages/login/login'
+							})
 							} ,error =>{
 								uni.hideLoading();
 								uni.showToast({
