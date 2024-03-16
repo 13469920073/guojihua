@@ -92,14 +92,15 @@ function uniPost(url , pars , success , error){
 	});
 
 	var _url = URL.base + url;
-	var token, 
+	var token;
   var header = {
 		"content-type":"application/json",
 	}
-	userJsonStr = uni.getStorageSync("loginuserinfo");
-  console.log(userJsonStr,'===============')
+  let userinfo =''
+	userinfo=uni.getStorageSync("loginuserinfo");
+  let userJsonStr=userinfo==''?userinfo:JSON.parse(userinfo)
 	if(userJsonStr){
-		var _u = JSON.parse(userJsonStr).data;
+		var _u = userJsonStr.data;
 		if(_u && _u['token']){
 			header.token = _u['token'];
 			//pars['token'] = token;
@@ -147,10 +148,12 @@ function uniGet(url , pars , success , error){
 	});
 
 	var _url = URL.base + url;
-	var token,
-	userJsonStr = uni.getStorageSync("loginuserinfo");
+	var token;
+  let userinfo =''
+	userinfo=uni.getStorageSync("loginuserinfo");
+  let userJsonStr=userinfo==''?userinfo:JSON.parse(userinfo)
 	if(userJsonStr){
-		var _u = JSON.parse(userJsonStr).data;
+		var _u = userJsonStr.data;
 		if(_u && _u['token']){
 			token = _u['token'];
 		}
@@ -196,10 +199,12 @@ function uniPut(url , pars , success , error){
 	});
 
 	var _url = URL.base + url;
-	var token,
-	userJsonStr = uni.getStorageSync("loginuserinfo");
+	var token;
+  let userinfo =''
+	userinfo=uni.getStorageSync("loginuserinfo");
+  let userJsonStr=userinfo==''?userinfo:JSON.parse(userinfo)
 	if(userJsonStr){
-		var _u = JSON.parse(userJsonStr).data;
+		var _u = userJsonStr.data;
 		if(_u && _u['token']){
 			token = _u['token'];
 		}
@@ -244,10 +249,12 @@ function uniDelete(url , pars , success , error){
 	});
 
 	var _url = URL.base + url;
-	var token,
-	userJsonStr = uni.getStorageSync("loginuserinfo");
+	var token;
+  let userinfo =''
+	userinfo=uni.getStorageSync("loginuserinfo");
+  let userJsonStr=userinfo==''?userinfo:JSON.parse(userinfo)
 	if(userJsonStr){
-		var _u = JSON.parse(userJsonStr).data;
+		var _u = userJsonStr.data;
 		if(_u && _u['token']){
 			token = _u['token'];
 		}
@@ -290,10 +297,12 @@ function uniUploadFile(url , filePath , success , error){
 	// var igs = files.map((value, index) => {
 	// 	return {name: "files[" + index + ']',uri: value}
 		//});
-		var token,
-		userJsonStr = localStorage.getItem("loginuserinfo");
+		var token;
+    let userinfo =''
+    userinfo=uni.getStorageSync("loginuserinfo");
+    let userJsonStr=userinfo==''?userinfo:JSON.parse(userinfo)
 		if(userJsonStr){
-			var _u = JSON.parse(userJsonStr).data;
+			var _u = userJsonStr.data;
 			if(_u && _u['token']){
 				token = _u['token'];
 			}

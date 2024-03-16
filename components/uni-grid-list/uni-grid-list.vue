@@ -57,7 +57,7 @@
 						groupItem = []
 					}
 				})
-				if (groupItem.length > 0) {
+				if (groupItem&&groupItem.length > 0) {
 					// if (this.columnNum > groupItem.length) {
 					// 	for (let i = 0, length = groupItem.length; i < this.columnNum - length; i++) {
 					// 		groupItem.push({
@@ -72,7 +72,7 @@
 			}
 		},
 		mounted() {
-			this.columnNumber = this.gridGroup[0].length
+			this.columnNumber = this.gridGroup[0]?.length
 		},
 		methods: {
 			onClick(index, num) {

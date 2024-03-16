@@ -125,9 +125,10 @@ function submitToServer(url , params , successCallback , errorCallback){
 	_publishSuccessCallback = successCallback;
 	_publishErrorCallback = errorCallback;
 	
-	var token , userJsonStr = localStorage.getItem("loginuserinfo");
+	var token , user = localStorage.getItem("loginuserinfo");
+  let userJsonStr=JSON.parse(userJsonStr)
 	if(userJsonStr){
-		var _u = JSON.parse(userJsonStr);
+		var _u = userJsonStr;
 		if(_u && _u['token']){
 			token = _u['token'];_params['t'] = token;
 		}
