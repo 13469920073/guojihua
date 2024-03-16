@@ -24,7 +24,7 @@ function userHasLogined(){
 function getUserInfo(){
 	var s = uni.getStorageSync('loginuserinfo');
 	console.log("获取登录信息==》》》===",s)
-	return s;
+	return JSON.parse(s);
 }
 
 //获取动态列表缩略图

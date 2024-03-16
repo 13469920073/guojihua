@@ -42,7 +42,8 @@
 				passWord:'', //密码
 				loginWay:0, //登录方式
 				phone:'',
-				pwd:''
+				pwd:'',
+        prevPagePath:''
 			}
 		},
 		computed: {
@@ -51,6 +52,11 @@
 			    },	
 		},
 		onLoad(opt) {
+    //  const lastPage = getCurrentPages()
+    //   let prevPage = lastPage[lastPage.length - 2];
+    //   if(prevPage){
+    //   this.prevPagePath = prevPage.route;
+    //   }
 			// uni.setNavigationBarTitle({
 			//     title: '登录',
 			// 	 backgroundColor: '#000000',
@@ -67,7 +73,7 @@
 				var pwd = this.passWord;
 				var type = this.loginWay;
 				var email = this.email;
-				var param={}
+				let param={}
 				if(type == 0){
 					//手机号登录
 				if(phone.length != 11){
@@ -115,21 +121,18 @@
 				api.post(api.url.login , param, res =>{
 					console.log("token>>>>>>: " ,res.data.token);
 					uni.hideLoading();
-                    uni.setStorageSync('token' ,res.data.token);
-					uni.setStorageSync('loginuserinfo' ,res.data);
+          uni.setStorageSync('token' ,JSON.stringify(res.data.token));
+					uni.setStorageSync('loginuserinfo',JSON.stringify(res.data));
 					uni.$emit('userloginsuccess');
 					uni.showToast({
 						title:'登录成功!',
 						success:function(res){
 							setTimeout(function(){
-								
-								//uni.navigateBack()
+								uni.navigateBack()
 							} , 500);
 						}
 					})
-					uni.navigateTo({
-						url:"/pages/contract/index"
-					})
+	
 				} ,error =>{
 					uni.hideLoading();
 					uni.showToast({

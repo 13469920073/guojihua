@@ -6,7 +6,10 @@ const loginPage = "/pages/login/login"
 
 function hasPermission(url) {
   // 在白名单中或有token，直接跳转
-  const token = uni.getStorageSync('token') || ''
+  let t =null
+  t = uni.getStorageSync('token')||''
+  let token=t===''?t:JSON.parse(t)
+  console.log(whiteList.indexOf(url) === -1 , !token)
   if (whiteList.indexOf(url) === -1 && !token) {
     return true
   }
@@ -18,7 +21,7 @@ uni.addInterceptor('navigateTo', {
   invoke(e) {
     console.log(e,'----')
     if (hasPermission(e.url)) {
-      uni.reLaunch({
+      uni.navigateTo({
         url: '/pages/login/login'
       })
       return false
@@ -33,9 +36,8 @@ uni.addInterceptor('navigateTo', {
 uni.addInterceptor('switchTab', {
   // tabbar页面跳转前进行拦截
   invoke(e) {
-    console.log(e,'----')
     if (hasPermission(e.url)) {
-      uni.reLaunch({
+      uni.navigateTo({
         url: '/pages/login/login'
       })
       return false
