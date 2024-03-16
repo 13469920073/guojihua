@@ -3,17 +3,17 @@
 <!-- 		<image src="../../static/images/default_avatar.png" style="width: 80px; height: 80px; margin-top: 30px;border-radius: 50%;" ></image> -->
 		<view style="margin-top: 0px;">
 			<uni-list >
-				<uni-list-item @click='listSelected(1)' title="头像" />
-				<uni-list-item @click='listSelected(2)' title="平台" />
+				<uni-list-item class="set-item" @click='listSelected(1)' :title="i18n.头像" />
+				<uni-list-item class="set-item" @click='listSelected(2)' :title="i18n.平台" :showBadge="showCache" badgeText="bitmakeitx" />
 				<!-- <uni-list-item  @click='listSelected(2)' title="清空缓存" :showBadge="showCache" :badgeText="cacheSize"/> -->
-				<uni-list-item  @click='listSelected(3)' title="登录账号" />
-				<uni-list-item  @click='listSelected(4)' title="用户昵称" />
-				<uni-list-item  @click='listSelected(5)' title="修改密码" />
+				<uni-list-item class="set-item"  @click='listSelected(3)' :title="i18n.登录账号" />
+				<uni-list-item class="set-item"  @click='listSelected(4)' :title="i18n.用户昵称" />
+				<uni-list-item  @click='listSelected(5)' :title="i18n.修改密码" />
 			</uni-list>
 		</view>
 		
 		<view v-if="isLogined" style="align-items: center;width: 100%;">
-			<button @click="logout" style="margin-top: 70px; background-color:#0080ff;color: white;height: 45px; width: 95%;font-size: 17px;">退出登录</button>
+			<button @click="logout" style="margin-top: 70px; background-color:#0080ff;color: white;height: 45px; width: 95%;font-size: 17px;">{{i18n.退出登录}}</button>
 		</view>
 		
 		<view style="position: fixed;bottom: 8px;text-align: center;width: 100%;font-size: 13px;color: #999;">©️2024bitmakeitxAPP</view>
@@ -37,6 +37,16 @@
 				cacheSize:'0.0M',
 				isLogined:USER.isLogined(),
 			}
+		},
+		onShow(opt) {
+			uni.setNavigationBarTitle({
+			    title: this.$t('personal').设置
+			});
+		},
+		computed: {
+			    i18n (){
+			      return this.$t('personal')
+			    },	
 		},
 		onLoad() {
 			// plus.cache.calculate(size => {
@@ -70,7 +80,7 @@
 					break;
 					case 5:
 					uni.navigateTo({
-						url:'about-us'
+						url:'/pages/login/modifyPassword'
 					});
 					break;
 					default:break;
@@ -106,6 +116,11 @@
 </script>
 
 <style>
+	.set-item{
+		.uni-icon-arrowright{
+			display: none; 
+		}
+	}
 /* 	page {
 		display: flex;
 		flex-direction: column;

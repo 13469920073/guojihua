@@ -19,10 +19,12 @@ var URL = {
   login: 'customer/member/login', //登录接口
   register: 'customer/member/register',  //用户注册
   changepwd: 'customer/member/changepwd',  //密码重置
+  realnameapplication: 'customer/member/realnameapplication',  //用户实名认证
   coinassets: 'coin/get/coinassets', //获取币种信息
   coinassetshistory: 'coin/get/coinassetshistory', //获取币种信息
   getoperhistorylist: 'customer/member/getoperhistorylist',  //交易历史数据
   gettradelist: 'customer/member/gettradelist',  //交易列表
+  getwalletbalance: 'customer/member/getwalletbalance',  //用户余额
   getincomelist: 'customer/member/getincomelist',  //充值列表
   getoutlaylist: 'customer/member/getoutlaylist',  //提现列表
   applicationoutlay: 'customer/member/applicationoutlay',  //提现申请
@@ -30,7 +32,7 @@ var URL = {
   getmemberaccountlist: 'customer/member/getmemberaccountlist',  //我的账户列表
   delapplicationaccount: 'customer/member/delapplicationaccount',  //客户删除账号
   addapplicationaccount: 'customer/member/addapplicationaccount',  //客户新增账号
-  // addapplicationaccount:'customer/member/addapplicationaccount',  //持仓中
+  gettradelistbystatus:'customer/member/gettradelistbystatus',  //持仓中
   // addapplicationaccount:'customer/member/addapplicationaccount',  //持仓已经完成
   get_checkcode: 'sendCheckCode.php',
   get_msglist: 'message.php',
@@ -103,7 +105,8 @@ function uniPost(url, pars, success, error) {
       header.token = userJsonStr['token'];
   }
   uni.request({
-    url: _url, method: "POST",
+    url: _url,
+	method: "POST",
     header: header,
     dataType: "json",
     data: pars,
@@ -232,7 +235,7 @@ function uniPut(url, pars, success, error) {
   uni.request({
     url: _url, method: "PUT",
     header: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/json",
       'token': token,
     },
     dataType: "json",
@@ -355,32 +358,30 @@ function uniUploadFile(url, filePath, success, error) {
     token = userJsonStr['token'];
 }
   //用户权限验证参数
-  const formData = new FormData();
-  formData.append('file', filePath);
-  console.log('formDataformData===', formData);
-  console.log("pars:", filePath);
-  console.log("formData:", formData);
+  
+  console.log("formData:", filePath);
   //console.log("pars:" + JSON.stringify(pars));//return;
   uni.uploadFile({
     url: URL.base + url,
     header: {
-      token,
-      'content-type': 'multipart/form-data'
+      token
     },
     fileType: 'image',
     filePath: filePath,
     name: 'file', // 必须填写，后端用来解析文件流的字段名
     formData: {
-      'imageType': '1'
+      'file': filePath
     },
     //formData: formData,
     success: (res) => {
-      console.log("上传成功")
+      console.log("上传成功",res)
       var code = res.statusCode, dataStr = res.data;
       var obj = JSON.parse(dataStr);
-      if (obj.status == 200 && code == 200) {
-        success(obj.body);
-      } else if (data.code == 401) {
+	  console.log("obj",obj)
+      if (obj.code == 200 && code == 200) {
+		  console.log("成功====》》",obj)
+        success(obj);
+      } else if (obj.code == 401) {
         uni.showModal({
           title: '提示',
           content: '用户认证失败请重新登录',

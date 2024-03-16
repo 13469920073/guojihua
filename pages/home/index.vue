@@ -75,7 +75,6 @@
 			// 	// e['image'] = '../../static/images/' + ig;
 			// });
 			let lang = this._i18n.locale
-			console.log("获取新4的语言",lang)
 			this.getData()
 			this.getNotice(lang)
 			// this.itemType = _topItems;
@@ -115,7 +114,6 @@
 			     // 模拟请求数据的过程
 			     setTimeout(() => {
 				  this.getData()
-				  //this.getNotice()
 			     }, 1000);
 			   },
 			   startTimer() {

@@ -2,7 +2,7 @@
 	<view class="login-container" style="display: flex;flex-direction: column;align-items: center;">
 		<view style="width: 100%; margin-top: 45px;">
 			<view style="padding: 20px;color: #fff;">
-				<input type="number"" :placeholder="i18n.邀请码" maxlength="11" v-model="inviteCode"/>
+				<input type="number" :placeholder="i18n.邀请码" maxlength="11" v-model="inviteCode"/>
 				<view class="uni-reguster-input">
 				<input type="number" v-if="loginWay==0" :placeholder="i18n.请输入手机号" maxlength="11" v-model="phonenumber"/>
 				<input type="text" v-if="loginWay==1" :placeholder="i18n.请输入邮箱" v-model="email"/>

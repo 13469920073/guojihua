@@ -48,7 +48,8 @@
 				from:{
 					incomeNum:'', //充值金额
 					outlayNum:'', //提现数量
-					type:''
+					type:'',
+					photo:'', //凭证图片
 				},
 				voucher:'',
 				is_avatar_change:false,
@@ -75,35 +76,20 @@
 								this.voucher = filesPaths[0];
 								console.log("filesPaths",this.voucher)
 								this.is_avatar_change = true;
-								
+								// 下面将图片本地路径转base64
+								// convert.toBase64(this.voucher).then((res) => {
+								// 	console.log("res=====》》》",res)
+								// 		//that.getAccessToken(res)
+								// })
 									//return;
 									api.uploadfile(api.url.upload ,this.voucher, res =>{
-										console.log("提交成功====》》》: " ,res);
+										 uni.hideLoading();
+										 this.from.photo = res.data.url
 										// this.getDataList();
 										// uni.showToast({
 										// 	title:'删除成功!',
 										// })
 										})
-							// 	uni.uploadFile({
-							// 	      url: api.url.base + '/image/upload', // 服务器接口地址
-							// 	      filePath: this.voucher, // 需要上传的本地文件路径
-							// 		  header: {
-							// 		    'content-type': 'multipart/form-data'
-							// 		  },
-							// 		  fileType: "image", 
-							// 	      name: 'file', // 后台接收参数名称
-							// 	      formData: formData, // 额外的表单数据（非必填）
-							// 	      success(res) {
-							// 	        console.log('上传成功===',res);
-								       
-							// 	        uni.hideLoading(); // 隐藏加载提示
-							// 	      },
-							// 	      fail(err) {
-							// 	        console.error('上传失败===》》》', err);
-								        
-							// 	        uni.hideLoading(); // 隐藏加载提示
-							// 	      }
-							// 	    })
 							}
 					   
 						}

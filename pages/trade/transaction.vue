@@ -179,8 +179,13 @@
 			openDetailPage(){},
 			//时间格式转换
 			formattedDate(time){
-				var newTime = time.substring(0, 16);
-				return newTime.replace('T', ' ');
+				if(time){
+					var newTime = time.substring(0, 16);
+					return newTime.replace('T', ' ');
+				}else{
+					return '-'
+				}
+				
 			}
 		}
 	}
