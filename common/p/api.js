@@ -92,15 +92,13 @@ function uniPost(url , pars , success , error){
 	});
 
 	var _url = URL.base + url;
-	var token;
-	var header = {
-		"content-type":"application/json",
-	}
-	userJsonStr = localStorage.getItem("loginuserinfo");
+	var token,
+	userJsonStr = uni.getStorageSync("loginuserinfo");
+  console.log(userJsonStr,'===============')
 	if(userJsonStr){
 		var _u = JSON.parse(userJsonStr).data;
 		if(_u && _u['token']){
-			header.token = _u['token'];
+			token = _u['token'];
 			//pars['token'] = token;
 			// if(pars['z'] != 1){//1不需要当前uid , 获取他人
 			// 	pars['uid'] = _u['user_id'];//UID和token一起为了验证用户合法性
@@ -109,7 +107,10 @@ function uniPost(url , pars , success , error){
 		}
 	}
 	uni.request({url:_url,method:"POST",
-		header:header,
+		header:{
+			"content-type":"application/json",
+			'token': token,
+			},
 		dataType:"json",
 		data:pars,
 		success: res =>{
@@ -147,7 +148,7 @@ function uniGet(url , pars , success , error){
 
 	var _url = URL.base + url;
 	var token,
-	userJsonStr = localStorage.getItem("loginuserinfo");
+	userJsonStr = uni.getStorageSync("loginuserinfo");
 	if(userJsonStr){
 		var _u = JSON.parse(userJsonStr).data;
 		if(_u && _u['token']){
@@ -196,7 +197,7 @@ function uniPut(url , pars , success , error){
 
 	var _url = URL.base + url;
 	var token,
-	userJsonStr = localStorage.getItem("loginuserinfo");
+	userJsonStr = uni.getStorageSync("loginuserinfo");
 	if(userJsonStr){
 		var _u = JSON.parse(userJsonStr).data;
 		if(_u && _u['token']){
@@ -244,7 +245,7 @@ function uniDelete(url , pars , success , error){
 
 	var _url = URL.base + url;
 	var token,
-	userJsonStr = localStorage.getItem("loginuserinfo");
+	userJsonStr = uni.getStorageSync("loginuserinfo");
 	if(userJsonStr){
 		var _u = JSON.parse(userJsonStr).data;
 		if(_u && _u['token']){
