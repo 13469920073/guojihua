@@ -136,7 +136,7 @@ function uniPost(url, pars, success, error) {
         })
     
       }else {
-        if (error) error(data['msg'] || '服务器返回错误');
+        if (error) error(data['message'] || '服务器返回错误');
       }
     },
     fail: (data, code) => {
@@ -202,7 +202,7 @@ function uniGet(url, pars, success, error) {
         })
     
       }else {
-        if (error) error(data['msg'] || '服务器返回错误');
+        if (error) error(data['message'] || '服务器返回错误');
       }
     },
     fail: (data, code) => {
@@ -268,7 +268,7 @@ function uniPut(url, pars, success, error) {
         })
     
       }else {
-        if (error) error(data['msg'] || '服务器返回错误');
+        if (error) error(data['message'] || '服务器返回错误');
       }
     },
     fail: (data, code) => {
@@ -334,7 +334,7 @@ function uniDelete(url, pars, success, error) {
         })
     
       }else {
-        if (error) error(data['msg'] || '服务器返回错误');
+        if (error) error(data['message'] || '服务器返回错误');
       }
     },
     fail: (data, code) => {

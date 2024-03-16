@@ -128,7 +128,10 @@
 						title:'登录成功!',
 						success:function(res){
 							setTimeout(function(){
-								uni.navigateBack()
+								//uni.navigateBack()
+								uni.switchTab({
+									url:"/pages/home/index"
+								})
 							} , 500);
 						}
 					})
