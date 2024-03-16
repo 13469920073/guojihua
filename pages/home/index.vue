@@ -22,20 +22,20 @@
 	import uniSelect from '@/components/uni-select/uni-select.vue';
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 	import uniSwiperDot from '@/components/uni-swiper-dot/uni-swiper-dot.vue';
-    import uniGrid from '@/components/uni-grid/uni-grid.vue';
+    //import uniGrid from '@/components/uni-grid/uni-grid.vue';
 	import uniGridList from '@/components/uni-grid-list/uni-grid-list.vue';
 	import uniScrollNotice from '@/components/uni-scroll-notice/uni-scroll-notice.vue';
 	import homeMoneyList from '@/components/home-money-list.vue';
-	import homeList from '@/components/home-list.vue';
+	//import homeList from '@/components/home-list.vue';
 	var baseData = require("@/common/p/base-data.js");
     var api = require('@/common/p/api.js');
 	export default {
 		components: {
 			uniSelect,
 			uniSwiperDot,
-			uniGrid,
+			//uniGrid,
 			uniGridList,
-			homeList,
+			//homeList,
 			homeMoneyList,
 			uniLoadMore,
 			uniScrollNotice
@@ -128,7 +128,6 @@
 			   },
 			   //获取公示栏
 			   getNotice(val){
-				   console.log("=valval==",val)
 				   let lang = val == 'china'?'zh-CN,zh;q=0.9':(val == 'japan'?'ja':'en')
 				   console.log("langlanglang",lang)
 				   var that = this;
