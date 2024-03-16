@@ -85,7 +85,8 @@ function uniPost(url , pars , success , error){
 
 	var _url = URL.base + url;
 	var token, 
-	userJsonStr = localStorage.getItem("loginuserinfo");
+	userJsonStr = uni.getStorageSync("loginuserinfo");
+  console.log(userJsonStr,'===============')
 	if(userJsonStr){
 		var _u = JSON.parse(userJsonStr).data;
 		if(_u && _u['token']){
@@ -140,7 +141,7 @@ function uniGet(url , pars , success , error){
 
 	var _url = URL.base + url;
 	var token,
-	userJsonStr = localStorage.getItem("loginuserinfo");
+	userJsonStr = uni.getStorageSync("loginuserinfo");
 	if(userJsonStr){
 		var _u = JSON.parse(userJsonStr).data;
 		if(_u && _u['token']){
@@ -189,7 +190,7 @@ function uniPut(url , pars , success , error){
 
 	var _url = URL.base + url;
 	var token,
-	userJsonStr = localStorage.getItem("loginuserinfo");
+	userJsonStr = uni.getStorageSync("loginuserinfo");
 	if(userJsonStr){
 		var _u = JSON.parse(userJsonStr).data;
 		if(_u && _u['token']){
@@ -237,7 +238,7 @@ function uniDelete(url , pars , success , error){
 
 	var _url = URL.base + url;
 	var token,
-	userJsonStr = localStorage.getItem("loginuserinfo");
+	userJsonStr = uni.getStorageSync("loginuserinfo");
 	if(userJsonStr){
 		var _u = JSON.parse(userJsonStr).data;
 		if(_u && _u['token']){
