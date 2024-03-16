@@ -15,7 +15,7 @@
 				<input type="text"  :placeholder="i18n.请输入验证码" v-model="pwd" style="margin-top: 6px;"/>
 				<text class="uni-abs-right">{{i18n.获取验证码}}</text>
 				</view> -->
-				<input type="text"  :placeholder="i18n.设置密码" v-model="passWord" style="margin-top: 6px;"/>
+				<input type="password" :placeholder="i18n.设置密码" v-model="passWord" style="margin-top: 6px;"/>
 				<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="register">{{i18n.注册}}</button>	
 			</view>
 			<view style="display: flex;">
@@ -125,6 +125,7 @@
 						}
 					})
 				} ,error =>{
+					console.log("注册失败", error)
 					uni.hideLoading();
 					uni.showToast({
 						title:error,
@@ -186,6 +187,7 @@
 	}
 	.uni-reguster-input {
 	    position: relative;
+		color: #fff;
 	}
 	.uni-abs-right {
 	    position: absolute;

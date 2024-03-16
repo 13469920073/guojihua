@@ -5,7 +5,7 @@
 			         <option>日本语</option>
 			         <option>English</option>
 			         <option>中文</option>
-			         <option>한국어</option>
+			         <!-- <option>한국어</option> -->
 			      </select>
 				  
 				 

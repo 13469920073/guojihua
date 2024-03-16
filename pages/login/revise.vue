@@ -173,6 +173,7 @@
 	}
 	.uni-reguster-input {
 	    position: relative;
+		color: #fff;
 	}
 	.uni-abs-right {
 	    position: absolute;
