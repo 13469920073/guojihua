@@ -24,15 +24,15 @@
 				<view  style="display: flex;" >
 					<view class="grid-item-left" >
 						<p class="text-ind-1">
-							<span class="text-xmd">{{value.currency}}</span>
+							<span class="text-xmd">{{value.sname}}</span>
 							<span class="text-gray">/USDT</span>
 						</p>
 					</view>
 					<view class="grid-item-right" style="color: #333;">
-						60421.1000
+						{{value.nowPri}}
 					</view>
-					<view class="grid-item-right">
-						+6.45% 
+					<view class="grid-item-right" :class="value.increPer >0 ?'text-green': 'text-red'">
+						{{value.increPer}}% 
 					</view>
 				</view>
 		
@@ -62,32 +62,16 @@
 			type:{
 				type:String,
 				default:'0'
+			},
+			items: {
+			    type: Array,
+			    default: () => []
 			}
 		},
 		data(){
 			return{
 				itemType:[],
-				items:[{
-					currency:'BTC'
-				},{
-					currency:'ETH'
-				},{
-					currency:'EOS'
-				},{
-					currency:'HBC'
-				},{
-					currency:'LTC'
-				},{
-					currency:'XRP'
-				},{
-					currency:'BCH'
-				},{
-					currency:'ADA'
-				},{
-					currency:'TRX'
-				},{
-					currency:'RNB'
-				}],
+				//items:[],
 				pageNumber:1,
 				noMore:0,
 				comType:'default'
@@ -100,6 +84,7 @@
 					
 		},
 		mounted() {
+			console.log("itemsitemsitems-==>>")
 			// if(this.type == '14'){
 			// 	this.comType = 'sj'
 			// }else if(this.type == '15'){
@@ -109,12 +94,11 @@
 			// }else if(this.type == '17'){
 			// 	this.comType = 'life'
 			// }
-			
-			//this.loadData();
 		},
 		methods: {
+			
       btn(){
-       					uni.setStorageSync('token' ,'12321');
+       		 uni.setStorageSync('token' ,'12321');
 
       },
 			loadData(){
@@ -215,15 +199,17 @@
 			return _t[type] || '其他';
 		},
 		openDetailPage(value){
+			console.log("valuevaluevalue",value)
 			// console.log("value: " + JSON.stringify(value));
-			// let pid = value['pid'] , type = value['type'];
+			let pid = value['sname']
+			 //type = value['type'];
 			// let category = api.postType(type) , itemTitle = baseData.titleForType[type];
 			// if(!pid || !category)return;
 			// uni.navigateTo({
 			// 	url:'../home/detail?pid=' + pid + '&c=' + category + '&t=' + itemTitle
 			//})
 			 uni.navigateTo({
-				url:'../contract/kline'
+				url:'../contract/kline?coinType=' + pid
 			})
 		}
 		}

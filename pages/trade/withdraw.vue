@@ -5,36 +5,36 @@
 				<h3 class="uni-account-title">
 					{{i18n.提现申请}}
 				</h3>
-			
-				
 				<view class="table-from" style="">
 					<view class="table-from_title" @click="onSkip"> 
-	            <view >{{form.titleName?form.titleName:i18n.请选择提现账户}}</view>
+	            <view >{{form.accountName?form.accountName:i18n.请选择提现账户}}</view>
                <img src="../../assets/img/right.png" alt="">
             </view> 
 					<view class="grid-item-wrap flex" style="width: 100%;">
-						<view class="grid-item-left" v-if="form.title&&form.name">
-							<p>{{form.title}}</p>
-              <p>账户名称：{{form.name}}</p>
-              <p>账户地址：{{form.address}}</p>
+						<view class="grid-item-left" v-if="form.type&&form.accountName">
+							<p>{{form.type}}</p>
+                            <p>账户名称：{{form.accountName}}</p>
+                            <p>账户地址：{{form.address}}</p>
 					  </view>
 					</view>
-					<view class="flex" style="width:100%">{{i18n.金额}}:<input :placeholder="i18n.请输入数量"  v-model="form.money" type="number" class="uni-input"/></view> 
-					
+					<view class="flex" style="width:100%">{{i18n.金额}}:
+					<input :placeholder="i18n.请输入数量"  v-model="form.outlayNum" type="number" class="uni-input"/>
+					</view> 
 				</view>
 			</view>
         </view>
 		<view class="flex" style="padding: 20px;">
-			<text>{{i18n.出金时间}}</text>
+			<text style="font-weight: lighter">{{i18n.出金时间}}</text>
 		</view>
 		<view style="padding: 20px;">
-			<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="next">{{i18n.下一步}}</button>	
+			<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="save">{{i18n.提交}}</button>	
 		</view>
 	</view>
 </template>
 
 <script>
 	var itemType = require("@/common/p/base-data.js").itemType;
+	var api = require('@/common/p/api.js');
 	export default {
 		components:{
 			
@@ -44,34 +44,13 @@
 			return {
 				navIndex:'0',
 				isCheck:false,
-				itemType:[{
-					title:'USDT',
-					name:'USDT（trc-20）',
-					address:'11dcdicjdiijcnxisdlbcvldsu'
-				},{
-					title:'USDT',
-					name:'',
-					address:'22dcdicjdiijcnxisdlbcvldsu'
-				},{
-					title:'USDT',
-					name:'',
-					address:'33dcdicjdiijcnxisdlbcvldsu'
-				},{
-					title:'BTC',
-					name:'',
-					address:'44dcdicjdiijcnxisdlbcvldsu'
-				},{
-					title:'ETH',
-					name:'',
-					address:''
-				}],
 				form:{
-          titleName:'',
+          accountName:'',
           title:'',
           name:'',
           address:'',
           examine:'',
-          money:''
+          outlayNum:'', //提现数量
         }
 			}
 		},
@@ -81,9 +60,13 @@
 			    },	
 		},
 		onLoad(option) {
+			console.log("optionoption",option)
+			if(!Object.keys(option).length == 0){
 			this.form = JSON.parse(decodeURIComponent(option.obj));
-      this.form.titleName=this.form.title+'('+this.form.name+')'
-console.log(	this.form)
+			console.log("====》》》》",this.form)
+      this.form.accountName=this.form.type+'('+this.form.accountName+')'
+console.log("====》》》》",this.form)
+}
 			// console.log("itemType: " + JSON.stringify(itemType));
 		},
 		methods: {
@@ -96,21 +79,31 @@ console.log(	this.form)
 				this.isCheck = !this.isCheck
 				console.log("==",this.isCheck)
 			},
-			//下一步
-			next(){
+			//申请提现
+			save(){
 				let obj= this.form
-				if(!this.form.money){
+				if(!this.form.outlayNum){
 					uni.showToast({
 					    title: '请先输入数量',
 					    icon: 'none',
 					    duration: 2000
 					})
-					
-				}else{
+				 }
+				 api.post(api.url.applicationoutlay ,obj, res =>{
+				 	console.log("提交成功====》》》: " ,res);
 					uni.navigateTo({
-						url:'/pages/trade/account-recharge2?obj='+encodeURIComponent(JSON.stringify(obj))
+						url:'/pages/trade/index'
 					})
-				}
+				 	uni.showToast({
+				 		title:'提交成功!',
+						success:function(res){
+							// setTimeout(function(){
+								
+							// } , 500);
+						}
+				 	})
+				 	})
+				
 				console.log("===")
 			},
       onSkip(){
@@ -156,6 +149,7 @@ console.log(	this.form)
 
 .grid-item-wrap{
 	margin-top: 15px;
+	margin-bottom: 15px;
 	/* border-color: #E5E5E5;
 	border-width: 1px;
 	border-style: solid; */
@@ -172,7 +166,7 @@ console.log(	this.form)
 	width: 100%; 
 	margin-top: 8px;
 	font-size: 14px;
-	color: #666;
+	color: #000;
 	 /* background-color: white; */
 	 padding:8px 10px;
 	 border-radius: 8px;
@@ -195,6 +189,7 @@ console.log(	this.form)
 	border-radius: 0;
 }
 .grid-item-left {
+	color: #666;
   width: 100%;
 	text-align: left;
 }

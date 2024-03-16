@@ -2,10 +2,10 @@
 	<view class="content">
     <view class="content_box" v-for="(item,index) in list" :key="index" @click="onpush(item)">
       <view class="box1">
-	  {{item.title}}&nbsp&nbsp{{item.examine}}
+	   {{item.type}}&nbsp&nbsp{{numberArray[item.status]}}
 	  <text style="color: red;" v-if="obj.tag == 'me'" v-on:click="handleDel(item)">{{i18n.删除}}</text>
 	  </view>
-      <view class="box2">{{i18n.账户名称}} ：{{item.name}}</view>
+      <view class="box2">{{i18n.账户名称}} ：{{item.accountName}}</view>
       <view class="box3">{{i18n.账户地址}} ：{{item.address}}</view>
     </view>
        
@@ -17,7 +17,7 @@
 
 <script>
 	var api = require('@/common/p/api.js');
-	var itemType = require("@/common/p/base-data.js").itemType;
+	var itemStatusArr = require("@/common/p/base-data.js").itemStatusArr;
 	export default {
 		components:{
 			
@@ -30,16 +30,18 @@
 		data() {
 			return {
 				navIndex:'0',
+				numberArray: ['未认证', '审核中','通过', '不通过'],
 				obj:{},
 				pageNum:1,
-				pageSize:20,
+				pageSize:10,
 				isCheck:false,
-			 list:[{
-          title:'NTM',
-          name:'汉口银行',
-          address:'武汉',
-          examine:'已审核'
-        }]
+				list:[]
+			 // list:[{
+    //       title:'NTM',
+    //       name:'汉口银行',
+    //       address:'武汉',
+    //       examine:'已审核'
+    //     }]
 			
 			}
 		},
@@ -53,6 +55,9 @@
 			this.obj = opt
 		    this.getDataList();
 		  },
+		  onShow(){
+		  			this.getDataList();
+		  		},
 		methods: {
 			getDataList(){
 				var d = {
@@ -64,7 +69,9 @@
 					mask: true
 				});
 				api.get(api.url.getmemberaccountlist , d, res =>{
-					console.log("获取成功: " + JSON.stringify(res));
+					console.log("获取成功: ",res);
+					uni.hideLoading();
+					this.list = res.data.result
 					
 				} ,error =>{
 					uni.hideLoading();
@@ -81,17 +88,11 @@
 				    content: '是否确定删除？',
 				    success: res => {
 				        if (res.confirm) {
-				api.delete(api.url.delapplicationaccount ,{id:1}, res =>{
+				api.delete(api.url.delapplicationaccount ,{id:row.id}, res =>{
 					console.log("删除成功: " ,res);
+					this.getDataList();
 					uni.showToast({
 						title:'删除成功!',
-						success:function(res){
-							this.getDataList();
-							console.log("删除成功")
-							//setTimeout(function(){
-								//uni.navigateBack()
-							//} , 500);
-						}
 					})
 					})
 				}

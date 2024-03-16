@@ -14,16 +14,24 @@ var URL = {
 	delete_sc:'deletesc.php',
 	sh:'sh.php',
 	daren:'darenList.php',
+	upload:'image/upload',  //上传图片
 	logout:'customer/member/logout', //退出当前登录
 	login:'customer/member/login', //登录接口
 	register:'customer/member/register',  //用户注册
 	changepwd:'customer/member/changepwd',  //密码重置
+	coinassets:'coin/get/coinassets', //获取币种信息
+	coinassetshistory:'coin/get/coinassetshistory', //获取币种信息
+	getoperhistorylist:'customer/member/getoperhistorylist',  //交易历史数据
 	gettradelist:'customer/member/gettradelist',  //交易列表
 	getincomelist:'customer/member/getincomelist',  //充值列表
 	getoutlaylist:'customer/member/getoutlaylist',  //提现列表
+	applicationoutlay:'customer/member/applicationoutlay',  //提现申请
+	applicationrecharge:'customer/member/applicationrecharge',  //充值申请
 	getmemberaccountlist:'customer/member/getmemberaccountlist',  //我的账户列表
 	delapplicationaccount:'customer/member/delapplicationaccount',  //客户删除账号
 	addapplicationaccount:'customer/member/addapplicationaccount',  //客户新增账号
+	// addapplicationaccount:'customer/member/addapplicationaccount',  //持仓中
+	// addapplicationaccount:'customer/member/addapplicationaccount',  //持仓已经完成
 	get_checkcode:'sendCheckCode.php',
 	get_msglist:'message.php',
 	jubao:'jubao.php',
@@ -85,12 +93,15 @@ function uniPost(url , pars , success , error){
 
 	var _url = URL.base + url;
 	var token, 
+  var header = {
+		"content-type":"application/json",
+	}
 	userJsonStr = uni.getStorageSync("loginuserinfo");
   console.log(userJsonStr,'===============')
 	if(userJsonStr){
 		var _u = JSON.parse(userJsonStr).data;
 		if(_u && _u['token']){
-			token = _u['token'];
+			header.token = _u['token'];
 			//pars['token'] = token;
 			// if(pars['z'] != 1){//1不需要当前uid , 获取他人
 			// 	pars['uid'] = _u['user_id'];//UID和token一起为了验证用户合法性
@@ -98,12 +109,8 @@ function uniPost(url , pars , success , error){
 			// pars['z'] && delete pars.z;
 		}
 	}
-		
 	uni.request({url:_url,method:"POST",
-		header:{
-			"content-type":"application/json",
-			'token': token,
-			},
+		header:header,
 		dataType:"json",
 		data:pars,
 		success: res =>{
@@ -158,9 +165,9 @@ function uniGet(url , pars , success , error){
 		success: res =>{
 			// console.log("====res: " + JSON.stringify(res));
 			var data = res.data;
-			if(data.status == 200) {
+			if(data.code == 200) {
 				console.log("request ok");
-				success(data.body);
+				success(data);
 			}else{
 				if(error)error(data['msg'] || '服务器返回错误');
 			}
@@ -207,9 +214,9 @@ function uniPut(url , pars , success , error){
 		success: res =>{
 			// console.log("====res: " + JSON.stringify(res));
 			var data = res.data;
-			if(data.status == 200) {
+			if(data.code == 200) {
 				console.log("request ok");
-				success(data.body);
+				success(data);
 			}else{
 				if(error)error(data['msg'] || '服务器返回错误');
 			}
@@ -245,11 +252,9 @@ function uniDelete(url , pars , success , error){
 			token = _u['token'];
 		}
 	}
-	console.log("parsparspars",pars)
 	uni.request({
-		url:_url,
+		url:`${_url}?id=${pars.id}`,
 		method:"DELETE",
-		data:pars,
 		header:{
 			"content-type":"application/json",
 			'token': token,
@@ -259,9 +264,9 @@ function uniDelete(url , pars , success , error){
 		success: res =>{
 			// console.log("====res: " + JSON.stringify(res));
 			var data = res.data;
-			if(data.status == 200) {
+			if(data.code == 200) {
 				console.log("request ok");
-				success(data.body);
+				success(data);
 			}else{
 				if(error)error(data['msg'] || '服务器返回错误');
 			}
@@ -281,16 +286,40 @@ function uniDelete(url , pars , success , error){
  * @param {Object} success
  * @param {Object} error
  */
-function uniUploadFile(url , pars , files, success , error){
-	var igs = files.map((value, index) => {return {name: "files[" + index + ']',uri: value}});
+function uniUploadFile(url , filePath , success , error){
+	// var igs = files.map((value, index) => {
+	// 	return {name: "files[" + index + ']',uri: value}
+		//});
+		var token,
+		userJsonStr = localStorage.getItem("loginuserinfo");
+		if(userJsonStr){
+			var _u = JSON.parse(userJsonStr).data;
+			if(_u && _u['token']){
+				token = _u['token'];
+			}
+		}
 	//用户权限验证参数
-	
+	const formData = new FormData();
+	    formData.append('file', filePath);
+		console.log('formDataformData===',formData);
+	console.log("pars:",filePath);
+	console.log("formData:",formData);
 	//console.log("pars:" + JSON.stringify(pars));//return;
 	uni.uploadFile({
 	    url: URL.base + url,
-	    files: igs,
-	    formData: pars,
+		header: {
+			token,
+			'content-type': 'multipart/form-data'
+		},
+		fileType:'image',
+		filePath: filePath,
+		name: 'file', // 必须填写，后端用来解析文件流的字段名
+		formData:{
+			'imageType': '1'
+		},
+		//formData: formData,
 	    success: (res) => {
+			console.log("上传成功")
 			var code = res.statusCode , dataStr = res.data;
 			var obj = JSON.parse(dataStr);
 			if(obj.status == 200 && code == 200) {
@@ -300,6 +329,7 @@ function uniUploadFile(url , pars , files, success , error){
 			}
 	    },
 	    fail: (res) => {
+			console.log("上传失败",res)
 			if(error)error(res);return;
 			uni.showToast({ title: "请求网络失败!",icon:'none'});
 	    }

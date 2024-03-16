@@ -3,10 +3,10 @@
 		<view class="flex container">
 			<view class="uni-left">
 				<view class="text-xxxlg">
-					62277.3
+					{{formData.price?formData.price:'0'}}
 				</view>
 				<view class="text-xmd">
-					+0.87%
+					{{formData.zf?formData.zf:'0'}}%
 				</view>
 			</view>
 			<view class="uni-right flex">
@@ -16,27 +16,27 @@
 					<p>{{i18n.二十四小时}}：</p>
 				</view>
 				<view style="text-align: right;">
-					<p>62677.0600</p>
-					<p>62677.0600</p>
-					<p>62677.0600</p>
+					<p>{{formData.ph?formData.ph:'0'}}</p>
+					<p>{{formData.pl?formData.pl:'0'}}</p>
+					<p>{{formData.vol?formData.vol:'0'}}</p>
 				</view>
 			</view>
 		</view>
 		<view class="head-nav">
-			<view :class="navIndex==0?'activite':''" @click="checkIndex(0)">{{i18n.分时}}</view>
-			<view :class="navIndex==1?'activite':''" @click="checkIndex(1)">{{i18n.五分钟}}</view>
-			<view :class="navIndex==2?'activite':''" @click="checkIndex(2)">{{i18n.十五分钟}}</view>
-			<view :class="navIndex==3?'activite':''" @click="checkIndex(3)">{{i18n.三十分钟}}</view>
-			<view :class="navIndex==4?'activite':''" @click="checkIndex(4)">{{i18n.一小时}}</view>
-			<view :class="navIndex==4?'activite':''" @click="checkIndex(5)">{{i18n.四小时}}</view>
-			<view :class="navIndex==4?'activite':''" @click="checkIndex(6)">{{i18n.一天}}</view>
+			<view :class="navIndex=='1M'?'activite':''" @click="checkIndex('1M')">{{i18n.分时}}</view>
+			<view :class="navIndex=='5M'?'activite':''" @click="checkIndex('5M')">{{i18n.五分钟}}</view>
+			<view :class="navIndex=='15M'?'activite':''" @click="checkIndex('15M')">{{i18n.十五分钟}}</view>
+			<view :class="navIndex=='30M'?'activite':''" @click="checkIndex('30M')">{{i18n.三十分钟}}</view>
+			<view :class="navIndex=='1H'?'activite':''" @click="checkIndex('1H')">{{i18n.一小时}}</view>
+			<view :class="navIndex=='4H'?'activite':''" @click="checkIndex('4H')">{{i18n.四小时}}</view>
+			<view :class="navIndex=='D'?'activite':''" @click="checkIndex('D')">{{i18n.一天}}</view>
 		</view>
 
 		<!-- 内容切换 -->
-		<view class="content" v-if="navIndex==0">
+		<view class="content">
 			<uni-echarts-kline :option="optionone" style="height: 400px;width: 100%;"/>
 		</view>
-		<view class="content" v-if="navIndex==1">
+		<!-- <view class="content" v-if="navIndex==1">
 			我是选项2
 		</view>
 		<view class="content" v-if="navIndex==2">
@@ -47,7 +47,7 @@
 		</view>
 		<view class="content" v-if="navIndex==4">
 			我是选项5
-		</view>
+		</view> -->
 		<view class="uni-bottom-item flex">
 			<text class="bg-green flex bottom-btn" v-on:click="findBuy('up')">
 				{{i18n.买涨}}
@@ -96,22 +96,27 @@
 <script>
 	import uniEchartsKline from '@/components/uni-echarts-kline/uni-echarts-kline.vue';
 	import mokdata from '@/common/mokdata.js';
+	var api = require('@/common/p/api.js');
 	export default {
+		components: {
+			uniEchartsKline
+		},
 		data() {
 			return {
 				mokdata,
-				navIndex: 0,
+				navIndex: '5M',
 				tagIndex:'',
 				quantity: 50, //修改提交
 				showPopup:false,
-				mockdata:{
-					categoryData:['20240302', '20240302', '20240302', '20240302'],
-					values:['122','322','22','222','122'],
-					volumes:['133','322','32','322','322']
-				},
+				coinType:'',
+				dataType:'',
+				datalist:[],
+				formData:{},
+				formItem:{},
+				intervalId: null,
 				option: {},
-								optionone: {},
-								optiontwo: {}
+				optionone: {},
+				optiontwo: {}
 
 			}
 		},
@@ -120,22 +125,55 @@
 			      return this.$t('contract')
 			    },	
 		},
-		onLoad() {
-		
-					// console.log(777777);
+		onShow() {
+			// console.log("====",that.formData)
+			// uni.setNavigationBarTitle({
+			//     title: this.$t('tab').合约
+			// });
+			this.startTimer();
+			},
+		onLoad(opt) {
+           // this.title = opt['id'];
+			this.coinType = opt['coinType'];
+			uni.setNavigationBarTitle({
+			    title: opt['coinType']+'/USDT'
+			});
+					 console.log(777777,opt);
+					 this.getTopData();
+					 this.getData()
 				},
-				components: {
-					uniEchartsKline
-				},
+				
 				mounted() {
-					this.logstatrt();
-					this.logstatrtone();
+					//this.logstatrt();
+					
+					
+				//	this.logstatrtone();
 					//this.logstatrttwo();
 				},
+				onHide() {
+					console.log("关闭页面")
+				    this.stopTimer();
+				  },
 		methods: {
+			fetchData() {
+			     // 模拟请求数据的过程
+			     setTimeout(() => {
+				  this.getTopData()
+			     }, 1000);
+			   },
+			   startTimer() {
+			     this.intervalId = setInterval(this.fetchData, 3000); // 每3秒请求一次数据
+			   },
+			   stopTimer() {
+				   console.log("this.intervalId",this.intervalId)
+			     if (this.intervalId) {
+			       clearInterval(this.intervalId);
+			     }
+			   },
 			checkIndex(index) {
 				console.log(index)
 				this.navIndex = index;
+				this.getData()
 			},
 			logstatrt(){
 				console.log("====")
@@ -151,75 +189,53 @@
 			togglePopup(){
 				this.showPopup = false
 			},
-			// calcContentHeight() {
-			//       const headerHeight = this.$refs.header.offsetHeight
-			// 	  console.log("headerHeight",headerHeight)
-			//       const footerHeight = this.$refs.footer.offsetHeight
-			//       const contentHeight = window.innerHeight - headerHeight - footerHeight
-			//       this.$refs.content.style.height = contentHeight + 'px'
-			//     },
-			//杆杠
-			handleInput(event) {
-							const value = parseInt(event.target.value);
-							if (!isNaN(value) && value >= 50) {
-								this.quantity = value;
-							} else {
-								this.quantity = 50;
-							}
-						},
-						increase() {
-							this.quantity+=50;
-						},
-						decrease() {
-							if (this.quantity > 50) {
-								this.quantity-=50;
-							}
-						},
-						close(){
-							this.showPopup = false
-						},
-		splitData(rawData) {
-			console.log("rawDatarawData",rawData)
-				  let categoryData = [];
-				  let values = [];
-				  let volumes = [];
-				  for (let i = 0; i < rawData.length; i++) {
-					 // console.log("0000000",i)
-					categoryData.push(rawData[i].splice(0, 1)[0]);
-					values.push(rawData[i]);
-					volumes.push([i, rawData[i][4], rawData[i][0] > rawData[i][1] ? 1 : -1]);
-				  }
-				  return {
-					categoryData: categoryData,
-					values: values,
-					volumes: volumes
-				  };
-				},
-			calculateMA(dayCount, data) {
-				  var result = [];
-				  for (var i = 0, len = data.values.length; i < len; i++) {
-					if (i < dayCount) {
-					  result.push('-');
-					  continue;
+		
+				getTopData(){
+					var that = this
+					let param={
+						symbol:this.coinType,
+						type:this.navIndex,
+						tm:1
 					}
-					var sum = 0;
-					for (var j = 0; j < dayCount; j++) {
-					  sum += data.values[i - j][1];
-					}
-					result.push(+(sum / dayCount).toFixed(2));
-				  }
-				  return result;
+					uni.request({
+					        url:"https://api.taurusen.site/api/shares/market/getKlineOne",
+							method: 'GET',
+							data: param,
+					        success(res){
+								 console.log("成功===》》",res)
+								that.formData = res.data.data.data
+								that.formItem = res.data.data.item
+					            console.log("成功==that.formData=》》",that.formData)
+								// const { data } = res.data
+								// datalist = res.data.data
+								// that.logstatrtone(datalist)
+					        }
+					    })
 				},
-				
+				getData(){
+					var datalist = []
+					var that = this
+					let param={
+						sid:this.coinType,
+						type:this.navIndex
+					}
+					uni.request({
+					        url:"https://api.taurusen.site/api/shares/market/getKlineList",
+							method: 'GET',
+							data: param,
+					        success(res){
+					            console.log("成功===》》",res)
+								const { data } = res.data
+								datalist = res.data.data
+								that.logstatrtone(datalist)
+					        }
+					    })
+		
+				},
 			
-						logstatrtone() {
-							//console.log("cityData",mokdata)
-							// $.get(ROOT_PATH + '/data/asset/data/stock-DJI.json', function (rawData) {
-							//let data = cityData;
-							let data = this.splitData(mokdata);
-							// let data= rawData
-							// })
-							
+						logstatrtone(val) {
+							let data = this.splitData(val);
+							console.log("data====>>>>>",data)
 							let upColor = '#00da3c';
 							let downColor = '#ec0000';
 							this.optionone = {
@@ -286,6 +302,18 @@
 			         // fontFamily: 'Arial',
 			         // fontSize: 14,
 			     },
+				 formatter: function (param) {
+				  console.log("====>>>>>param",param)
+				  param = param[0];
+				  return [
+				  		param.name + '<hr size=1 style="margin: 3px 0">',
+				  		'开盘价: ' + param.data[0] + '<br/>',
+				  		'收盘价: ' + param.data[1] + '<br/>',
+				  		'最高价: ' + param.data[2] + '<br/>',
+				  		'最低价: ' + param.data[3] + '<br/>',
+						'成交价: ' + param.data[4] + '<br/>'
+				  ].join('');
+				  }
 		  },
 		  visualMap: {
 			show: false,
@@ -375,7 +403,7 @@
 			  moveOnMouseWheel:false,
 			  preventDefaultMouseMove:false,
 			  xAxisIndex: [0, 1],
-			  start: 98,
+			  start: 50,
 			  end: 100,
 			  zoomLock: false
 			},
@@ -386,7 +414,7 @@
 			  xAxisIndex: [0, 1],
 			  type: 'slider',
 			  top: '85%',
-			  start: 98,
+			  start: 50,
 			  end: 100,
 			  zoomLock: false
 			}
@@ -410,11 +438,11 @@
 				 console.log("====>>>>>param",param)
 				  param = param[0];
 				  return [
-					'Date: ' + param.name + '<hr size=1 style="margin: 3px 0">',
-					'Open: ' + param.data[0] + '<br/>',
-					'Close: ' + param.data[1] + '<br/>',
-					'Lowest: ' + param.data[2] + '<br/>',
-					'Highest: ' + param.data[3] + '<br/>'
+					// 'Date: ' + param.name + '<hr size=1 style="margin: 3px 0">',
+					// '开盘价: ' + param.data[0] + '<br/>',
+					// 'Close: ' + param.data[1] + '<br/>',
+					// 'Lowest: ' + param.data[2] + '<br/>',
+					// 'Highest: ' + param.data[3] + '<br/>'
 				  ].join('');
 				}
 			  },
@@ -426,7 +454,7 @@
 				},
 				data: [
 				  {
-					name: 'highest value',
+					name: '11111',
 					type: 'max',
 					valueDim: 'highest',
 					itemStyle: {
@@ -434,12 +462,12 @@
 					}
 				  },
 				  {
-					name: 'lowest value',
+					name: '22222',
 					type: 'min',
 					valueDim: 'lowest',
 				  },
 				  {
-					name: 'average value on close',
+					name: '33333',
 					type: 'average',
 					valueDim: 'close',
 					itemStyle: {
@@ -450,10 +478,11 @@
 				tooltip: {
 				//	triggerOn:'click',
 					 confine: true, 
+					 show:false,
 					// backgroundColor: 'rgba(0, 0, 0, 0.3)',
 				  formatter: function (param) {
 					console.log("====>>param",param)
-					return param.name + '<br>' + (param.data.coord || '');
+					//return param.name + '<br>' + (param.data.coord || '');
 				  }
 				}
 			  },
@@ -507,56 +536,115 @@
 				]
 			  }
 			},
-			{
-			  name: 'MA5',
-			  type: 'line',
-			  data: this.calculateMA(5, data),
-			  smooth: true,
-			  showSymbol: false,
-			  lineStyle: {
-				opacity: 0.5
-			  }
-			},
-			{
-			  name: 'MA10',
-			  type: 'line',
-			  data: this.calculateMA(10, data),
-			  smooth: true,
-			  showSymbol: false,
-			  lineStyle: {
-				opacity: 0.5
-			  }
-			},
-			{
-			  name: 'MA20',
-			  type: 'line',
-			  data: this.calculateMA(20, data),
-			  smooth: true,
-			  showSymbol: false,
-			  lineStyle: {
-				opacity: 0.5
-			  }
-			},
-			{
-			  name: 'MA30',
-			  type: 'line',
-			  data: this.calculateMA(30, data),
-			  smooth: true,
-			  showSymbol: false,
-			  lineStyle: {
-				opacity: 0.5
-			  }
-			},
-			{
-			  name: '成交量',
-			  type: 'bar',
-			  xAxisIndex: 1,
-			  yAxisIndex: 1,
-			  data: data.volumes
-			}
-		  ]
+					{
+						  name: 'MA5',
+						  type: 'line',
+						  data: this.calculateMA(5, data),
+						  smooth: true,
+						  showSymbol: false,
+						  lineStyle: {
+							opacity: 0.5
+						  }
+						},
+						{
+						  name: 'MA10',
+						  type: 'line',
+						  data: this.calculateMA(10, data),
+						  smooth: true,
+						  showSymbol: false,
+						  lineStyle: {
+							opacity: 0.5
+						  }
+						},
+						{
+						  name: 'MA20',
+						  type: 'line',
+						  data: this.calculateMA(20, data),
+						  smooth: true,
+						  showSymbol: false,
+						  lineStyle: {
+							opacity: 0.5
+						  }
+						},
+						{
+						  name: 'MA30',
+						  type: 'line',
+						  data: this.calculateMA(30, data),
+						  smooth: true,
+						  showSymbol: false,
+						  lineStyle: {
+							opacity: 0.5
+						  }
+						},
+						{
+						  name: '成交量',
+						  type: 'bar',
+						  xAxisIndex: 1,
+						  yAxisIndex: 1,
+						  data: data.volumes
+						}
+					  ]
 		}
 						},
+						// calcContentHeight() {
+							//       const headerHeight = this.$refs.header.offsetHeight
+							// 	  console.log("headerHeight",headerHeight)
+							//       const footerHeight = this.$refs.footer.offsetHeight
+							//       const contentHeight = window.innerHeight - headerHeight - footerHeight
+							//       this.$refs.content.style.height = contentHeight + 'px'
+							//     },
+							//杆杠
+							handleInput(event) {
+											const value = parseInt(event.target.value);
+											if (!isNaN(value) && value >= 50) {
+												this.quantity = value;
+											} else {
+												this.quantity = 50;
+											}
+										},
+										increase() {
+											this.quantity+=50;
+										},
+										decrease() {
+											if (this.quantity > 50) {
+												this.quantity-=50;
+											}
+										},
+										close(){
+											this.showPopup = false
+										},
+						splitData(rawData) {
+							console.log("rawDatarawData",rawData)
+								  let categoryData = [];
+								  let values = [];
+								  let volumes = [];
+								  for (let i = 0; i < rawData.length; i++) {
+									 // console.log("0000000",i)
+									categoryData.push(rawData[i].splice(0, 1)[0]);
+									values.push(rawData[i]);
+									volumes.push([i, rawData[i][4], rawData[i][0] > rawData[i][1] ? 1 : -1]);
+								  }
+								  return {
+									categoryData: categoryData,
+									values: values,
+									volumes: volumes
+								  };
+								},
+							calculateMA(dayCount, data) {
+								  var result = [];
+								  for (var i = 0, len = data.values.length; i < len; i++) {
+									if (i < dayCount) {
+									  result.push('-');
+									  continue;
+									}
+									var sum = 0;
+									for (var j = 0; j < dayCount; j++) {
+									  sum += data.values[i - j][1];
+									}
+									result.push(+(sum / dayCount).toFixed(2));
+								  }
+								  return result;
+								},
 		}
 	}
 </script>

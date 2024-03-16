@@ -6,8 +6,16 @@
 					{{i18n.填写信息}}
 				</h3>
 				<view class="table-from" style="">
-					<view class="flex">{{i18n.充值币种}}<text class="table-input"><input v-model="from.name"  /></text></view> 
-					<view class="flex">{{i18n.充值金额}}<text class="table-input"><input :placeholder="i18n.请输入数量" v-model="from.pice"/></text></view>
+					<view class="flex" style="width: 100%;">{{i18n.充值币种}}
+					<text class="table-input" style="margin-left: 20px;">
+						{{from.type}}
+						<!-- <input class="uni-input" disabled v-model="from.type"  />-->
+					</text> 
+					</view> 
+					<view class="flex" style="width: 100%;margin: 10px 0;">{{i18n.充值金额}}
+					<text class="table-input">
+						<input class="uni-input" :placeholder="i18n.请输入数量" v-model="from.incomeNum"/></text>
+					</view>
 					<view class="flex">{{i18n.凭证图片}}
 					<view @click="selectVoucher">
 						<image v-if="!voucher" src="../../static/images/trade/photo.png" class="uni-pic" ></image>
@@ -21,7 +29,7 @@
 			</view>
         </view>
 		<view style="padding: 20px;">
-			<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="next">{{i18n.提交}}</button>	
+			<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="save">{{i18n.提交}}</button>	
 			<button style="margin-top: 10px;height: 45px;" v-on:click="step">{{i18n.上一步}}</button>	
 		</view>
 	</view>
@@ -29,6 +37,7 @@
 
 <script>
 	var itemType = require("@/common/p/base-data.js").itemType;
+	var api = require('@/common/p/api.js');
 	export default {
 		components:{
 			
@@ -36,7 +45,11 @@
 		
 		data() {
 			return {
-				from:{},
+				from:{
+					incomeNum:'', //充值金额
+					outlayNum:'', //提现数量
+					type:''
+				},
 				voucher:'',
 				is_avatar_change:false,
 			}
@@ -48,7 +61,7 @@
 		},
 		onLoad(option) {
 					this.from = JSON.parse(decodeURIComponent(option.obj));
-					console.log("this.from",this.from)
+					console.log("this.from====》》》》",this.from)
 				},
 		methods: {
 			//上传
@@ -56,23 +69,66 @@
 					uni.chooseImage({sourceType: ["camera", "album"], sizeType: "compressed", count: 1,
 					    success: res => {
 							var filesPaths = res.tempFilePaths;
+							uni.showLoading({ title: '正在上传...' }); 
+							console.log("filesPaths",filesPaths)
 							if(filesPaths && filesPaths.length > 0){
 								this.voucher = filesPaths[0];
+								console.log("filesPaths",this.voucher)
 								this.is_avatar_change = true;
+								
+									//return;
+									api.uploadfile(api.url.upload ,this.voucher, res =>{
+										console.log("提交成功====》》》: " ,res);
+										// this.getDataList();
+										// uni.showToast({
+										// 	title:'删除成功!',
+										// })
+										})
+							// 	uni.uploadFile({
+							// 	      url: api.url.base + '/image/upload', // 服务器接口地址
+							// 	      filePath: this.voucher, // 需要上传的本地文件路径
+							// 		  header: {
+							// 		    'content-type': 'multipart/form-data'
+							// 		  },
+							// 		  fileType: "image", 
+							// 	      name: 'file', // 后台接收参数名称
+							// 	      formData: formData, // 额外的表单数据（非必填）
+							// 	      success(res) {
+							// 	        console.log('上传成功===',res);
+								       
+							// 	        uni.hideLoading(); // 隐藏加载提示
+							// 	      },
+							// 	      fail(err) {
+							// 	        console.error('上传失败===》》》', err);
+								        
+							// 	        uni.hideLoading(); // 隐藏加载提示
+							// 	      }
+							// 	    })
 							}
-					    }
+					   
+						}
+
 					})
 			},
 			//下一步
-			next(){
-				if(!this.from.pice){
+			save(){
+				console.log("===",this.from)
+				if(!this.from.incomeNum){
 					uni.showToast({
 					    title: '请输入数量',
 					    icon: 'none',
 					    duration: 2000
 					})
+					return
 					
 				}
+				api.post(api.url.applicationrecharge ,this.from, res =>{
+					console.log("提交成功====》》》: " ,res);
+					// this.getDataList();
+					// uni.showToast({
+					// 	title:'删除成功!',
+					// })
+					})
 				console.log("===")
 			},
 			//上一步
@@ -127,7 +183,13 @@
 }
 .table-input{
 	margin-left: 10px;
+	text-align: left;
 	font-size: 14px;
+	flex: 1;
+}
+.uni-input{
+	margin-left: 10px;
+    text-align: left;
 }
 .activite{
 	border-color: #0080ff;
@@ -144,7 +206,7 @@
 .uni-pic{
 	width: 40px; 
 	height: 40px; 
-	margin-left: 10px;
+	margin-left: 20px;
 	/* margin-top: 30px; */
 	/* border-radius: 50%; */
 }

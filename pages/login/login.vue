@@ -122,9 +122,13 @@
 						title:'登录成功!',
 						success:function(res){
 							setTimeout(function(){
-								uni.navigateBack()
+								
+								//uni.navigateBack()
 							} , 500);
 						}
+					})
+					uni.navigateTo({
+						url:"/pages/contract/index"
 					})
 				} ,error =>{
 					uni.hideLoading();
