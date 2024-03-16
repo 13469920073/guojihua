@@ -121,7 +121,21 @@ function uniPost(url, pars, success, error) {
       if (data.code == 200) {
         console.log("request ok");
         success(data);
-      } else {
+      } else if (data.code == 401) {
+        uni.showModal({
+          title: '提示',
+          content: '用户认证失败请重新登录',
+          showCancel:false,
+          success: function (res) {
+              if (res.confirm) {
+                uni.navigateTo({
+                  url: '/pages/login/login'
+                })
+              }
+          }
+        })
+    
+      }else {
         if (error) error(data['msg'] || '服务器返回错误');
       }
     },
@@ -173,7 +187,21 @@ function uniGet(url, pars, success, error) {
       if (data.code == 200) {
         console.log("request ok");
         success(data);
-      } else {
+      }else if (data.code == 401) {
+        uni.showModal({
+          title: '提示',
+          content: '用户认证失败请重新登录',
+          showCancel:false,
+          success: function (res) {
+              if (res.confirm) {
+                uni.navigateTo({
+                  url: '/pages/login/login'
+                })
+              }
+          }
+        })
+    
+      }else {
         if (error) error(data['msg'] || '服务器返回错误');
       }
     },
@@ -225,7 +253,21 @@ function uniPut(url, pars, success, error) {
       if (data.code == 200) {
         console.log("request ok");
         success(data);
-      } else {
+      } else if (data.code == 401) {
+        uni.showModal({
+          title: '提示',
+          content: '用户认证失败请重新登录',
+          showCancel:false,
+          success: function (res) {
+              if (res.confirm) {
+                uni.navigateTo({
+                  url: '/pages/login/login'
+                })
+              }
+          }
+        })
+    
+      }else {
         if (error) error(data['msg'] || '服务器返回错误');
       }
     },
@@ -277,7 +319,21 @@ function uniDelete(url, pars, success, error) {
       if (data.code == 200) {
         console.log("request ok");
         success(data);
-      } else {
+      } else if (data.code == 401) {
+        uni.showModal({
+          title: '提示',
+          content: '用户认证失败请重新登录',
+          showCancel:false,
+          success: function (res) {
+              if (res.confirm) {
+                uni.navigateTo({
+                  url: '/pages/login/login'
+                })
+              }
+          }
+        })
+    
+      }else {
         if (error) error(data['msg'] || '服务器返回错误');
       }
     },
@@ -336,7 +392,21 @@ function uniUploadFile(url, filePath, success, error) {
       var obj = JSON.parse(dataStr);
       if (obj.status == 200 && code == 200) {
         success(obj.body);
-      } else {
+      } else if (data.code == 401) {
+        uni.showModal({
+          title: '提示',
+          content: '用户认证失败请重新登录',
+          showCancel:false,
+          success: function (res) {
+              if (res.confirm) {
+                uni.navigateTo({
+                  url: '/pages/login/login'
+                })
+              }
+          }
+        })
+    
+      }else {
         if (error) error(obj['msg'] || '服务器返回错误');
       }
     },

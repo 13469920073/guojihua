@@ -1,5 +1,5 @@
 //设置白名单，白名单中的路径不进行拦截 (登录，首页，合约)
-const whiteList = ['/pages/login/login', '/pages/home/index', '/pages/contract/index','/']
+const whiteList = ['/pages/login/login', '/pages/home/index', '/pages/contract/index','/','pages/contract/kline']
 // 登录页面路径
 const loginPage = "/pages/login/login"
 

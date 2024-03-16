@@ -98,7 +98,6 @@
 		methods: {
 			
       btn(){
-       		 uni.setStorageSync('token' ,'12321');
 
       },
 			loadData(){
