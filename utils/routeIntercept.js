@@ -1,5 +1,5 @@
 //设置白名单，白名单中的路径不进行拦截 (登录，首页，合约)
-const whiteList = ['/pages/login/login', '/pages/home/index', '/pages/contract/index']
+const whiteList = ['/pages/login/login', '/pages/home/index', '/pages/contract/index','/']
 // 登录页面路径
 const loginPage = "/pages/login/login"
 
@@ -35,7 +35,9 @@ uni.addInterceptor('navigateTo', {
 
 uni.addInterceptor('switchTab', {
   // tabbar页面跳转前进行拦截
+  
   invoke(e) {
+    console.log(e,'----')
     if (hasPermission(e.url)) {
       uni.navigateTo({
         url: '/pages/login/login'
