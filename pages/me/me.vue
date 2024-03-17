@@ -107,6 +107,10 @@
 					url:'/pages/trade/transaction'
 				});
           break;
+		  case 3:uni.navigateTo({
+		  			url:'/pages/me/identifi'
+		  		});
+		  break;
 		  case 4:uni.navigateTo({
 		  			url:'/pages/trade/my-account?tag='+'me'
 		  		});

@@ -8,7 +8,7 @@
 							{{i18n.账户余额}}<span>(USDT)</span>
 						</view>
 						<view class="grid-account-price">
-							368236.5198
+							{{balance}}
 						</view>
 					</view>
 					<view class="grid-account-wallet uni-inline-item">
@@ -54,6 +54,7 @@
 		data() {
 			return {
 				itemType:itemType,
+				balance:'0',
 				dataList:[],
 				pageNum:1,
 				pageSize:10,
@@ -69,7 +70,8 @@
 			uni.setNavigationBarTitle({
 			    title: this.$t('tab').钱包
 			});
-			this.getData()
+			this.getDataBalance()
+			this.getData();
 		},
 		onLoad() {
 			
@@ -82,9 +84,13 @@
 					pageSize:this.pageSize
 				}
 				api.post(api.url.getoperhistorylist ,param, res =>{
-					console.log("获取成功====》》》: " ,res);
 					this.dataList = res.data.result
-					
+					})
+			},
+			//获取用户余额
+			getDataBalance(){
+				api.post(api.url.getwalletbalance ,{}, res =>{
+					this.balance = res.data.result
 					})
 			},
 			publish(item){

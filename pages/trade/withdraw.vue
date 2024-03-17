@@ -91,15 +91,18 @@ console.log("====》》》》",this.form)
 				 }
 				 api.post(api.url.applicationoutlay ,obj, res =>{
 				 	console.log("提交成功====》》》: " ,res);
-					uni.navigateTo({
-						url:'/pages/trade/index'
-					})
+					// uni.navigateTo({
+					// 	url:'/pages/trade/index'
+					// })
 				 	uni.showToast({
 				 		title:'提交成功!',
 						success:function(res){
-							// setTimeout(function(){
-								
-							// } , 500);
+							
+							setTimeout(function(){
+								uni.switchTab({
+								  url:'/pages/trade/index'
+								})
+							} , 500);
 						}
 				 	})
 				 	})

@@ -1,48 +1,50 @@
 <template>
     <view>
       <view class="header_title">
-        <span :class="pattern===1?'active':''" @click="isshow(1)">{{i18n.持仓中}}</span>
-        <span :class="pattern===2?'active':''" @click="isshow(2)">{{i18n.已完成}}</span>
+        <text :class="status==='1'?'active':''" @click="isshow('1')">{{i18n.持仓中}}</text>
+        <text :class="status==='2'?'active':''" @click="isshow('2')">{{i18n.已完成}}</text>
       </view>
       <view style="height:8upx;background-color:#f6f6f6"></view>
-      <view v-if="list.length">
-        <view class="data_list" v-for="(item,index) in list" :key="index">
+      <view v-if="dataList.length">
+        <view class="data_list" hover-class="uni-list-cell-hover" v-for="(item,index) in dataList" :key="index">
          <view class="list_top">
            <view class="top_left">
-            <view>BTC/USDT</view>
+            <view>{{item.type}}/USDT</view>
             <view>
-              <p>2024-02-23 15:27</p>
-               <p>2024-02-23 15:27</p>
+              <p>{{formattedDate(item.createTime)}}</p>
+               <p>{{formattedDate(item.overTime)}}</p>
               </view>
           </view>
-          <view class="top_right" style="font-size: 16px;">
-            {{i18n.买涨}}
+          <view class="top_right" :style="{ color: item.holdType == '1' ? '#3c3' : '#f66'}">
+            {{item.holdType == '1'?i18n.买涨:i18n.买跌}}
           </view>
          </view>
         <view class="list_button">
           <view class="button_content">
-            <span> {{i18n.开仓价}}</span>
-            <span>1</span>
+            <text> {{i18n.开仓价}}</text>
+            <text>{{item.holdPrice}}</text>
           </view>
            <view class="button_content">
-             <span>{{i18n.杠杆倍数}}</span>
-            <span>9999</span>
+             <text>{{i18n.杠杆倍数}}</text>
+            <text>{{item.times}}</text>
            </view>
             <view class="button_content">
-              <span>{{i18n.数量}}</span>
-            <span>1</span>
+              <text>{{i18n.数量}}</text>
+            <text>{{item.holdNum}}</text>
             </view>
              <view class="button_content">
-               <span>{{i18n.平仓价}}</span>
-            <span>1</span>
+               <text>{{i18n.平仓价}}</text>
+            <text>{{item.overPrice}}</text>
              </view>
               <view class="button_content">
-                <span>{{i18n.手续费}}</span>
-            <span>110</span>
+                <text>{{i18n.手续费}}</text>
+            <text>{{item.premiumNum}}</text>
               </view>
                <view class="button_content">
-                <span>{{i18n.盈亏}}</span>
-               <span>-90%</span>
+                <text>{{i18n.盈亏}}</text>
+               <text :style="{ color: item.revenue < 0 ? '#f66' : '#3c3'}">
+			   {{item.revenue}}
+			   </text>
                </view>
         </view>
       </view>
@@ -66,13 +68,13 @@
 		},
 		data(){
 			return {
-		  	pattern:1,
-        list:[{
-			
-		}],
+				dd:'-1',
+		  	//status:1,
+			status:'1',
 		dataList:[],
 		pageNum:1,
 		pageSize:10,
+		totalPages:null, //总页数
 			}
 		},
 		computed: {
@@ -84,26 +86,54 @@
 			uni.setNavigationBarTitle({
 			    title: this.$t('personal').持仓
 			});
-			this.getData()
+			
 		},
 		onLoad() {
-		
+		   this.getData()
+		},
+		onReachBottom() {
+					 if(this.pageNum <= this.totalPages){
+					   console.log("huo去更多的数据")
+					   this.getData();
+					 } else{
+					   console.log('没有更多数据了');
+					 }
 		},
 		methods:{
 			getData(){
 				let param={
 					pageNum:this.pageNum,
-					pageSize:this.pageSize
+					pageSize:this.pageSize,
+					status:this.status
 				}
-				api.post(api.url.getoperhistorylist ,param, res =>{
+				api.post(api.url.gettradelistbystatus ,param, res =>{
 					console.log("获取成功====》》》: " ,res);
-					this.dataList = res.data.result
+					if(this.pageNum === 1){
+					    this.totalPages = res.data.totalPage; // 更新总页数
+					    this.dataList = []; // 清空之前的数据
+					}
+					const newData = res.data.result || []; // 从返回结果中提取数据部分
+					this.dataList = [...this.dataList, ...newData];
+			       ++this.pageNum;
 					
 					})
 			},
 			isshow(val){
-        this.pattern=val
-      }
+			    this.pageNum = 1
+				//this.totalPages = null
+				this.dataList = [];
+                this.status = val
+			    this.getData()
+            },
+			formattedDate(time){
+				if(time){
+					var newTime = time.substring(0, 16);
+					return newTime.replace('T', ' ');
+				}else{
+					return '-'
+				}
+				
+			},
 		},
 		
 		
@@ -119,7 +149,7 @@
   align-items: center;
   font-size: 28upx;
 }
-.header_title>span{
+.header_title>text{
   text-align: center;
   /* width: 60px; */
   margin: 0 40upx;
@@ -149,6 +179,9 @@
   justify-content: center;
   align-items: center;
   position: relative;
+}
+.top_right{
+	font-size: 16px;
 }
 .top_left>view:nth-child(1){
   font-size: 16px;
@@ -184,7 +217,7 @@
   color: #555555;
   margin: 10px 0;
 }
-.button_content>span{
+.button_content>text{
   /* height:40px */
   font-size: 16px;
 }

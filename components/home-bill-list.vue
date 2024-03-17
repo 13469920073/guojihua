@@ -20,6 +20,7 @@
 					</view>
 			</view>
 	    </view>
+		<view v-if="items.length">
 		<view class="uni-list-cell" hover-class="uni-list-cell-hover" v-for="(value ,key) in items" :key="key" style="flex-direction: column;align-items: flex-start;">
 			<view style="width: 100%;" v-on:click="openDetailPage(value)">
 				<view  style="display: flex;" >
@@ -35,6 +36,14 @@
 				</view>
 			</view>
 		</view><!-- cell -->
+		</view>
+		<view v-else>
+		  <view class="img_title">
+		    <img src="./../assets/img/available.png" alt="">
+		    <p style="font-size:32upx;color:#c4c4c4">{{i18n.暂无数据}}</p>
+		  </view>
+		
+		</view>
 </view>
 </view>
 </template>
@@ -292,6 +301,10 @@
 }
 .grid-item-right{
 	width: 30%;
+}
+.img_title{
+  text-align: center;
+  margin-top: 10%;
 }
 /* .grid-item-left {
 	border-left-width: 0;

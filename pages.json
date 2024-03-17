@@ -70,12 +70,24 @@
 	    "navigationBarTitleText": "密码找回"
 	  }
 	},
+	{
+	  "path": "pages/login/modifyPassword",
+	  "style": {
+	    "navigationBarTitleText": "修改密码"
+	  }
+	},
     {
       "path": "pages/me/userinfo",
       "style": {
         "navigationBarTitleText": "修改资料"
       }
     },
+	{
+	  "path": "pages/me/identifi",
+	  "style": {
+	    "navigationBarTitleText": "实名认证"
+	  }
+	},
     {
       "path": "pages/me/setter",
       "style": {
