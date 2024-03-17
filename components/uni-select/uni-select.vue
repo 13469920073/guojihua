@@ -2,7 +2,7 @@
 	<view  class="uni-grid">
 		<view class="uniSelect">
 			<select name="cars" id="cars" v-model="selectedValue" @change="selectChange">
-			         <option>日本语</option>
+			         <option>日本語</option>
 			         <option>English</option>
 			         <option>中文</option>
 			         <!-- <option>한국어</option> -->
@@ -48,7 +48,7 @@
 			selectChange(){
 				
 				console.log("======",this.selectedValue)
-				if(this.selectedValue == '日本语'){
+				if(this.selectedValue == '日本語'){
 					this._i18n.locale = 'japan'
 				}else if(this.selectedValue == 'English'){
 					this._i18n.locale = 'english'

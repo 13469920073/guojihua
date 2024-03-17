@@ -21,7 +21,10 @@
 					<text class="table-input">
 						<input v-model="from.address" disabled class="uni-input"/></text>
 					</view> 
-					<view style="display: flex; align-items: center;margin-top: 18px;">
+					<view class="table-images">
+						<image :src="from.photo" mode="" />
+					</view> 
+					<view style="display: flex; align-items: center;">
 						<view style="margin-left: 5px;color: #f66;text-align: left;">{{i18n.注意}}</view> 
 					</view>
 				</view>
@@ -32,7 +35,7 @@
 			<text>{{i18n.转账完成}}</text>
 		</view>
 		<view style="padding: 20px;">
-			<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="next">{{i18n.下一步}}</button>	
+			<button type="primary" style="background-color: #0080ff;height: 45px;" v-on:click="next">{{i18n.下一步}}</button>	
 		</view>
 	</view>
 </template>
@@ -51,24 +54,29 @@
 				itemType:[{
 					type:'USDT',
 					accountName:'USDT（TRC-20）',
-					address:'TJDduy6Mo8J6wVkb9c3v55js5hMva65e91'
+					address:'TJDduy6Mo8J6wVkb9c3v55js5hMva65e91',
+					photo:'../../static/images/trade/TRC-201.jpg'
 				},{
 					type:'USDT',
 					accountName:'USDT（ERC-20）',
-					address:'0x695c7317a67d7dc7ac2df08f17edf28b22545c11'
+					address:'0x695c7317a67d7dc7ac2df08f17edf28b22545c11',
+					photo:'../../static/images/trade/ERC-20-1.jpg'
 				},{
 					type:'BTC',
 					accountName:'BTC',
-					address:'32zTcPmmv4EunXNhmQz27vWb4LzNTx4aaV'
+					address:'32zTcPmmv4EunXNhmQz27vWb4LzNTx4aaV',
+					photo:'../../static/images/trade/BTC-1.jpg'
 				},{
 					type:'ETH',
 					accountName:'ETH（ERC-20）',
-					address:'0x695c7317a67d7dc7ac2df08f17edf28b22545c11'
+					address:'0x695c7317a67d7dc7ac2df08f17edf28b22545c11',
+					photo:'../../static/images/trade/ETH-1.jpg'
 				}],
 				from:{
 					accountName:'USDT（TRC-20）', //账户名称
 					address:'TJDduy6Mo8J6wVkb9c3v55js5hMva65e91', //账户地址
 					type:'USDT', //货币
+					photo:'../../static/images/trade/TRC-201.jpg'
 				}
 			}
 		},
@@ -169,7 +177,7 @@
 	flex-direction: column; 
 	align-items: flex-start;
 	width: 100%; 
-	margin-top: 8px;
+	/* margin-top: 8px; */
 	font-size: 14px;
 	color: #666;
 	 /* background-color: white; */
@@ -197,6 +205,13 @@
 	background-color: #0080ff;
 	border-width: 0;
 	border-radius: 0;
+}
+.table-images{
+	width: 100%;
+}
+.table-images uni-image{
+	width: 200px;
+	height: 200px;
 }
 /* .grid-item-left {
 	border-left-width: 0;

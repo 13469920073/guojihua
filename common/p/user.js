@@ -23,7 +23,6 @@ function userHasLogined(){
 
 function getUserInfo(){
 	var s = uni.getStorageSync('loginuserinfo');
-	console.log("获取登录信息==》》》===",s)
 	return JSON.parse(s);
 }
 

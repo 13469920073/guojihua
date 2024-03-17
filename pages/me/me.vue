@@ -4,7 +4,7 @@
 			<view v-if="isLogined"  v-on:click="login" style="display: flex; align-items: center;">
 				<view style="width: 100%;align-items: center;display: flex;padding: 5px 0;">
 					<image src="../../static/images/default_sdk_login@2x.png" style="width: 60px; height: 60px;"  ></image>
-					<text style="font-size: 15px; color: #888;margin-left: 15px;">{{userName}}</text>
+					<text style="font-size: 15px; color: #888;margin-left: 15px;">{{userInfo.nickName}}</text>
 				</view>
 			
 				<image src="../../static/images/arrow_icon@2x.png" style="width: 20px;height: 20px;flex-shrink: 0;margin-right: 5px;"></image>
@@ -65,7 +65,7 @@
 				userName:"NO.48312",
 				isLogined:false,
 				showCache:true,
-				cacheSize:'未认证',
+				cacheSize:'',
 				version:'1.0.0',
 				userInfo:{},
 				avatar:''
@@ -82,9 +82,10 @@
 				console.log("判断是否登录222")
 				this.loginSuccess();
 			})
-			uni.$on('xiugaiuserinfosuccess',res => {
-				this.getUserProfile();
-			})
+			this.getUserProfile();
+			// uni.$on('xiugaiuserinfosuccess',res => {
+			// 	this.getUserProfile();
+			// })
 			
 			if(USER.isLogined()){
 				this.loginSuccess();return;
@@ -129,16 +130,19 @@
 			},
 			login(){
 				uni.navigateTo({
-					// url:'/pages/login/login'
-					url:'/pages/me/setter'
-				})
+							url:'/pages/me/setter?obj='+encodeURIComponent(JSON.stringify(this.userInfo))
+						})
+				// uni.navigateTo({
+				// 	// url:'/pages/login/login'
+				// 	url:'/pages/me/setter'
+				// })
 			},
 			loginSuccess(){
 				this.isLogined = USER.isLogined();//判断是否登录
 				console.log("判断是否登录3333", this.isLogined)
-				this.userInfo = USER.userInfo();//获取登录信息
-				console.log("获取登录信息",this.userInfo)
-				this.avatar = this.userInfo['avatar_thumb'] || '../../static/images/default_avatar.png';
+				// this.userInfo = USER.userInfo();//获取登录信息
+				// console.log("获取登录信息444",this.userInfo)
+				// this.avatar = this.userInfo['avatar_thumb'] || '../../static/images/default_avatar.png';
 				// console.log("user: " + JSON.stringify(this.userInfo));
 			},
 			xiugaiInfo(){
@@ -146,11 +150,12 @@
 			},
 			//用户信息
 			getUserProfile(){
-				var uinfo = {"uid":USER.uid(), "type":"3"};
-				api.post(api.url.update_profile , uinfo , res =>{
-					console.log("获取登录信息",JSON.stringify(res));
-					uni.setStorageSync('loginuserinfo' ,res);
-					this.loginSuccess();
+				//var uinfo = {"uid":USER.uid(), "type":"3"};
+				api.get(api.url.getmemberinfo , {} , res =>{
+					this.userInfo = res.data
+					this.cacheSize =res.data.status =='1'?'已认证':'未认证'
+					//uni.setStorageSync('loginuserinfo' ,JSON.stringify(res.data));
+					 //this.loginSuccess();
 					
 					// if(isfromloginsuccess){
 					// 	isfromloginsuccess = false;

@@ -2,12 +2,16 @@
 	<view>
 <!-- 		<image src="../../static/images/default_avatar.png" style="width: 80px; height: 80px; margin-top: 30px;border-radius: 50%;" ></image> -->
 		<view style="margin-top: 0px;">
+			<view class="container-fullCol flex">
+				<text>头像</text>
+				<image :src="form.avatar" style="width: 40px; height: 40px;border-radius: 50%;" ></image>
+			</view>
 			<uni-list >
-				<uni-list-item class="set-item" @click='listSelected(1)' :title="i18n.头像" />
+				<!-- <uni-list-item class="set-item" @click='listSelected(1)' :title="i18n.头像" thumbImg="../../static/images/me/me_list_icon1.png" /> -->
 				<uni-list-item class="set-item" @click='listSelected(2)' :title="i18n.平台" :showBadge="showCache" badgeText="bitmakeitx" />
 				<!-- <uni-list-item  @click='listSelected(2)' title="清空缓存" :showBadge="showCache" :badgeText="cacheSize"/> -->
-				<uni-list-item class="set-item"  @click='listSelected(3)' :title="i18n.登录账号" />
-				<uni-list-item class="set-item"  @click='listSelected(4)' :title="i18n.用户昵称" />
+				<uni-list-item class="set-item"  @click='listSelected(3)' :title="i18n.登录账号" :showBadge="showCache" :badgeText="form.loginAccount" />
+				<uni-list-item class="set-item"  @click='listSelected(4)' :title="i18n.用户昵称" :showBadge="showCache" :badgeText="form.nickName" />
 				<uni-list-item  @click='listSelected(5)' :title="i18n.修改密码" />
 			</uni-list>
 		</view>
@@ -33,6 +37,7 @@
 		},
 		data(){
 			return {
+				form:{},
 				showCache:true,
 				cacheSize:'0.0M',
 				isLogined:USER.isLogined(),
@@ -43,18 +48,25 @@
 			    title: this.$t('personal').设置
 			});
 		},
+		onLoad(option) {
+			console.log("optionoption",option)
+			if(!Object.keys(option).length == 0){
+			this.form = JSON.parse(decodeURIComponent(option.obj));
+			console.log("optionoption",this.form)
+		  }
+		},
 		computed: {
 			    i18n (){
 			      return this.$t('personal')
 			    },	
 		},
-		onLoad() {
+		//onLoad() {
 			// plus.cache.calculate(size => {
 			// 	let s = parseFloat(size / (1024 * 1024)).toFixed(2) + "M";
 			// 	console.log(s);
 			// 	this.cacheSize = s;
 			// })
-		},
+		//},
 		methods:{
 			listSelected (i) {
 				switch (i){
@@ -116,9 +128,23 @@
 </script>
 
 <style>
+	.container-fullCol{
+		flex-direction: row;
+		    justify-content: space-between;
+		    align-items: center;
+			padding: 18px 16px
+			
+	}
+	.container-fullCol uni-text{
+		
+	}
 	.set-item{
 		.uni-icon-arrowright{
 			display: none; 
+		}
+		.uni-badge{
+			font-size: 16px;
+			background-color: transparent;
 		}
 	}
 /* 	page {

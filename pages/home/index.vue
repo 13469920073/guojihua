@@ -1,5 +1,8 @@
 <template>
 	<view class="content">
+		<view class="float-button" @click="openCustomerService">
+		      <image src="../../static/images/home/service.png"></image>
+		</view>
 		<uni-select @localeClick="localeClick"></uni-select>
 		<uni-swiper-dot :info="swiperImages" :current="current" :mode="mode" :dots-styles="dotsStyles">
 			<swiper class="swiper-box" @change="change" autoplay="true" style="height: 180px;">
@@ -76,6 +79,7 @@
 			// });
 			let lang = this._i18n.locale
 			this.getData()
+			this.getTonData()
 			this.getNotice(lang)
 			// this.itemType = _topItems;
 		},
@@ -110,10 +114,27 @@
 			localeClick(lang){
 				this.getNotice(lang.locale)
 			},
+			getTonData(){
+				console.log("获取ton币种信息")
+				let requestData = {'date': '01-01-2022', 'localization': 'false'}
+				uni.request({
+				    url: 'https://api.coingecko.com/api/v3/coins/bitcoin/history',
+				    method: 'GET',
+				    data: requestData,
+				    success: (res) => {
+				        console.log('GET请求成功：', res.data);
+				        // 处理你的业务逻辑
+				    },
+				    fail: (err) => {
+				        console.error('GET请求失败：', err);
+				        // 处理错误
+				    }
+				});
+			},
 			fetchData() {
 			     // 模拟请求数据的过程
 			     setTimeout(() => {
-				  this.getData()
+				  //this.getData()
 			     }, 1000);
 			   },
 			   startTimer() {
@@ -194,6 +215,12 @@
 			loadingStatus(e){
 				this.status = e;
 			},
+			//显示客服二维码
+			openCustomerService(){
+				uni.navigateTo({
+					url:"/pages/home/service"
+				})
+			},
 			onClick(e){
 				var i = e.index;
 				var item = this.itemType[i];
@@ -225,5 +252,37 @@
 	padding-top: 0px;
 	padding-bottom: 56px;
 }
+@keyframes scaleUp {
+  80% {
+    transform: scale(0.8); /* 动画开始时元素的大小 */
+  }
+  100% {
+    transform: scale(1); /* 动画结束时元素的大小 */
+  }
 
+}
+.float-button {
+	  width: 40px; /* 图标宽度 */
+	  height: 40px; /* 图标高度 */
+      position: fixed;
+      top: 30%;
+      right: 6px;
+      border-radius: 50%;
+      background: #eee;
+      box-shadow: 0 0 10px #999;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -ms-flex-align: center;
+      align-items: center;
+      z-index: 999;
+      transform: scale(1);
+      animation: scaleUp 1s linear .1s infinite normal;
+}
+.float-button image {
+  width: 60%;
+  height: 60%;
+  display: block; /* 块级元素 */
+}
 </style>

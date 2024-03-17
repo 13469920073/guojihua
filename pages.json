@@ -100,6 +100,12 @@
         "navigationBarTitleText": ""
       }
     },
+	{
+	  "path": "pages/home/service",
+	  "style": {
+	    "navigationBarTitleText": "通过二维码添加LINE好友"
+	  }
+	},
 	//
 	{
 	  "path": "pages/trade/transaction",

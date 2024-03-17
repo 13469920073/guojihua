@@ -150,7 +150,7 @@
 		content: '';
 		-webkit-transform: scaleY(.5);
 		transform: scaleY(.5);
-		background-color: #e5e5e5
+		/* background-color: #e5e5e5 */
 	}
 
 	.uni-list-item__content {

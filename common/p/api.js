@@ -20,6 +20,7 @@ var URL = {
   register: 'customer/member/register',  //用户注册
   changepwd: 'customer/member/changepwd',  //密码重置
   realnameapplication: 'customer/member/realnameapplication',  //用户实名认证
+  getmemberinfo: 'customer/member/getmemberinfo',  //获取用户信息
   coinassets: 'coin/get/coinassets', //获取币种信息
   coinassetshistory: 'coin/get/coinassetshistory', //获取币种信息
   getoperhistorylist: 'customer/member/getoperhistorylist',  //交易历史数据
@@ -33,6 +34,7 @@ var URL = {
   delapplicationaccount: 'customer/member/delapplicationaccount',  //客户删除账号
   addapplicationaccount: 'customer/member/addapplicationaccount',  //客户新增账号
   gettradelistbystatus:'customer/member/gettradelistbystatus',  //持仓中
+  createtrade: 'customer/member/createtrade',  //客户买涨买跌接口
   // addapplicationaccount:'customer/member/addapplicationaccount',  //持仓已经完成
   get_checkcode: 'sendCheckCode.php',
   get_msglist: 'message.php',
@@ -163,6 +165,7 @@ function uniGet(url, pars, success, error) {
   var token;
   let userinfo = ''
   userinfo = uni.getStorageSync("loginuserinfo");
+  console.log("userinfo>>>",userinfo)
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
   if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
     token = userJsonStr['token'];

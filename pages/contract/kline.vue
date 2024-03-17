@@ -2,10 +2,10 @@
 	<view>
 		<view class="flex container">
 			<view class="uni-left">
-				<view class="text-xxxlg">
+				<view class="text-xxxlg" :style="{ color: formData.zf < 0 ? '#f66' : '#3c3'}">
 					{{formData.price?formData.price:'0'}}
 				</view>
-				<view class="text-xmd">
+				<view class="text-xmd" :style="{ color: formData.zf < 0 ? '#f66' : '#3c3'}">
 					{{formData.zf?formData.zf:'0'}}%
 				</view>
 			</view>
@@ -49,10 +49,10 @@
 			我是选项5
 		</view> -->
 		<view class="uni-bottom-item flex">
-			<text class="bg-green flex bottom-btn" v-on:click="findBuy('up')">
+			<text class="bg-green flex bottom-btn" v-on:click="findBuy('1')">
 				{{i18n.买涨}}
 			</text>
-			<text class="bg-red flex bottom-btn" v-on:click="findBuy('down')">
+			<text class="bg-red flex bottom-btn" v-on:click="findBuy('2')">
 				{{i18n.买跌}}
 			</text>
 		</view>
@@ -63,30 +63,50 @@
 					<image src="../../static/images/dislikeicon_details@2x.png" mode="" style="width: 18px;height: 18px;padding:0 18px;"></image>
 				</view>
 				<view class="buy-con text-center">
-					<view class="flex buy-line"><text class="line-l">{{i18n.币种}}：</text><text>买涨</text></view>
-					<view class="flex buy-line"><text class="line-l">{{i18n.方向}}：</text><text>买涨</text></view>
+					<view class="flex buy-line">
+						<text class="line-l">{{i18n.币种}}：</text>
+						<text>{{form.type}}/USDT</text>
+						</view>
+					<view class="flex buy-line">
+						<text class="line-l">{{i18n.方向}}：</text>
+					<text style="color:#3c3" v-if="form.holdType == '1'">{{i18n.买涨}}</text>
+					<text style="color:#f66" v-if="form.holdType == '2'">{{i18n.买跌}}</text>
+					</view>
 					<view class="flex buy-line"><text class="line-l">{{i18n.杠杆}}：</text>
 					<text>
-						{{quantity}}x
+						{{form.times}}x
 					</text>
 					<text>
-						<button class="uni-minus-quantity" :disabled="quantity==50" @click="decrease">-</button>
+						<button class="uni-minus-quantity" :disabled="form.times==50" @click="decrease">-</button>
 					</text>
 					<text>
-						<button class="uni-add-quantity" :disabled="quantity==150" @click="increase">+</button>
+						<button class="uni-add-quantity" :disabled="form.times==150" @click="increase">+</button>
 					</text>
 					</view>
-					<view class="flex buy-line"><text class="line-l">{{i18n.价格}}：</text><text>买涨</text></view>
-					<view class="flex buy-line"><text class="line-l">{{i18n.数量}}：</text><text><input type="number" class="buy-ipt" placeholder="请输入数量" maxlength="11"/></text></view>
-					<view class="flex buy-line"><text class="line-l">{{i18n.止盈}}：</text><text><input type="number" class="buy-ipt" placeholder="默认无上限" maxlength="11"/></text>%</view>
-					<view class="flex buy-line"><text class="line-l">{{i18n.止损}}：</text><text><input type="number" class="buy-ipt" placeholder="默认100" maxlength="11"/></text>%</view>
-					<view class="flex buy-line"><text class="line-l">{{i18n.保证金}}：</text><text>0</text></view>
-					<view class="flex buy-line"><text class="line-l">{{i18n.手续费}}：</text><text>0</text></view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.价格}}：</text><text>{{formData.price}}</text></view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.数量}}：</text><text><input type="number" @input="onInput" v-model="form.holdNum" class="buy-ipt" :placeholder="i18n.请输入数量" maxlength="11"/></text></view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.止盈}}：</text><text><input type="number" v-model="form.profitRatio" class="buy-ipt" :placeholder="i18n.默认无上限" maxlength="11"/></text>%</view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.止损}}：
+					</text>
+					<text>
+						<input 
+						type="number" 
+						v-model="form.stopRatio"
+						 class="buy-ipt" min="0" 
+						 max="100" 
+						 :placeholder="i18n.默认100" 
+						 maxlength="3" 
+						oninput="if(!/^[0-9]+$/.test(value)) value=value.replace(/\D/g,'');if(value>100)value=100;if(value<0)value=null"
+						/>
+						</text>%
+						</view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.保证金}}：</text><text>{{form.deposit?form.deposit:'0'}}</text></view>
+					<view class="flex buy-line"><text class="line-l">{{i18n.手续费}}：</text><text>{{form.premiumNum?form.premiumNum:'0'}}</text></view>
 				</view>
 			</view>
 			<view class="btn-group flex">
-					<view class="btn-item text-xmd bg-green" @click="subBuyUp" v-if="tagIndex=='up'">{{i18n.买涨}}</view>
-					<view class="btn-item text-xmd bg-red" @click="subBuyDown" v-if="tagIndex=='down'">{{i18n.买跌}}</view>
+					<view class="btn-item text-xmd bg-green" @click="subBuyUp" v-if="tagIndex=='1'">{{i18n.买涨}}</view>
+					<view class="btn-item text-xmd bg-red" @click="subBuyUp" v-if="tagIndex=='2'">{{i18n.买跌}}</view>
 			</view>
 		</view>
 	</view>
@@ -116,7 +136,20 @@
 				intervalId: null,
 				option: {},
 				optionone: {},
-				optiontwo: {}
+				optiontwo: {},
+				form:{
+					deposit:'',
+					holdNum:'',
+					holdPrice:'',
+					holdType:'',
+					premiumNum:'',
+					profitRatio:'',
+					stopRatio:'',
+					times:50,
+					tradePrice:'',
+					type:''
+				}
+				
 
 			}
 		},
@@ -162,7 +195,7 @@
 			fetchData() {
 			     // 模拟请求数据的过程
 			     setTimeout(() => {
-				  this.getTopData()
+				  //this.getTopData()
 			     }, 1000);
 			   },
 			   startTimer() {
@@ -179,15 +212,59 @@
 				this.navIndex = index;
 				this.getData()
 			},
+			//onInput数量
+			onInput(e){
+				console.log('输入的内容是：' + e.target.value);
+				this.premiumCount()
+			},
+			onInput2(event){
+				console.log("=======ceshiceschie",)
+				let value = event.target.value;
+				      if (value > 100) {
+				        value = 100;
+				      }
+					  console.log("value",value)
+				      return value
+			},
 			logstatrt(){
 				console.log("====")
 			},
 			//买涨起
 			findBuy(tag){
+				this.form.type = this.coinType;
+				this.form.holdType = tag;
+				this.form.holdPrice= this.formData.price;
 				this.showPopup = !this.showPopup;
 				this.tagIndex = tag
 			},
-			subBuyUp(){},
+			subBuyUp(){
+				let that = this
+				let param={
+					...this.form
+				}
+				param.profitRatio = parseInt(param.profitRatio)
+				param.stopRatio = parseInt(param.stopRatio)
+				api.post(api.url.createtrade , param, res =>{
+									console.log("res>>>>>>: " ,res.data);
+									uni.hideLoading();
+									uni.showToast({
+										title:'成功!',
+										success:function(res){
+											setTimeout(function(){
+												that.showPopup = false
+												that.resetForm() //表单重置
+				 							} , 500);
+										}
+									})
+					
+								} ,error =>{
+									uni.hideLoading();
+									uni.showToast({
+										title:error,
+										icon:"none"
+									})
+								})
+			},
 			//买跌
 			findBuyDown(){},
 			togglePopup(){
@@ -210,6 +287,7 @@
 								that.formData = res.data.data.data
 								that.formItem = res.data.data.item
 					            console.log("成功==that.formData=》》",that.formData)
+								that.premiumCount()
 								// const { data } = res.data
 								// datalist = res.data.data
 								// that.logstatrtone(datalist)
@@ -590,6 +668,18 @@
 					  ]
 		}
 						},
+						//表单重置
+						resetForm() {
+						      this.form.deposit = '';
+						      this.form.holdNum = '';
+							  this.form.holdPrice = '';
+							  this.form.holdType = '';
+							  this.form.premiumNum = '';
+							  this.form.stopRatio = '';
+							  this.form.times = 50;
+							  this.form.tradePrice = '';
+							  this.form.type = '';
+						    },
 						// calcContentHeight() {
 							//       const headerHeight = this.$refs.header.offsetHeight
 							// 	  console.log("headerHeight",headerHeight)
@@ -598,21 +688,34 @@
 							//       this.$refs.content.style.height = contentHeight + 'px'
 							//     },
 							//杆杠
+							//计算保证金和手续费
+							premiumCount(){
+								console.log("计算",this.form)
+								if(this.form.holdNum){
+									var num1 = ( this.formData.price / this.form.times) * this.form.holdNum
+									var num2 = ( this.formData.price / this.form.times) / (33.3333 / this.form.holdNum)
+									this.form.deposit = num1.toFixed(4); //保证金
+									this.form.premiumNum = num2.toFixed(4); //手续费
+								}
+								
+							},
 							handleInput(event) {
 											const value = parseInt(event.target.value);
 											if (!isNaN(value) && value >= 50) {
-												this.quantity = value;
+												this.form.times = value;
 											} else {
-												this.quantity = 50;
+												this.form.times = 50;
 											}
 										},
 										increase() {
-											this.quantity+=50;
+											this.form.times+=50;
+											this.premiumCount()
 										},
 										decrease() {
-											if (this.quantity > 50) {
-												this.quantity-=50;
+											if (this.form.times > 50) {
+												this.form.times=50;
 											}
+											this.premiumCount()
 										},
 										close(){
 											this.showPopup = false

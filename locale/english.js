@@ -62,7 +62,10 @@ module.exports = {
 		 "止盈": "Stop profit",
 		 "止损": "Stop loss",
 		 "保证金": "Margin",
-		 "手续费": "Handling fee"
+		 "手续费": "Handling fee",
+		 "请输入数量":"Please input amount",
+		 "默认无上限":"Default no upper limit",
+		 "默认100":"default100"
 	},
 	//钱包
 	wallet:{
