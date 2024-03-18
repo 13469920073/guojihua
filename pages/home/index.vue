@@ -79,7 +79,7 @@
 			// });
 			let lang = this._i18n.locale
 			this.getData()
-			this.getTonData()
+			
 			this.getNotice(lang)
 			// this.itemType = _topItems;
 		},
@@ -114,23 +114,7 @@
 			localeClick(lang){
 				this.getNotice(lang.locale)
 			},
-			getTonData(){
-				console.log("获取ton币种信息")
-				let requestData = {'date': '01-01-2022', 'localization': 'false'}
-				uni.request({
-				    url: 'https://api.coingecko.com/api/v3/coins/bitcoin/history',
-				    method: 'GET',
-				    data: requestData,
-				    success: (res) => {
-				        console.log('GET请求成功：', res.data);
-				        // 处理你的业务逻辑
-				    },
-				    fail: (err) => {
-				        console.error('GET请求失败：', err);
-				        // 处理错误
-				    }
-				});
-			},
+			
 			fetchData() {
 			     // 模拟请求数据的过程
 			     setTimeout(() => {
@@ -163,15 +147,63 @@
 			   },
 			getData(){
 				var that = this;
+				let requestData = {
+					fsym:'Toncoin',
+					tsyms:'USDT'
+				// 'fsym': 'Toncoin', 
+				// 'tsyms': 'USDT',
+				// 'tsym': 'USDT',
+				// 'limit':'24',
+				// 'aggregate':3,
+				// 'e':'CCCAGG'
+				}
 				var arr1 = ['BTC','ETH','EOS'];
 				//var arr2 = ['BTC','ETH','EOS','HBC','LTC','XRP','BCH','ADA','TRX','BNB'];
 				uni.request({
 				        url:"https://api.taurusen.site/api/home/home/getBlineList",
 				        success(res){
-				            console.log(res)
-							const { list } = res.data.data
-						    that.dataTopList = that.filter(list,arr1)
-							that.dataList = list
+							uni.request({
+								    url: 'https://min-api.cryptocompare.com/data/price',
+								    method: 'GET',
+								   data: requestData,
+								    success: (res1) => {
+										console.log(res)
+										let list = res.data.data.list
+										// let d = res1.data.Data
+										// let list2  = d[d.length-1]
+										console.log("list2list2list2list2",res1)
+										let obj={
+											sname:'TON',
+											increPer:'0', //涨跌幅
+											nowPri:res1.data.USDT, //最新价
+											vol:'-',
+										}
+									//重新组装数组
+									const index = list.findIndex((item) => item.sname === 'HBC');
+									if (index !== -1) {
+									        that.$set(list, index, obj);
+									      }
+									console.log("”New Itemlistlist",list)
+										that.dataTopList = that.filter(list,arr1)
+										that.dataList = list
+										//let aa = that.getTonData()
+										//console.log("getTonData",aa)
+										
+										console.log('GET请求成功：', res.data.Data);
+										//let d = res.data.Data
+										//let leng = res.data.Data.length
+										//console.log('GET请求成功leng：', leng);
+							            // data1 = d[d.length-1]
+										//console.log('GdataList：',data1);
+										
+								        // 处理你的业务逻辑
+								    },
+								    fail: (err) => {
+								        console.error('GET请求失败：', err);
+								        // 处理错误
+								    }
+								});
+				           
 				          
 				        },
 				    })

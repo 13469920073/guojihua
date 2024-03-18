@@ -349,7 +349,7 @@ function uniDelete(url, pars, success, error) {
  * @param {Object} success
  * @param {Object} error
  */
-function uniUploadFile(url, filePath, success, error) {
+function uniUploadFile(url, filePath,type, success, error) {
   // var igs = files.map((value, index) => {
   // 	return {name: "files[" + index + ']',uri: value}
   //});
@@ -373,7 +373,8 @@ function uniUploadFile(url, filePath, success, error) {
     filePath: filePath,
     name: 'file', // 必须填写，后端用来解析文件流的字段名
     formData: {
-      'file': filePath
+      'file': filePath,
+	  ...type
     },
     //formData: formData,
     success: (res) => {

@@ -9,7 +9,7 @@ import $english from '@/locale/english.js';
 
 Vue.use(VueI18n);
 const i18n = new VueI18n({ 
-	locale: uni.getStorageSync('locale') ? uni.getStorageSync('locale'):'china', 
+	locale: uni.getStorageSync('locale') ? uni.getStorageSync('locale'):'japan', 
 	// 加载语言文件的内容
 	messages: { 
 		'china': $china,//中文

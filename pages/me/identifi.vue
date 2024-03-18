@@ -67,7 +67,8 @@
 								uni.showLoading({ title: '正在上传...' }); 
 								console.log("filesPaths",filesPaths)
 								if(filesPaths && filesPaths.length > 0){
-										api.uploadfile(api.url.upload ,filesPaths[0], res =>{
+									var type = tag == 'front' ? '4' : '3'
+										api.uploadfile(api.url.upload ,filesPaths[0],{imageType:type}, res =>{
 											if(tag =='front'){
 												this.voucher = filesPaths[0];
 												this.form.photoFront = res.data.url;
@@ -95,36 +96,36 @@
 				const {realName, idCard, phonenumber,photoFront,photoBack } = this.form
 				if(!realName){
 					uni.showToast({
-						title:"真实姓名不能为空",
+						title:this.i18n.请输入真实姓名,
 						icon:"none"
 					});return;
 				}
 				if (!phonenumber) {
 					uni.showToast({
-						title:"手机号不能为空",
+						title:this.i18n.请输入手机号,
 						icon:"none"
 					}); return; 
 				}
 				if (!idCard) {
 					uni.showToast({
-						title:"身份证号不能为空",
+						title:this.i18n.请输入身份证号,
 						icon:"none"
 					}); return; 
 				}
 				if (!photoFront) {
 					uni.showToast({
-						title:"请上传身份证正面",
+						title:this.i18n.请上传身份证正面,
 						icon:"none"
 					}); return; 
 				}
 				if (!photoBack) {
 					uni.showToast({
-						title:"请上传身份证背面",
+						title:this.i18n.请上传身份证背面,
 						icon:"none"
 					}); return; 
 				}
 				uni.showLoading({
-					title: '提交中...',
+					title: this.$t('tip').提交中,
 					mask: true
 				});
 				
@@ -132,7 +133,7 @@
 					console.log("提交成功", res)
 					uni.hideLoading();
 					uni.showToast({
-						title:'提交成功!',
+						title:this.$t('tip').成功,
 						success:function(res){
 							setTimeout(function(){
 								//返回

@@ -74,14 +74,14 @@
 				var oldPwd = this.oldPwd;
 				if(!oldPwd){
 					uni.showToast({
-						title:"原密码不能为空",
+						title:this.i18n.请输入原密码,
 						icon:"none"
 					});return;
 				}
 				
 				if (this.newPwd !== pwd) {
 					uni.showToast({
-						title:"两次输入的密码不一致",
+						title:this.i18n.密码不一致,
 						icon:"none"
 					}); return; 
 				}
@@ -91,14 +91,14 @@
 				    'passWord':pwd,
 				 };
 				uni.showLoading({
-					title: '修改中...',
+					title: this.$t('tip').修改中,
 					mask: true
 				});
 				
 				api.post(api.url.changepwd ,d,res =>{
 					uni.hideLoading();
 					uni.showToast({
-						title:'修改成功!',
+						title:this.$t('tip').修改成功,
 						success:function(res){
 							setTimeout(function(){
 								//退出登录

@@ -138,19 +138,19 @@
 							arr.push({
 							    time: item.createTime,
 							    amount: item.tradePrice,
-							    status: item.status == "1" ?"建仓":"平仓",	
+							    status: this.$t('wallet')[item.status == "1" ?"建仓":"平仓"],	
 							})
 						}else if(i == 1){
 							arr.push({
 							    time: item.createTime,
 							    amount: item.incomeNum,
-							    status: item.status == "2"?"待审核":(item.status == "3"?"通过":"不通过"),	
+							    status: this.$t('wallet')[item.status == "2"?"待审核":(item.status == "3"?"通过":"不通过")],	
 							})
 						}else if(i == 2){
 							arr.push({
 							    time: item.createTime,
 							    amount: item.outlayNum,
-							    status: item.status == "2"?"审核中":(item.status == "3"?"成功":"失败"),
+							    status: this.$t('wallet')[item.status == "2"?"审核中":(item.status == "3"?"成功":"失败")],
 							})
 						}
 						

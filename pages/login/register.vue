@@ -108,7 +108,7 @@
 				
 				
 				uni.showLoading({
-					title: '注册中',
+					title: this.$t('tip').注册中,
 					mask: true
 				});
 				
@@ -117,7 +117,7 @@
 					uni.hideLoading();
          
 					uni.showToast({
-						title:'注册成功!',
+						title:this.$t('tip').成功,
 						success:function(res){
 							setTimeout(function(){
 								uni.navigateBack()

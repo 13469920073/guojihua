@@ -93,14 +93,14 @@
 					});return;
 				}
 				uni.showLoading({
-					title: '新增中',
+					title: this.$t('tip').提交中,
 					mask: true
 				});
 				api.post(api.url.addapplicationaccount , this.from, res =>{
 					console.log("token>>>>>>: " ,res);
 					uni.hideLoading();
 					uni.showToast({
-						title:'新增成功!',
+						title:this.$t('tip').成功,
 						success:function(res){
 							setTimeout(function(){
 								uni.navigateBack()

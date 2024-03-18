@@ -2,9 +2,10 @@
 	<view>
 <!-- 		<image src="../../static/images/default_avatar.png" style="width: 80px; height: 80px; margin-top: 30px;border-radius: 50%;" ></image> -->
 		<view style="margin-top: 0px;">
-			<view class="container-fullCol flex">
+			<view class="container-fullCol flex" @click="selectAvatar">
 				<text>头像</text>
-				<image :src="form.avatar" style="width: 40px; height: 40px;border-radius: 50%;" ></image>
+				<image v-if="!form.avatar" src="../../static/images/default_avatar.png" class="uni-default-avatar" ></image>
+				<image v-else :src="form.avatar" class="uni-default-avatar" ></image>
 			</view>
 			<uni-list >
 				<!-- <uni-list-item class="set-item" @click='listSelected(1)' :title="i18n.头像" thumbImg="../../static/images/me/me_list_icon1.png" /> -->
@@ -50,10 +51,11 @@
 		},
 		onLoad(option) {
 			console.log("optionoption",option)
-			if(!Object.keys(option).length == 0){
-			this.form = JSON.parse(decodeURIComponent(option.obj));
-			console.log("optionoption",this.form)
-		  }
+			 this.getUserProfile()
+			// if(!Object.keys(option).length == 0){
+			// this.form = JSON.parse(decodeURIComponent(option.obj));
+			//console.log("optionoption",this.form)
+		  //}
 		},
 		computed: {
 			    i18n (){
@@ -71,24 +73,6 @@
 			listSelected (i) {
 				switch (i){
 					case 2://清除缓存
-					// uni.showModal({
-					//     title: '提示',
-					//     content: '此操作会删除本地缓存信息,确定清除?',
-					//     success: res => {
-					//         if (res.confirm) {
-					// 			// uni.showLoading({
-					// 			// 	title:'清除缓存'
-					// 			// });
-					// 			// plus.cache.clear(() => {
-					// 			// 	this.cacheSize = '0.0M';
-					// 			// 	uni.hideLoading();
-									
-					// 			// });
-					//         } else if (res.cancel) {
-					//             console.log('取消');
-					//         }
-					//     }
-					// });
 					break;
 					case 5:
 					uni.navigateTo({
@@ -98,11 +82,32 @@
 					default:break;
 				}
 			},
+			getUserProfile(){
+				api.get(api.url.getmemberinfo , {} , res =>{
+					this.form = res.data
+				});
+			},
+			//上传头像
+			selectAvatar:function(){
+				uni.chooseImage({sourceType: ["camera", "album"], sizeType: "compressed", count: 1,
+				    success: res => {
+						console.log()
+						var filesPaths = res.tempFilePaths;
+						if(filesPaths && filesPaths.length > 0){
+							api.uploadfile(api.url.upload ,filesPaths[0],{imageType:'1'}, res =>{
+								this.form.avatar = filesPaths[0];
+								this.is_avatar_change = true;
+								uni.hideLoading();
+								})
+						}
+				    }
+				})
+			},
 			//退出登录
 			logout:function(){
 				uni.showModal({
-				    title: '提示',
-				    content: '退出会删除本地用户信息,确定退出?',
+				    //title: '提示',
+				    content: this.$t('personal').确定退出,
 				    success: function (res) {
 				        if (res.confirm) {
 							api.get(api.url.logout , {}, res =>{
@@ -146,6 +151,11 @@
 			font-size: 16px;
 			background-color: transparent;
 		}
+	}
+	.uni-default-avatar{
+		width: 40px; 
+		height: 40px;
+		border-radius: 50%;
 	}
 /* 	page {
 		display: flex;

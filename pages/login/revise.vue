@@ -58,14 +58,14 @@
 				var email = this.email;
 				if(phone.length != 11){
 					uni.showToast({
-						title:"请输入正确的手机号",
+						title:this.i18n.请输入正确的手机号,
 						icon:"none"
 					});return;
 				}
 				
 				if(pwd.length < 6){
 					uni.showToast({
-						title:"请输入正确的密码",
+						title:this.i18n.请输入正确的密码,
 						icon:"none"
 					});return;
 				}
@@ -73,13 +73,13 @@
 				// /^1(3|4|5|7|8)\d{9}$/
 				if(!(/^1[0-9]{10}$/.test(phone))){ 
 					uni.showToast({
-						title:"请输入正确的手机号",
+						title:this.i18n.请输入正确的手机号,
 						icon:"none"
 					}); return; 
 				}
 				if (this.newPwd !== phone) {
 					uni.showToast({
-						title:"两次输入的密码不一致",
+						title:this.i18n.两次输入的密码不一致,
 						icon:"none"
 					}); return; 
 				}
@@ -91,16 +91,15 @@
 				 'email':email,
 				 };
 				uni.showLoading({
-					title: '登录中',
+					title: this.$t('tip').登录中,
 					mask: true
 				});
 				
 				api.put(api.url.changepwd , d , res =>{
-					console.log("修改成功====res: " + JSON.stringify(res));
 					uni.hideLoading();
 					console.log("登录成功", res)
 					uni.showToast({
-						title:'修改成功!',
+						title:this.$t('tip').修改成功,
 						success:function(res){
 							setTimeout(function(){
 								uni.navigateBack()

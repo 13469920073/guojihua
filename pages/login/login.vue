@@ -114,7 +114,7 @@
 					});return;
 				}
 				uni.showLoading({
-					title: '登录中',
+					title: this.$t('tip').登录中,
 					mask: true
 				});
 				
@@ -125,7 +125,7 @@
 					uni.hideLoading();
 					uni.$emit('userloginsuccess');
 					uni.showToast({
-						title:'登录成功!',
+						title:this.$t('tip').登录成功,
 						success:function(res){
 							setTimeout(function(){
                 uni.switchTab({

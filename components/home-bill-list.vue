@@ -31,7 +31,7 @@
 						{{value.fee}}
 					</view>
 					<view class="grid-item-right">
-						{{statusArr[value.status]}}
+						{{i18n[statusArr[value.status]]}}
 					</view>
 				</view>
 			</view>

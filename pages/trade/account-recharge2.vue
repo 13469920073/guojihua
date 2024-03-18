@@ -82,7 +82,7 @@
 								// 		//that.getAccessToken(res)
 								// })
 									//return;
-									api.uploadfile(api.url.upload ,this.voucher, res =>{
+									api.uploadfile(api.url.upload ,this.voucher,{imageType:'2'}, res =>{
 										 uni.hideLoading();
 										 this.from.photo = res.data.url
 										// this.getDataList();
@@ -101,7 +101,7 @@
 				console.log("===",this.from)
 				if(!this.from.incomeNum){
 					uni.showToast({
-					    title: '请输入数量',
+					    title: this.i18n.请输入数量,
 					    icon: 'none',
 					    duration: 2000
 					})
@@ -110,7 +110,7 @@
 				}
 				api.post(api.url.applicationrecharge ,this.from, res =>{
 					uni.showToast({
-						title:'充值成功!',
+						title:this.$t('tip').成功,
 						success:function(res){
 							setTimeout(function(){
 								uni.switchTab({

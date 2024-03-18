@@ -65,7 +65,37 @@
 			      	        success(res){
 			      	            console.log(res)
 			      				const { list } = res.data.data
-			      				that.dataList = list
+								uni.request({
+									    url: 'https://min-api.cryptocompare.com/data/price',
+									    method: 'GET',
+									   data: {
+				                         	fsym:'Toncoin',
+					                        tsyms:'USDT'
+				                        },
+									    success: (res1) => {
+											console.log(res)
+											let list = res.data.data.list
+											// let d = res1.data.Data
+											// let list2  = d[d.length-1]
+											console.log("list2list2list2list2",res1)
+											let obj={
+												sname:'TON',
+												increPer:'0', //涨跌幅
+												nowPri:res1.data.USDT, //最新价
+												vol:'-',
+											}
+										//重新组装数组
+										const index = list.findIndex((item) => item.sname === 'HBC');
+										if (index !== -1) {
+										        that.$set(list, index, obj);
+										      }
+											that.dataList = list
+									    },
+									    fail: (err) => {
+									        console.error('GET请求失败：', err);
+									        // 处理错误
+									    }
+									});
 			      	        },
 			      	    })
 			      },

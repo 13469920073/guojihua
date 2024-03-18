@@ -96,7 +96,7 @@
 						 max="100" 
 						 :placeholder="i18n.默认100" 
 						 maxlength="3" 
-						oninput="if(!/^[0-9]+$/.test(value)) value=value.replace(/\D/g,'');if(value>100)value=100;if(value<0)value=null"
+						@input="onInput2"
 						/>
 						</text>%
 						</view>
@@ -168,12 +168,16 @@
 		onLoad(opt) {
            // this.title = opt['id'];
 			this.coinType = opt['coinType'];
-			uni.setNavigationBarTitle({
-			    title: opt['coinType']+'/USDT'
-			});
+			uni.setNavigationBarTitle({title: opt['coinType']+'/USDT'});
 					 console.log(777777,opt);
-					 this.getTopData();
-					 this.getData()
+					 if(this.coinType == 'TON'){
+						 this.getTonData();
+						 this.getData()
+					 }else{
+						 this.getTopData();
+						 this.getData()
+					 }
+					 
 				},
 				
 				mounted() {
@@ -195,6 +199,11 @@
 			fetchData() {
 			     // 模拟请求数据的过程
 			     setTimeout(() => {
+					 if(this.coinType == 'TON'){
+						 this.getTonData()
+					 }else{
+						 this.getTopData()
+					 }
 				  //this.getTopData()
 			     }, 1000);
 			   },
@@ -207,6 +216,60 @@
 			       clearInterval(this.intervalId);
 			     }
 			   },
+			   //获取ton价格
+			   getTonData(){
+				   let that = this
+				   let requestData = {
+				   	'fsym': 'Toncoin', 
+				   	'tsym': 'USDT',
+				   	'limit':'24',
+				   	'aggregate':3,
+				   	'e':'CCCAGG'
+				   	}
+					uni.request({
+						    url: 'https://min-api.cryptocompare.com/data/price',
+						    method: 'GET',
+						   data:  {
+					          fsym:'Toncoin',
+					          tsyms:'USDT'
+				           },
+						    success: (res1) => {
+								that.$set(this.formData, 'price', res1.data.USDT);
+								//that.formData.price=res1.data.USDT
+								
+								console.log('GETthat.formData.price：', that.formData.price);
+								},
+							fail: (err) => {
+							   console.error('GET请求失败：', err);
+								}
+							});
+				   uni.request({
+				   	    url: 'https://min-api.cryptocompare.com/data/histohour',
+				   	    method: 'GET',
+				   	   data: requestData,
+				   	    success: (res) => {
+				   			let d = res.data.Data
+				   			let leng = res.data.Data.length
+				               let data = d[d.length-1]
+							   console.log("data",)
+							   that.formData.ph = data.high
+							   that.formData.pl=data.low
+							   that.formData.vol=data.volumeto
+							   //计算涨跌浮
+							   let closeOld = d[d.length-2].close //上一次开盘价价格
+							   let close = data.close //当前的开盘价
+							   let total = closeOld - close
+							   this.formData.zf = total.toFixed(4)
+							   //let total = (closeOld - close) * closeOld
+							   console.log("total",total)
+							   
+				   	    },
+				   	    fail: (err) => {
+				   	        console.error('GET请求失败：', err);
+				   	    }
+				   	});
+			   },
+						   
 			checkIndex(index) {
 				console.log(index)
 				this.navIndex = index;
@@ -218,13 +281,13 @@
 				this.premiumCount()
 			},
 			onInput2(event){
-				console.log("=======ceshiceschie",)
 				let value = event.target.value;
 				      if (value > 100) {
 				        value = 100;
 				      }
-					  console.log("value",value)
-				      return value
+				this.$nextTick(function () {
+					this.form.stopRatio = value
+				})
 			},
 			logstatrt(){
 				console.log("====")
@@ -239,6 +302,24 @@
 			},
 			subBuyUp(){
 				let that = this
+				if(!this.form.holdNum){
+					uni.showToast({
+						title:this.i18n.请输入数量,
+						icon:"none"
+					});return;
+				}
+				if(!this.form.profitRatio){
+					uni.showToast({
+						title:this.i18n.请输入止盈率,
+						icon:"none"
+					});return;
+				}
+				if(!this.form.stopRatio){
+					uni.showToast({
+						title:this.i18n.请输入止损率,
+						icon:"none"
+					});return;
+				}
 				let param={
 					...this.form
 				}
@@ -248,7 +329,7 @@
 									console.log("res>>>>>>: " ,res.data);
 									uni.hideLoading();
 									uni.showToast({
-										title:'成功!',
+										title:this.$t('tip').成功,
 										success:function(res){
 											setTimeout(function(){
 												that.showPopup = false
@@ -283,7 +364,6 @@
 							method: 'GET',
 							data: param,
 					        success(res){
-								 console.log("成功===》》",res)
 								that.formData = res.data.data.data
 								that.formItem = res.data.data.item
 					            console.log("成功==that.formData=》》",that.formData)
@@ -295,10 +375,14 @@
 					    })
 				},
 				getData(){
+					uni.showLoading({
+						title: this.$t('tip').加载中,
+						mask: true
+					});
 					var datalist = []
 					var that = this
 					let param={
-						sid:this.coinType,
+						sid:this.coinType == 'TON'?'HBC':this.coinType,
 						type:this.navIndex
 					}
 					uni.request({
@@ -306,10 +390,10 @@
 							method: 'GET',
 							data: param,
 					        success(res){
-					            console.log("成功===》》",res)
 								const { data } = res.data
 								datalist = res.data.data
 								that.logstatrtone(datalist)
+								uni.hideLoading();
 					        }
 					    })
 		
@@ -317,7 +401,6 @@
 			
 						logstatrtone(val) {
 							let data = this.splitData(val);
-							console.log("data====>>>>>",data)
 							let upColor = '#00da3c';
 							let downColor = '#ec0000';
 							this.optionone = {
@@ -719,9 +802,9 @@
 										},
 										close(){
 											this.showPopup = false
+											this.resetForm()
 										},
 						splitData(rawData) {
-							console.log("rawDatarawData",rawData)
 								  let categoryData = [];
 								  let values = [];
 								  let volumes = [];

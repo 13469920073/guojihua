@@ -5,8 +5,22 @@
 		},
 		onShow: function () {
 			console.log('App Show')
-			
-
+			uni.setTabBarItem({
+				index: 0,
+				text: this.$t('tab').首页
+			});
+			uni.setTabBarItem({
+				index: 1,
+				text: this.$t('tab').合约
+			});
+			uni.setTabBarItem({
+				index: 2,
+				text: this.$t('tab').钱包
+			});
+			uni.setTabBarItem({
+				index: 3,
+				text: this.$t('tab').个人中心
+			});
 		},
 		onHide: function () {
 			console.log('App Hide')

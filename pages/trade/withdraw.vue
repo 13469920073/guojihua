@@ -84,7 +84,7 @@ console.log("====》》》》",this.form)
 				let obj= this.form
 				if(!this.form.outlayNum){
 					uni.showToast({
-					    title: '请先输入数量',
+					    title: this.i18n.请输入数量,
 					    icon: 'none',
 					    duration: 2000
 					})

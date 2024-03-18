@@ -32,7 +32,7 @@
 					{ value: 'option2', label: '选项2' },
 					{ value: 'option3', label: '选项3' }
 				],
-				selectedValue:'中文'
+				selectedValue:'日本語'
 			}
 		},
 		computed: {
@@ -41,9 +41,14 @@
 			    },
 					
 		},
+		
 		mounted() {
+			//this.loadTab()
 			// this.columnNumber = this.gridGroup[0].length
 		},
+		onShow() {
+			//this.loadTab()
+			},
 		methods: {
 			selectChange(){
 				
@@ -57,6 +62,24 @@
 				}else if(this.selectedValue == '한국어'){
 					this._i18n.locale = 'korean'
 				}
+				this.loadTab()
+				// uni.setNavigationBarTitle({
+				//     title: this.$t('tab').首页
+				// });
+				// uni.setNavigationBarTitle({
+				//     title: this.$t('tab').合约
+				// });
+				this.$emit('localeClick', {
+					locale: this._i18n.locale
+				})
+				console.log("===this._i18n===",this._i18n.locale)
+				// if(this._i18n.locale == ){
+					
+				// }
+				//this._i18n.locale = this._i18n.locale == 'indo' ? 'en':'indo';
+				//this._i18n.locale = 'zh'
+			},
+			loadTab(){
 				uni.setTabBarItem({
 					index: 0,
 					text: this.$t('tab').首页
@@ -73,21 +96,6 @@
 					index: 3,
 					text: this.$t('tab').个人中心
 				});
-				// uni.setNavigationBarTitle({
-				//     title: this.$t('tab').首页
-				// });
-				// uni.setNavigationBarTitle({
-				//     title: this.$t('tab').合约
-				// });
-				this.$emit('localeClick', {
-					locale: this._i18n.locale
-				})
-				console.log("===this._i18n===",this._i18n.locale)
-				// if(this._i18n.locale == ){
-					
-				// }
-				//this._i18n.locale = this._i18n.locale == 'indo' ? 'en':'indo';
-				//this._i18n.locale = 'zh'
 			},
 			onClick(index, num) {
 				this.$emit('click', {

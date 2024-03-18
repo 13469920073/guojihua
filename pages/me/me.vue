@@ -3,7 +3,7 @@
 		<view style="padding: 10px;padding-top: 25px;">
 			<view v-if="isLogined"  v-on:click="login" style="display: flex; align-items: center;">
 				<view style="width: 100%;align-items: center;display: flex;padding: 5px 0;">
-					<image src="../../static/images/default_sdk_login@2x.png" style="width: 60px; height: 60px;"  ></image>
+					<image :src="userInfo.avatar" style="width: 60px; height: 60px;"  ></image>
 					<text style="font-size: 15px; color: #888;margin-left: 15px;">{{userInfo.nickName}}</text>
 				</view>
 			
@@ -130,7 +130,7 @@
 			},
 			login(){
 				uni.navigateTo({
-							url:'/pages/me/setter?obj='+encodeURIComponent(JSON.stringify(this.userInfo))
+							url:'/pages/me/setter'
 						})
 				// uni.navigateTo({
 				// 	// url:'/pages/login/login'
@@ -153,7 +153,7 @@
 				//var uinfo = {"uid":USER.uid(), "type":"3"};
 				api.get(api.url.getmemberinfo , {} , res =>{
 					this.userInfo = res.data
-					this.cacheSize =res.data.status =='1'?'已认证':'未认证'
+					this.cacheSize =this.$t('personal')[res.data.status =='1'?'已认证':'未认证']
 					//uni.setStorageSync('loginuserinfo' ,JSON.stringify(res.data));
 					 //this.loginSuccess();
 					

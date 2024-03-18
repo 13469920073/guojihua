@@ -84,15 +84,15 @@
 			//删除账号
 			handleDel(row){
 				uni.showModal({
-				    title: '提示',
-				    content: '是否确定删除？',
+				   // title: '提示',
+				    content: this.i18n.是否确定删除,
 				    success: res => {
 				        if (res.confirm) {
 				api.delete(api.url.delapplicationaccount ,{id:row.id}, res =>{
 					console.log("删除成功: " ,res);
 					this.getDataList();
 					uni.showToast({
-						title:'删除成功!',
+						title:this.$t('tip').成功,
 					})
 					})
 				}
