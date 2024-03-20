@@ -118,7 +118,7 @@
 			fetchData() {
 			     // 模拟请求数据的过程
 			     setTimeout(() => {
-				  //this.getData()
+				  this.getData()
 			     }, 1000);
 			   },
 			   startTimer() {
@@ -148,14 +148,11 @@
 			getData(){
 				var that = this;
 				let requestData = {
-					fsym:'Toncoin',
-					tsyms:'USDT'
-				// 'fsym': 'Toncoin', 
-				// 'tsyms': 'USDT',
-				// 'tsym': 'USDT',
-				// 'limit':'24',
-				// 'aggregate':3,
-				// 'e':'CCCAGG'
+					'fsym': 'Toncoin',
+					'tsym': 'USDT',
+					'limit':'24',
+					'aggregate':3,
+					'e':'CCCAGG'
 				}
 				var arr1 = ['BTC','ETH','EOS'];
 				//var arr2 = ['BTC','ETH','EOS','HBC','LTC','XRP','BCH','ADA','TRX','BNB'];
@@ -163,19 +160,24 @@
 				        url:"https://api.taurusen.site/api/home/home/getBlineList",
 				        success(res){
 							uni.request({
-								    url: 'https://min-api.cryptocompare.com/data/price',
+								    url: 'https://min-api.cryptocompare.com/data/histohour',
 								    method: 'GET',
 								   data: requestData,
 								    success: (res1) => {
 										console.log(res)
 										let list = res.data.data.list
-										// let d = res1.data.Data
-										// let list2  = d[d.length-1]
-										console.log("list2list2list2list2",res1)
+										let d = res1.data.Data
+										let list2  = d[d.length-1]
+										//计算涨跌浮
+										let closeOld = d[d.length-2].close //上一次开盘价价格
+										let close = list2.close //当前的开盘价
+										let total = closeOld - close
+										
+										console.log("list2list2list2list2",list2)
 										let obj={
 											sname:'TON',
-											increPer:'0', //涨跌幅
-											nowPri:res1.data.USDT, //最新价
+											increPer:total.toFixed(2), //涨跌幅
+											nowPri:list2.close, //最新价
 											vol:'-',
 										}
 									//重新组装数组

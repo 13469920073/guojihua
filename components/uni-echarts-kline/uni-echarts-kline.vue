@@ -1,21 +1,21 @@
 <template>
-	<view>
-		<view class="echarts" :prop="option" :change:prop="echarts.update"></view>
-	</view>
+  <view>
+    <view class="echarts" :prop="option" :change:prop="echarts.update"></view>
+  </view>
 </template>
- 
+
 <script>
-	export default {
-		name: 'Echarts',
-		props: {
-			option: {
-				type: Object,
-				required: true
-			}
-		}
-	}
+export default {
+  name: 'Echarts',
+  props: {
+    option: {
+      type: Object,
+      required: true
+    }
+  }
+}
 </script>
- 
+
 <script module="echarts" lang="renderjs">
 	export default {
 		data() {
@@ -47,7 +47,7 @@
 			} else {
 				// 动态引入类库
 				const script = document.createElement('script')
-				script.src = './static/echarts.min.js'
+				script.src = '../../static/echarts.min.js'
 				// script.src = './static/echarts/echarts.min.js'
 				script.onload = this.init
 				document.head.appendChild(script)
@@ -199,10 +199,10 @@
 		}
 	}
 </script>
- 
+
 <style lang="scss" scoped>
-	.echarts {
-		width: 100%;
-		height: 100%;
-	}
+.echarts {
+  width: 100%;
+  height: 100%;
+}
 </style>

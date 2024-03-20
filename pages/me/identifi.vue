@@ -13,14 +13,14 @@
 				</view>
 				<view class="img-ocr-upload">
 				<view class="img-block idcard-face">
-					<view class="img-ocr-upload">身份证人像面：</view>
+					<view class="img-ocr-upload">{{i18n.身份证人像}}</view>
 					<view @click="uploadBadg('front')" class="bg-img">
 					<img  v-if="!voucher" class="bg-img" src="../../static/images/me/idcard-badge.png" alt=""> 
 					<image v-if="voucher" class="bg-img" :src="voucher" ></image>
 					</view>
 				</view>
 				<view class="img-block idcard-badge">
-					<view class="img-ocr-upload">身份证国徽面：</view>
+					<view class="img-ocr-upload">{{i18n.身份证国徽}}</view>
 					<view @click="uploadBadg('back')" class="bg-img">
 					<img v-if="!voucher1" class="bg-img" src="../../static/images/me/idcard-face.png" alt=""> 
 					<image v-if="voucher1" class="bg-img" :src="voucher1" ></image>
@@ -58,6 +58,11 @@
 			      return this.$t('personal')
 			    },	
 		},
+		onShow(opt) {
+			uni.setNavigationBarTitle({
+			    title: this.$t('personal').实名认证
+			});
+			},
 		methods:{
 			//上传身份证正面
 			uploadBadg(tag){

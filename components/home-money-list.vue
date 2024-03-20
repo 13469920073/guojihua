@@ -31,7 +31,7 @@
 					<view class="grid-item-right" style="color: #333;">
 						{{value.nowPri}}
 					</view>
-					<view class="grid-item-right" :class="value.increPer >0 ?'text-green': 'text-red'">
+					<view class="grid-item-right" :class="value.increPer < 0 ?'text-red': 'text-green'">
 						{{value.increPer}}% 
 					</view>
 				</view>

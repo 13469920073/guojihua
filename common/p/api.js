@@ -1,3 +1,8 @@
+import Vue from 'vue';
+import VueI18n from 'vue-i18n';
+
+Vue.use(VueI18n);
+
 //api接口定义
 var URL = {
   //base:'http://39.106.164.101:80/tt/',
@@ -15,8 +20,10 @@ var URL = {
   sh: 'sh.php',
   daren: 'darenList.php',
   upload: 'image/upload',  //上传图片
+  createsmscode: 'customer/member/createsmscode', //生成手机验证码
   logout: 'customer/member/logout', //退出当前登录
   login: 'customer/member/login', //登录接口
+  smslogin: 'customer/member/smslogin', //验证码登录
   register: 'customer/member/register',  //用户注册
   changepwd: 'customer/member/changepwd',  //密码重置
   realnameapplication: 'customer/member/realnameapplication',  //用户实名认证
@@ -33,7 +40,7 @@ var URL = {
   getmemberaccountlist: 'customer/member/getmemberaccountlist',  //我的账户列表
   delapplicationaccount: 'customer/member/delapplicationaccount',  //客户删除账号
   addapplicationaccount: 'customer/member/addapplicationaccount',  //客户新增账号
-  gettradelistbystatus:'customer/member/gettradelistbystatus',  //持仓中
+  gettradelistbystatus: 'customer/member/gettradelistbystatus',  //持仓中
   createtrade: 'customer/member/createtrade',  //客户买涨买跌接口
   // addapplicationaccount:'customer/member/addapplicationaccount',  //持仓已经完成
   get_checkcode: 'sendCheckCode.php',
@@ -94,21 +101,21 @@ function uniPost(url, pars, success, error) {
       // if(res.networkType == 'none')uni.showToast({title:'无法连接网络' , icon:"none"});
     }
   });
-
+  console.log("this.$t('tip')", Vue.prototype._i18n.t('tip').登录中)
   var _url = URL.base + url;
   var token;
-  var header={
-	   "content-type": "application/json",
+  var header = {
+    "content-type": "application/json",
   }
   let userinfo = ''
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
-  if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
-      header.token = userJsonStr['token'];
+  if (userJsonStr && userJsonStr.token, userJsonStr['token']) {
+    header.token = userJsonStr['token'];
   }
   uni.request({
     url: _url,
-	method: "POST",
+    method: "POST",
     header: header,
     dataType: "json",
     data: pars,
@@ -120,21 +127,21 @@ function uniPost(url, pars, success, error) {
         success(data);
       } else if (data.code == 401) {
         uni.showModal({
-          title: '提示',
-          content: '用户认证失败请重新登录',
-          showCancel:false,
+          title: Vue.prototype._i18n.t('tip').提示,
+          content: Vue.prototype._i18n.t('tip').认证失败,
+          showCancel: false,
           success: function (res) {
-              if (res.confirm) {
-                uni.removeStorageSync('loginuserinfo');
-                uni.removeStorageSync('token');
-                uni.navigateTo({
-                  url: '/pages/login/login'
-                })
-              }
+            if (res.confirm) {
+              uni.removeStorageSync('loginuserinfo');
+              uni.removeStorageSync('token');
+              uni.navigateTo({
+                url: '/pages/login/login'
+              })
+            }
           }
         })
-    
-      }else {
+
+      } else {
         if (error) error(data['message'] || '服务器返回错误');
       }
     },
@@ -165,11 +172,11 @@ function uniGet(url, pars, success, error) {
   var token;
   let userinfo = ''
   userinfo = uni.getStorageSync("loginuserinfo");
-  console.log("userinfo>>>",userinfo)
+  console.log("userinfo>>>", userinfo)
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
-  if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
+  if (userJsonStr && userJsonStr.token, userJsonStr['token']) {
     token = userJsonStr['token'];
-}
+  }
   uni.request({
     url: _url, method: "GET",
     header: {
@@ -184,23 +191,23 @@ function uniGet(url, pars, success, error) {
       if (data.code == 200) {
         console.log("request ok");
         success(data);
-      }else if (data.code == 401) {
+      } else if (data.code == 401) {
         uni.showModal({
-          title: '提示',
-          content: '用户认证失败请重新登录',
-          showCancel:false,
+          title: Vue.prototype._i18n.t('tip').提示,
+          content: Vue.prototype._i18n.t('tip').认证失败,
+          showCancel: false,
           success: function (res) {
-              if (res.confirm) {
-                uni.removeStorageSync('loginuserinfo');
-                uni.removeStorageSync('token');
-                uni.navigateTo({
-                  url: '/pages/login/login'
-                })
-              }
+            if (res.confirm) {
+              uni.removeStorageSync('loginuserinfo');
+              uni.removeStorageSync('token');
+              uni.navigateTo({
+                url: '/pages/login/login'
+              })
+            }
           }
         })
-    
-      }else {
+
+      } else {
         if (error) error(data['message'] || '服务器返回错误');
       }
     },
@@ -232,9 +239,9 @@ function uniPut(url, pars, success, error) {
   let userinfo = ''
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
-  if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
+  if (userJsonStr && userJsonStr.token, userJsonStr['token']) {
     token = userJsonStr['token'];
-}
+  }
   uni.request({
     url: _url, method: "PUT",
     header: {
@@ -251,21 +258,21 @@ function uniPut(url, pars, success, error) {
         success(data);
       } else if (data.code == 401) {
         uni.showModal({
-          title: '提示',
-          content: '用户认证失败请重新登录',
-          showCancel:false,
+          title: Vue.prototype._i18n.t('tip').提示,
+          content: Vue.prototype._i18n.t('tip').认证失败,
+          showCancel: false,
           success: function (res) {
-              if (res.confirm) {
-                uni.removeStorageSync('loginuserinfo');
-                uni.removeStorageSync('token');
-                uni.navigateTo({
-                  url: '/pages/login/login'
-                })
-              }
+            if (res.confirm) {
+              uni.removeStorageSync('loginuserinfo');
+              uni.removeStorageSync('token');
+              uni.navigateTo({
+                url: '/pages/login/login'
+              })
+            }
           }
         })
-    
-      }else {
+
+      } else {
         if (error) error(data['message'] || '服务器返回错误');
       }
     },
@@ -296,9 +303,9 @@ function uniDelete(url, pars, success, error) {
   let userinfo = ''
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
-  if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
+  if (userJsonStr && userJsonStr.token, userJsonStr['token']) {
     token = userJsonStr['token'];
-}
+  }
   uni.request({
     url: `${_url}?id=${pars.id}`,
     method: "DELETE",
@@ -316,21 +323,21 @@ function uniDelete(url, pars, success, error) {
         success(data);
       } else if (data.code == 401) {
         uni.showModal({
-          title: '提示',
-          content: '用户认证失败请重新登录',
-          showCancel:false,
+          title: Vue.prototype._i18n.t('tip').提示,
+          content: Vue.prototype._i18n.t('tip').认证失败,
+          showCancel: false,
           success: function (res) {
-              if (res.confirm) {
-                uni.removeStorageSync('loginuserinfo');
-                uni.removeStorageSync('token');
-                uni.navigateTo({
-                  url: '/pages/login/login'
-                })
-              }
+            if (res.confirm) {
+              uni.removeStorageSync('loginuserinfo');
+              uni.removeStorageSync('token');
+              uni.navigateTo({
+                url: '/pages/login/login'
+              })
+            }
           }
         })
-    
-      }else {
+
+      } else {
         if (error) error(data['message'] || '服务器返回错误');
       }
     },
@@ -349,7 +356,7 @@ function uniDelete(url, pars, success, error) {
  * @param {Object} success
  * @param {Object} error
  */
-function uniUploadFile(url, filePath,type, success, error) {
+function uniUploadFile(url, filePath, type, success, error) {
   // var igs = files.map((value, index) => {
   // 	return {name: "files[" + index + ']',uri: value}
   //});
@@ -357,11 +364,11 @@ function uniUploadFile(url, filePath,type, success, error) {
   let userinfo = ''
   userinfo = uni.getStorageSync("loginuserinfo");
   let userJsonStr = userinfo == '' ? userinfo : JSON.parse(userinfo)
-  if (userJsonStr&&userJsonStr.token,userJsonStr['token']) {
+  if (userJsonStr && userJsonStr.token, userJsonStr['token']) {
     token = userJsonStr['token'];
-}
+  }
   //用户权限验证参数
-  
+
   console.log("formData:", filePath);
   //console.log("pars:" + JSON.stringify(pars));//return;
   uni.uploadFile({
@@ -374,34 +381,34 @@ function uniUploadFile(url, filePath,type, success, error) {
     name: 'file', // 必须填写，后端用来解析文件流的字段名
     formData: {
       'file': filePath,
-	  ...type
+      ...type
     },
     //formData: formData,
     success: (res) => {
-      console.log("上传成功",res)
+      console.log("上传成功", res)
       var code = res.statusCode, dataStr = res.data;
       var obj = JSON.parse(dataStr);
-	  console.log("obj",obj)
+      console.log("obj", obj)
       if (obj.code == 200 && code == 200) {
-		  console.log("成功====》》",obj)
+        console.log("成功====》》", obj)
         success(obj);
       } else if (obj.code == 401) {
         uni.showModal({
-          title: '提示',
-          content: '用户认证失败请重新登录',
-          showCancel:false,
+          title: Vue.prototype._i18n.t('tip').提示,
+          content: Vue.prototype._i18n.t('tip').认证失败,
+          showCancel: false,
           success: function (res) {
-              if (res.confirm) {
-                uni.removeStorageSync('loginuserinfo');
-                uni.removeStorageSync('token');
-                uni.navigateTo({
-                  url: '/pages/login/login'
-                })
-              }
+            if (res.confirm) {
+              uni.removeStorageSync('loginuserinfo');
+              uni.removeStorageSync('token');
+              uni.navigateTo({
+                url: '/pages/login/login'
+              })
+            }
           }
         })
-    
-      }else {
+
+      } else {
         if (error) error(obj['msg'] || '服务器返回错误');
       }
     },

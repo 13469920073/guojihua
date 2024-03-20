@@ -60,6 +60,11 @@
 			      return this.$t('wallet')
 			    },	
 		},
+		onShow(opt) {
+			uni.setNavigationBarTitle({
+			    title: this.$t('wallet').充值
+			});
+			},
 		onLoad(option) {
 					this.from = JSON.parse(decodeURIComponent(option.obj));
 					console.log("this.from====》》》》",this.from)

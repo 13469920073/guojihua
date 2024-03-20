@@ -88,8 +88,10 @@
 		onLoad() {
 		    this.getDataList(this.navIndex)
 		},
-		onShow(){
-		//   	this.getDataList(this.navIndex)
+		onShow(opt) {
+			uni.setNavigationBarTitle({
+			    title: this.$t('personal').账单明细
+			});
 		},
 		onReachBottom() {
 					 if(this.pageNum <= this.totalPages){

@@ -55,7 +55,7 @@
 			uni.setNavigationBarTitle({
 			    title: this.$t('personal').修改密码
 			});
-			this.getData()
+			//this.getData()
 		},
 		methods:{
 			togglePassword1() {

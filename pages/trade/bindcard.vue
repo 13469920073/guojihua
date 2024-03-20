@@ -16,12 +16,12 @@
 					</view> 
 					<view class="flex table-item">
 					{{i18n.账户名称}}
-					<text class="table-input"><input placeholder="请输入账户名称" v-model="from.accountName"  />
+					<text class="table-input"><input :placeholder="i18n.账户名称" v-model="from.accountName"  />
 					</text>
 					</view> 
 					<view class="flex table-item">
 					{{i18n.账户地址}}
-					<text class="table-input"><input placeholder="请输入账户地址" v-model="from.address"/>
+					<text class="table-input"><input :placeholder="i18n.账户地址" v-model="from.address"/>
 					</text>
 					</view> 
 				</view>
@@ -67,6 +67,11 @@
 			      return this.$t('wallet')
 			    },	
 		},
+		onShow(opt) {
+			uni.setNavigationBarTitle({
+			    title: this.$t('personal').我的账户
+			});
+			},
 		onLoad() {
 			
 			// console.log("itemType: " + JSON.stringify(itemType));

@@ -112,7 +112,7 @@
 	  "style": {
 	    "enablePullDownRefresh": true,
 		"navigationBarTitleText": "账单明细",
-		"navigationBarTextStyle": "blank"
+		"navigationBarTextStyle": "white"
 	  }
 	},
 	{
@@ -120,7 +120,7 @@
 	  "style": {
 	    "enablePullDownRefresh": true,
 		"navigationBarTitleText": "充值",
-		"navigationBarTextStyle": "blank"
+		"navigationBarTextStyle": "white"
 	  }
 	},
 	{
@@ -128,7 +128,7 @@
 	  "style": {
 	    "enablePullDownRefresh": true,
 		"navigationBarTitleText": "充值",
-		"navigationBarTextStyle": "blank"
+		"navigationBarTextStyle": "white"
 	  }
 	},
 	{
@@ -136,7 +136,7 @@
 	  "style": {
 	    "enablePullDownRefresh": true,
 		"navigationBarTitleText": "提现",
-		"navigationBarTextStyle": "blank"
+		"navigationBarTextStyle": "white"
 	  }
 	},
   {
@@ -144,7 +144,7 @@
 	  "style": {
 	    "enablePullDownRefresh": true,
 		"navigationBarTitleText": "我的账户",
-		"navigationBarTextStyle": "blank"
+		"navigationBarTextStyle": "white"
 	  }
 	},
 	{
@@ -152,7 +152,7 @@
 	  "style": {
 	    "enablePullDownRefresh": true,
 		"navigationBarTitleText": "新增账户",
-		"navigationBarTextStyle": "blank"
+		"navigationBarTextStyle": "white"
 	  }
 	},
 	{
@@ -160,7 +160,7 @@
 	  "style": {
 	    "enablePullDownRefresh": true,
 		"navigationBarTitleText": "",
-		"navigationBarTextStyle": "blank"
+		"navigationBarTextStyle": "white"
 	  }
 	},
   {
@@ -181,7 +181,7 @@
       "style": {
         "enablePullDownRefresh": true,
         "navigationBarTitleText": "持仓",
-        "navigationBarTextStyle": "blank"
+        "navigationBarTextStyle": "white"
       }
     },
     {
@@ -189,7 +189,7 @@
       "style": {
         "enablePullDownRefresh": true,
         "navigationBarTitleText": "账单明细",
-        "navigationBarTextStyle": "blank"
+        "navigationBarTextStyle": "white"
       }
     },
 	{
@@ -197,7 +197,7 @@
 	  "style": {
 	    "enablePullDownRefresh": true,
 	    "navigationBarTitleText": "协议及隐私声明",
-	    "navigationBarTextStyle": "blank"
+	    "navigationBarTextStyle": "white"
 	  }
 	  
 	},
@@ -206,7 +206,7 @@
 	  "style": {
 	    "enablePullDownRefresh": true,
 	    "navigationBarTitleText": "消息中心",
-	    "navigationBarTextStyle": "blank"
+	    "navigationBarTextStyle": "white"
 	  }
 	},
 	{
@@ -214,7 +214,7 @@
 	  "style": {
 	    "enablePullDownRefresh": true,
 	    "navigationBarTitleText": "设置",
-	    "navigationBarTextStyle": "blank"
+	    "navigationBarTextStyle": "white"
 	  }
 	  
 	}

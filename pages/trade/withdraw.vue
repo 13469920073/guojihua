@@ -59,6 +59,11 @@
 			      return this.$t('wallet')
 			    },	
 		},
+		onShow(opt) {
+			uni.setNavigationBarTitle({
+			    title: this.$t('wallet').提现
+			});
+			},
 		onLoad(option) {
 			console.log("optionoption",option)
 			if(!Object.keys(option).length == 0){
@@ -95,7 +100,7 @@ console.log("====》》》》",this.form)
 					// 	url:'/pages/trade/index'
 					// })
 				 	uni.showToast({
-				 		title:'提交成功!',
+				 		title:this.$t('tip').成功,
 						success:function(res){
 							
 							setTimeout(function(){

@@ -6,6 +6,7 @@ module.exports = {
 		 "个人中心": "User",
 	},
 	login:{
+		 "验证码登录": "Verification code login",
 		 "手机登录": "Phone",
 		 "邮箱登录": "Email",
 		 "区号": "Area",
@@ -85,6 +86,8 @@ module.exports = {
 		 "账户类型": "Account type",
 		 "账户名称": "Name",
 		 "账户地址": "Address",
+		 "提现申请": "Withdrawal application",
+		 "请选择提现账户": "Please select a withdrawal account",
 		 "账户名称不能为空": "Account name cannot be empty",
 		 "账户地址不能为空": "Account address cannot be empty",
 		 "注意": "*Note: Official collection account, please check the information carefully",
@@ -114,6 +117,7 @@ module.exports = {
 		 
 	},
 	tip:{
+		"提示": "prompt",
 		"提交中": "Submitting...",
 		"修改中": "Modifying...",
 		"修改成功": "Modified success!",
@@ -150,6 +154,8 @@ module.exports = {
 		  "用户昵称": "Nickname",
 		  "修改密码": "Change Password",
 		 "请输入真实姓名": "Please input Name",
+		 "身份证人像": "Front of ID card",
+		 "身份证国徽": "On the back of the ID card",
 		 "请输入手机号": "Please input Phone",
 		 "请输入身份证号": "Please input ID card",
 		 "请上传身份证正面": "upload the front of your ID card",

@@ -3,7 +3,7 @@
 <!-- 		<image src="../../static/images/default_avatar.png" style="width: 80px; height: 80px; margin-top: 30px;border-radius: 50%;" ></image> -->
 		<view style="margin-top: 0px;">
 			<view class="container-fullCol flex" @click="selectAvatar">
-				<text>头像</text>
+				<text>{{i18n.头像}}</text>
 				<image v-if="!form.avatar" src="../../static/images/default_avatar.png" class="uni-default-avatar" ></image>
 				<image v-else :src="form.avatar" class="uni-default-avatar" ></image>
 			</view>
@@ -107,7 +107,7 @@
 			logout:function(){
 				uni.showModal({
 				    //title: '提示',
-				    content: this.$t('personal').确定退出,
+				    content: this.$t('tip').确定退出,
 				    success: function (res) {
 				        if (res.confirm) {
 							api.get(api.url.logout , {}, res =>{

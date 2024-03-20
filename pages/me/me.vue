@@ -39,7 +39,8 @@
 			<uni-list >
 				<uni-list-item @click='listSelected(1)' :title="i18n.持仓记录" thumb="../../static/images/me/me_list_icon1.png" />
 				<uni-list-item @click='listSelected(2)' :title="i18n.账单明细" thumb="../../static/images/me/me_list_icon2.png" />
-				<uni-list-item  @click='listSelected(3)' :title="i18n.实名认证" thumb="../../static/images/me/me_list_icon3.png" :showBadge="showCache" :badgeText="cacheSize" />
+				<uni-list-item v-if="cacheSize == '已认证'" :title="i18n.实名认证" thumb="../../static/images/me/me_list_icon3.png" :showBadge="showCache" :badgeText="i18n[cacheSize]" />
+				<uni-list-item v-else @click='listSelected(3)' :title="i18n.实名认证" thumb="../../static/images/me/me_list_icon3.png" :showBadge="showCache" :badgeText="i18n[cacheSize]" />
 				<uni-list-item  @click='listSelected(4)' :title="i18n.我的账户" thumb="../../static/images/me/me_list_icon4.png" />
 				<uni-list-item  @click='listSelected(5)' :title="i18n.消息中心" thumb="../../static/images/me/me_list_icon5.png" />
 				<uni-list-item  @click='listSelected(6)' :title="i18n.协议及隐私声明" thumb="../../static/images/me/me_list_icon6.png" />
@@ -75,6 +76,7 @@
 			uni.setNavigationBarTitle({
 			    title: this.$t('tab').个人中心
 			});
+			this.getUserProfile();
 		},
 		onLoad() {
 			console.log("判断是否登录1111",USER)
@@ -98,7 +100,7 @@
 		},
 		methods:{
 			listSelected :(i) =>{
-        console.log(111)
+        console.log(111,i)
 				switch (i){
           case 1:uni.navigateTo({
 						url:'position'
@@ -108,13 +110,15 @@
 					url:'/pages/trade/transaction'
 				});
           break;
-		  case 3:uni.navigateTo({
+		  case 3:
+		  uni.navigateTo({
 		  			url:'/pages/me/identifi'
-		  		});
+		  	});
 		  break;
-		  case 4:uni.navigateTo({
-		  			url:'/pages/trade/my-account?tag='+'me'
-		  		});
+		  case 4:
+		  uni.navigateTo({
+		  	 url:'/pages/trade/my-account?tag='+'me'
+		  	});
 		  break;
 		  case 5:uni.navigateTo({
 		  			url:'msgcenter'
@@ -153,7 +157,8 @@
 				//var uinfo = {"uid":USER.uid(), "type":"3"};
 				api.get(api.url.getmemberinfo , {} , res =>{
 					this.userInfo = res.data
-					this.cacheSize =this.$t('personal')[res.data.status =='1'?'已认证':'未认证']
+					
+					this.cacheSize =res.data.status =='1'?'已认证':'未认证'
 					//uni.setStorageSync('loginuserinfo' ,JSON.stringify(res.data));
 					 //this.loginSuccess();
 					

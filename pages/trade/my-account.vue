@@ -1,15 +1,24 @@
 <template>
 	<view class="content">
+		 <view v-if="list.length">
     <view class="content_box" v-for="(item,index) in list" :key="index" @click="onpush(item)">
       <view class="box1">
-	   {{item.type}}&nbsp&nbsp{{numberArray[item.status]}}
+	   {{item.type}}&nbsp&nbsp{{i18n[numberArray[item.status]]}}
 	  <text style="color: red;" v-if="obj.tag == 'me'" v-on:click="handleDel(item)">{{i18n.删除}}</text>
 	  </view>
       <view class="box2">{{i18n.账户名称}} ：{{item.accountName}}</view>
       <view class="box3">{{i18n.账户地址}} ：{{item.address}}</view>
     </view>
+	 </view>
+       <view v-else>
+         <view class="img_title">
+           <img src="../../assets/img/available.png" alt="">
+           <p style="font-size:32upx;color:#c4c4c4">{{this.$t('personal').暂无数据}}</p>
+         </view>
        
-<view style="padding: 20px;" v-if="obj.tag == 'me'">
+       </view>
+	  
+      <view style="padding: 20px;" v-if="obj.tag == 'me'">
 			<button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="add">{{i18n.添加账户}}</button>	
 		</view>
 	</view>
@@ -55,17 +64,21 @@
 			this.obj = opt
 		    this.getDataList();
 		  },
-		  onShow(){
+		  onShow(opt) {
+		  	uni.setNavigationBarTitle({
+		  	    title: this.$t('personal').我的账户
+		  	});
 		  			this.getDataList();
 		  		},
 		methods: {
 			getDataList(){
 				var d = {
 				'pageNum':this.pageNum ,
-				'pageSize':this.pageSize
+				'pageSize':this.pageSize,
+				'status':this.obj.tag == 'trade'?'2':''
 				};
 				uni.showLoading({
-					title: '数据加载中..',
+					title: this.$t('tip').加载中,
 					mask: true
 				});
 				api.get(api.url.getmemberaccountlist , d, res =>{
@@ -165,5 +178,8 @@
   font-size: 16px;
  
 }
-
+.img_title{
+  text-align: center;
+  margin-top: 10%;
+}
 </style>

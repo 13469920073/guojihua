@@ -131,6 +131,11 @@
 			
 			// console.log("itemType: " + JSON.stringify(itemType));
 		},
+		onShow(opt) {
+			uni.setNavigationBarTitle({
+			    title: this.$t('personal').协议及隐私声明
+			});
+			},
 		methods: {
 			publish(item){
 				console.log("item: " + JSON.stringify(item));

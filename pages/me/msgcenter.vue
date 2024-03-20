@@ -75,6 +75,11 @@
 		onLoad() {
 		
 		},
+		onShow(opt) {
+			uni.setNavigationBarTitle({
+			    title: this.$t('personal').消息中心
+			});
+			},
 		methods:{
 			isshow(val){
         this.pattern=val

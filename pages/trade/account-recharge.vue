@@ -85,6 +85,11 @@
 			      return this.$t('wallet')
 			    },	
 		},
+		onShow(opt) {
+			uni.setNavigationBarTitle({
+			    title: this.$t('wallet').充值
+			});
+			},
 		onLoad() {
 			
 			// console.log("itemType: " + JSON.stringify(itemType));
