@@ -4,8 +4,8 @@
       <image src="../../static/images/new/600x154.png" mode="" style="width: 100px;height: 100px;"></image>
     </view>
     <view class="longin-head-nav flex">
-      <view class="switch-l" :class="loginWay == 0 ? 'activite' : ''" @click="checkIndex(0)">{{ i18n.手机登录 }}</view>
-      <view class="switch-l" :class="loginWay == 1 ? 'activite' : ''" @click="checkIndex(1)">{{ i18n.邮箱登录 }}</view>
+      <view class="switch-l" :class="loginWay == 0 ? '' : ''" @click="checkIndex(0)">{{ i18n.手机登录 }}</view>
+      <!-- <view class="switch-l" :class="loginWay == 1 ? 'activite' : ''" @click="checkIndex(1)">{{ i18n.邮箱登录 }}</view> -->
     </view>
     <view style="width: 100%; margin-top: 45px;">
       <view class="text-white" style="padding: 20px;">
@@ -22,7 +22,7 @@
           <input type="text" :placeholder="i18n.请输入验证码" v-model="smsCode" style="margin-top: 6px;" />
           <button size="mini" class="uni-abs-right" :class="countdown > 0 ? 'bg-blue' : ''" @click="sendCode"
             :disabled="countdown > 0">
-            {{ countdown > 0 ? `${countdown}s后重新获取` : i18n.获取验证码 }}
+            {{ countdown > 0 ? `${countdown}s` + i18n.验证码 : i18n.获取验证码 }}
           </button>
         </view>
         <button type="primary" style="margin-top: 60px; background-color: #0080ff;height: 45px;" v-on:click="login">{{
@@ -109,8 +109,6 @@ export default {
           icon: "none"
         }); return;
       }
-      // /^1[0-9]{10}$/
-      // /^1(3|4|5|7|8)\d{9}$/
       if (!(/^1[0-9]{10}$/.test(this.phonenumber))) {
         uni.showToast({
           title: this.i18n.请输入正确的手机号,
@@ -119,7 +117,7 @@ export default {
       }
       const param = {
         phoneNumber: this.phone + this.phonenumber,
-        type: 'LOGIN_KEY_SMS_CODE'
+        smsCodeType: 'LOGIN_KEY_SMS_CODE'
       }
       api.post(api.url.createsmscode, param, res => {
         if (res.success) {
@@ -146,41 +144,41 @@ export default {
       // }else{
 
       // }
-      if (type == 0) {
-        //手机号登录
-        if (phonenumber.length != 11) {
-          uni.showToast({
-            title: this.i18n.请输入正确的手机号,
-            icon: "none"
-          }); return;
-        }
-        // /^1[0-9]{10}$/
-        // /^1(3|4|5|7|8)\d{9}$/
-        if (!(/^1[0-9]{10}$/.test(phonenumber))) {
-          uni.showToast({
-            title: this.i18n.请输入正确的手机号,
-            icon: "none"
-          }); return;
-        }
-        this.$set(param, 'loginAccount', phone + phonenumber)
-        // param = {
-        //   'loginAccount': phone + phonenumber
-        // }
-
-      } else {
-        //邮箱登录
-        if (!(/^(.+)@(.+)$/.test(email))) {
-          uni.showToast({
-            title: this.i18n.请输入正确的邮箱,
-            icon: "none"
-          }); return;
-        }
-        this.$set(param, 'email', email)
-        // param = {
-        //   'email': email,
-        //   //'passWord': pwd,
-        // }
+      //if (type == 0) {
+      //手机号登录
+      if (phonenumber.length != 11) {
+        uni.showToast({
+          title: this.i18n.请输入正确的手机号,
+          icon: "none"
+        }); return;
       }
+      // /^1[0-9]{10}$/
+      // /^1(3|4|5|7|8)\d{9}$/
+      if (!(/^1[0-9]{10}$/.test(phonenumber))) {
+        uni.showToast({
+          title: this.i18n.请输入正确的手机号,
+          icon: "none"
+        }); return;
+      }
+      this.$set(param, 'loginAccount', phone + phonenumber)
+      this.$set(param, 'phoneNumber', phone + phonenumber)
+      this.$set(param, 'smsCodeType', 'LOGIN_KEY_SMS_CODE')
+      // param = {
+      //   'loginAccount': phone + phonenumber
+      // }
+
+      // }
+
+      // else {
+      //   //邮箱登录
+      //   if (!(/^(.+)@(.+)$/.test(email))) {
+      //     uni.showToast({
+      //       title: this.i18n.请输入正确的邮箱,
+      //       icon: "none"
+      //     }); return;
+      //   }
+      //   this.$set(param, 'email', email)
+      // }
       console.log("paramparamparam", param)
       //验证码登录
       if (this.isCode) {
@@ -191,8 +189,8 @@ export default {
             icon: "none"
           }); return;
         }
-        this.$delete(param, 'loginAccount');
-        this.$set(param, 'phoneNumber', phone + phonenumber)
+        // this.$delete(param, 'loginAccount');
+
         this.$set(param, 'smsCode', smsCode)
         // param = {
         //   'phoneNumber': phone + phonenumber,

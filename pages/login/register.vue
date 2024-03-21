@@ -8,11 +8,11 @@
             <input type="text" :placeholder="i18n.区号" v-model="phone" class="iphonel" />
             <input type="number" :placeholder="i18n.请输入手机号" maxlength="11" v-model="phonenumber" class="iphoneNum" />
           </view>
-          <input type="text" v-if="loginWay == 1" :placeholder="i18n.请输入邮箱" v-model="email" />
+          <!-- <input type="text" v-if="loginWay == 1" :placeholder="i18n.请输入邮箱" v-model="email" />
           <view class="uni-iphone-right">
             <view class="switch-l" :class="loginWay == 0 ? 'activite' : ''" @click="checkIndex(0)">{{ i18n.手机 }}</view>
             <view class="switch-l" :class="loginWay == 1 ? 'activite' : ''" @click="checkIndex(1)">{{ i18n.邮箱 }}</view>
-          </view>
+          </view> -->
         </view>
         <view class="uni-reguster-input">
           <input type="text" :placeholder="i18n.请输入验证码" v-model="smsCode" style="margin-top: 6px;" />
@@ -65,6 +65,12 @@ export default {
       return this.$t('login')
     },
   },
+  onShow(opt) {
+    uni.setNavigationBarTitle({
+      title: this.$t('login').用户注册
+    });
+    //this.getData()
+  },
   methods: {
     // 开始倒计时
     startCountdown() {
@@ -92,7 +98,7 @@ export default {
       }
       const param = {
         phoneNumber: this.phone + this.phonenumber,
-        type: 'REGISTER_KEY_SMS_CODE'
+        smsCodeType: 'REGISTER_KEY_SMS_CODE'
       }
       api.post(api.url.createsmscode, param, res => {
         if (res.success) {
@@ -122,7 +128,8 @@ export default {
         "loginAccount": "",
         "passWord": pwd,
         "phonenumber": "",
-        "smsCode": smsCode
+        "smsCode": smsCode,
+        "smsCodeType": 'REGISTER_KEY_SMS_CODE'
       }
       if (!code) {
         uni.showToast({
@@ -130,34 +137,35 @@ export default {
           icon: "none"
         }); return;
       }
-      if (type == 0) {
-        if (phone.length != 11) {
-          uni.showToast({
-            title: this.i18n.请输入正确的手机号,
-            icon: "none"
-          }); return;
-        }
-        // /^1[0-9]{10}$/
-        // /^1(3|4|5|7|8)\d{9}$/
-        if (!(/^1[0-9]{10}$/.test(phone))) {
-          uni.showToast({
-            title: this.i18n.请输入正确的手机号,
-            icon: "none"
-          }); return;
-        }
-        param.phonenumber = phone + phonenumber;
-        param.loginAccount = phone + phonenumber;
-
-      } else {
-        if (!(/^(.+)@(.+)$/.test(email))) {
-          uni.showToast({
-            title: this.i18n.请输入正确的邮箱,
-            icon: "none"
-          }); return;
-        }
-        param.email = email
-        param.loginAccount = email;
+      // if (type == 0) {
+      if (phonenumber.length != 11) {
+        uni.showToast({
+          title: this.i18n.请输入正确的手机号,
+          icon: "none"
+        }); return;
       }
+      // /^1[0-9]{10}$/
+      // /^1(3|4|5|7|8)\d{9}$/
+      if (!(/^1[0-9]{10}$/.test(phonenumber))) {
+        uni.showToast({
+          title: this.i18n.请输入正确的手机号,
+          icon: "none"
+        }); return;
+      }
+      param.phonenumber = phone + phonenumber;
+      param.loginAccount = phone + phonenumber;
+
+      //  }
+      // else {
+      //   if (!(/^(.+)@(.+)$/.test(email))) {
+      //     uni.showToast({
+      //       title: this.i18n.请输入正确的邮箱,
+      //       icon: "none"
+      //     }); return;
+      //   }
+      //   param.email = email
+      //   param.loginAccount = email;
+      // }
       if (!pwd) {
         uni.showToast({
           title: this.i18n.请输入密码,
