@@ -68,7 +68,9 @@ module.exports = {
     "保证金": "Margin",
     "手续费": "Handling fee",
     "请输入数量": "Please input amount",
-    "默认无上限": "Default no upper limit",
+    "请输入止盈率": "Please input amount",
+    "请输入止损率": "Please input Stop profit",
+    "默认无上限": "Please input Stop loss",
     "默认100": "default100"
   },
   //钱包
@@ -95,6 +97,7 @@ module.exports = {
     "账户地址不能为空": "Account address cannot be empty",
     "注意": "*Note: Official collection account, please check the information carefully",
     "转账完成": "Transfer completed, submit payment information",
+    "打款信息": "Please check submit payment information",
     "下一步": "Next",
     "添加账户": "Add account",
     "删除": "Delete",
@@ -131,8 +134,13 @@ module.exports = {
     "成功": "success!",
     "注册中": "Registering...",
     "确定退出": "Are you sure to exit？",
+    "确定": "Confirm",
+    "取消": "Cancel",
+    "code": "ENGLISH",
   },
   personal: {
+    "平仓": "End",
+    "是否确定平仓": "Are you sure to close position?",
     "已认证": "Certified",
     "未认证": "Unauthenticated",
     "审核中": "Pending",

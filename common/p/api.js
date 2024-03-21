@@ -30,6 +30,7 @@ var URL = {
   getmemberinfo: 'customer/member/getmemberinfo',  //获取用户信息
   coinassets: 'coin/get/coinassets', //获取币种信息
   coinassetshistory: 'coin/get/coinassetshistory', //获取币种信息
+  settingtoncoin: 'coin/update/settingtoncoin', //发送Ton信息
   getoperhistorylist: 'customer/member/getoperhistorylist',  //交易历史数据
   gettradelist: 'customer/member/gettradelist',  //交易列表
   getwalletbalance: 'customer/member/getwalletbalance',  //用户余额
@@ -41,6 +42,7 @@ var URL = {
   delapplicationaccount: 'customer/member/delapplicationaccount',  //客户删除账号
   addapplicationaccount: 'customer/member/addapplicationaccount',  //客户新增账号
   gettradelistbystatus: 'customer/member/gettradelistbystatus',  //持仓中
+  checkoutbymanual: 'customer/member/checkoutbymanual',  //平仓
   createtrade: 'customer/member/createtrade',  //客户买涨买跌接口
   // addapplicationaccount:'customer/member/addapplicationaccount',  //持仓已经完成
   get_checkcode: 'sendCheckCode.php',

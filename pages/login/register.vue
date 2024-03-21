@@ -104,6 +104,7 @@ export default {
       }
       const param = {
         phoneNumber: this.phone + this.phonenumber,
+        orgCode: this.$t('tip').code,
         smsCodeType: 'REGISTER_KEY_SMS_CODE'
       }
       api.post(api.url.createsmscode, param, res => {

@@ -111,7 +111,8 @@ export default {
       }
       const param = {
         phoneNumber: this.phone + this.phonenumber,
-        smsCodeType: 'LOGIN_KEY_SMS_CODE'
+        orgCode: this.$t('tip').code,
+        smsCodeType: 'FORGET_KEY_SMS_CODE'
       }
       api.post(api.url.createsmscode, param, res => {
         if (res.success) {
@@ -176,16 +177,16 @@ export default {
         'loginWay': type,
         'email': email,
         'smsCode': smsCode,
-        "smsCodeType": 'LOGIN_KEY_SMS_CODE'
+        "smsCodeType": 'FORGET_KEY_SMS_CODE'
       };
       uni.showLoading({
-        title: this.$t('tip').登录中,
+        title: this.$t('tip').修改中,
         mask: true
       });
 
       api.put(api.url.changepwd, d, res => {
         uni.hideLoading();
-        console.log("登录成功", res)
+        console.log("修改成功", res)
         uni.showToast({
           title: this.$t('tip').修改成功,
           success: function (res) {

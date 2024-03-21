@@ -41,8 +41,8 @@
       <uni-list>
         <uni-list-item @click='listSelected(1)' :title="i18n.持仓记录" thumb="../../static/images/me/me_list_icon1.png" />
         <uni-list-item @click='listSelected(2)' :title="i18n.账单明细" thumb="../../static/images/me/me_list_icon2.png" />
-        <uni-list-item v-if="cacheSize == '已认证'" :title="i18n.实名认证" thumb="../../static/images/me/me_list_icon3.png"
-          :showBadge="showCache" :badgeText="i18n[cacheSize]" />
+        <uni-list-item v-if="cacheSize == '已认证' || cacheSize == '审核中'" :title="i18n.实名认证"
+          thumb="../../static/images/me/me_list_icon3.png" :showBadge="showCache" :badgeText="i18n[cacheSize]" />
         <uni-list-item v-if="cacheSize == '未认证'" @click='listSelected(3)' :title="i18n.实名认证"
           thumb="../../static/images/me/me_list_icon3.png" :showBadge="showCache" :badgeText="i18n[cacheSize]" />
         <uni-list-item @click='listSelected(4)' :title="i18n.我的账户" thumb="../../static/images/me/me_list_icon4.png" />

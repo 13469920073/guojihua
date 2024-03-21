@@ -269,6 +269,9 @@ export default {
         }
       });
     },
+    // setTon() {
+
+    // },
 
     checkIndex(index) {
       console.log(index)
@@ -290,7 +293,18 @@ export default {
       })
     },
     logstatrt() {
-      console.log("====")
+      console.log("====", this.formData)
+      api.post(api.url.settingtoncoin, param, res => {
+        console.log("res>>>>>>: ", res.data);
+
+
+      }, error => {
+
+        uni.showToast({
+          title: error,
+          icon: "none"
+        })
+      })
     },
     //买涨起
     findBuy(tag) {
@@ -309,16 +323,18 @@ export default {
         }); return;
       }
       if (!this.form.profitRatio) {
-        uni.showToast({
-          title: this.i18n.请输入止盈率,
-          icon: "none"
-        }); return;
+        this.form.profitRatio = 0
+        // uni.showToast({
+        //   title: this.i18n.请输入止盈率,
+        //   icon: "none"
+        // }); return;
       }
       if (!this.form.stopRatio) {
-        uni.showToast({
-          title: this.i18n.请输入止损率,
-          icon: "none"
-        }); return;
+        this.form.stopRatio = 100
+        // uni.showToast({
+        //   title: this.i18n.请输入止损率,
+        //   icon: "none"
+        // }); return;
       }
       let param = {
         ...this.form
@@ -333,6 +349,9 @@ export default {
           success: function (res) {
             setTimeout(function () {
               that.showPopup = false
+              uni.navigateTo({
+                url: "/pages/me/position"
+              })
               that.resetForm() //表单重置
             }, 500);
           }
@@ -756,6 +775,7 @@ export default {
     resetForm() {
       this.form.deposit = '';
       this.form.holdNum = '';
+      this.form.profitRatio = '';
       this.form.holdPrice = '';
       this.form.holdType = '';
       this.form.premiumNum = '';
@@ -919,7 +939,7 @@ export default {
   left: 0;
   width: 100%;
   background-color: #fff;
-  // padding: 20rpx;
+  /* padding: 20rpx; */
   box-sizing: border-box;
   z-index: 999;
 }
@@ -951,7 +971,7 @@ export default {
 
   .line2 {
     padding: 20rpx;
-    // border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
 
     view {
       margin-bottom: 10rpx;

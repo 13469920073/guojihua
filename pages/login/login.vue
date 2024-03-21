@@ -122,6 +122,7 @@ export default {
         }); return;
       }
       const param = {
+        orgCode: this.$t('tip').code,
         phoneNumber: this.phone + this.phonenumber,
         smsCodeType: 'LOGIN_KEY_SMS_CODE'
       }
