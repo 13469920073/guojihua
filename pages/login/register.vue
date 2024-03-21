@@ -18,7 +18,7 @@
           <input type="text" :placeholder="i18n.请输入验证码" v-model="smsCode" style="margin-top: 6px;" />
           <button size="mini" class="uni-abs-right" :class="countdown > 0 ? 'bg-blue' : ''" @click="sendCode"
             :disabled="countdown > 0">
-            {{ countdown > 0 ? `${countdown}s后重新获取` : i18n.获取验证码 }}
+            {{ countdown > 0 ? `${countdown}s` + i18n.验证码 : i18n.获取验证码 }}
           </button>
         </view>
         <view class="uni-reguster-input">
@@ -84,6 +84,12 @@ export default {
       }, 1000);
     },
     sendCode() {
+      if (!this.phone) {
+        uni.showToast({
+          title: this.i18n.区号不能为空,
+          icon: "none"
+        }); return;
+      }
       if (this.phonenumber.length != 11) {
         uni.showToast({
           title: this.i18n.请输入正确的手机号,
@@ -131,12 +137,13 @@ export default {
         "smsCode": smsCode,
         "smsCodeType": 'REGISTER_KEY_SMS_CODE'
       }
-      if (!code) {
+      if (!phone) {
         uni.showToast({
-          title: this.i18n.请输入邀请码,
+          title: this.i18n.区号不能为空,
           icon: "none"
         }); return;
       }
+
       // if (type == 0) {
       if (phonenumber.length != 11) {
         uni.showToast({
@@ -149,6 +156,12 @@ export default {
       if (!(/^1[0-9]{10}$/.test(phonenumber))) {
         uni.showToast({
           title: this.i18n.请输入正确的手机号,
+          icon: "none"
+        }); return;
+      }
+      if (!code) {
+        uni.showToast({
+          title: this.i18n.请输入邀请码,
           icon: "none"
         }); return;
       }

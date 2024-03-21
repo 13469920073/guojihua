@@ -103,6 +103,12 @@ export default {
       }, 1000);
     },
     sendCode() {
+      if (!this.phone) {
+        uni.showToast({
+          title: this.i18n.区号不能为空,
+          icon: "none"
+        }); return;
+      }
       if (this.phonenumber.length != 11) {
         uni.showToast({
           title: this.i18n.请输入正确的手机号,
@@ -146,6 +152,12 @@ export default {
       // }
       //if (type == 0) {
       //手机号登录
+      if (!phone) {
+        uni.showToast({
+          title: this.i18n.区号不能为空,
+          icon: "none"
+        }); return;
+      }
       if (phonenumber.length != 11) {
         uni.showToast({
           title: this.i18n.请输入正确的手机号,

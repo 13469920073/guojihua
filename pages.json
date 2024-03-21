@@ -20,8 +20,8 @@
       "path": "pages/contract/index",
       "style": {
         "navigationBarTitleText": "合约",
-		"navigationBarBackgroundColor": "white",
-		 "navigationBarTextStyle":"white"
+        "navigationBarBackgroundColor": "white",
+        "navigationBarTextStyle": "white"
       }
     },
     {
@@ -55,39 +55,39 @@
     {
       "path": "pages/login/login",
       "style": {
-         // "navigationBarTitleText": "登录"
+        // "navigationBarTitleText": "登录"
       }
     },
     {
       "path": "pages/login/register",
-	  "style": {
-	    "navigationBarTitleText": "用户注册"
-	  }
+      "style": {
+        "navigationBarTitleText": "用户注册"
+      }
     },
-	{
-	  "path": "pages/login/revise",
-	  "style": {
-	    "navigationBarTitleText": "密码找回"
-	  }
-	},
-	{
-	  "path": "pages/login/modifyPassword",
-	  "style": {
-	    "navigationBarTitleText": "修改密码"
-	  }
-	},
+    {
+      "path": "pages/login/revise",
+      "style": {
+        "navigationBarTitleText": "密码找回"
+      }
+    },
+    {
+      "path": "pages/login/modifyPassword",
+      "style": {
+        "navigationBarTitleText": "修改密码"
+      }
+    },
     {
       "path": "pages/me/userinfo",
       "style": {
         "navigationBarTitleText": "修改资料"
       }
     },
-	{
-	  "path": "pages/me/identifi",
-	  "style": {
-	    "navigationBarTitleText": "实名认证"
-	  }
-	},
+    {
+      "path": "pages/me/identifi",
+      "style": {
+        "navigationBarTitleText": "实名认证"
+      }
+    },
     {
       "path": "pages/me/setter",
       "style": {
@@ -100,70 +100,69 @@
         "navigationBarTitleText": ""
       }
     },
-	{
-	  "path": "pages/home/service",
-	  "style": {
-	    "navigationBarTitleText": "通过二维码添加LINE好友"
-	  }
-	},
-	//
-	{
-	  "path": "pages/trade/transaction",
-	  "style": {
-	    "enablePullDownRefresh": true,
-		"navigationBarTitleText": "账单明细",
-		"navigationBarTextStyle": "white"
-	  }
-	},
-	{
-	  "path": "pages/trade/account-recharge",
-	  "style": {
-	    "enablePullDownRefresh": true,
-		"navigationBarTitleText": "充值",
-		"navigationBarTextStyle": "white"
-	  }
-	},
-	{
-	  "path": "pages/trade/account-recharge2",
-	  "style": {
-	    "enablePullDownRefresh": true,
-		"navigationBarTitleText": "充值",
-		"navigationBarTextStyle": "white"
-	  }
-	},
-	{
-	  "path": "pages/trade/withdraw",
-	  "style": {
-	    "enablePullDownRefresh": true,
-		"navigationBarTitleText": "提现",
-		"navigationBarTextStyle": "white"
-	  }
-	},
-  {
-	  "path": "pages/trade/my-account",
-	  "style": {
-	    "enablePullDownRefresh": true,
-		"navigationBarTitleText": "我的账户",
-		"navigationBarTextStyle": "white"
-	  }
-	},
-	{
-	  "path": "pages/trade/bindcard",
-	  "style": {
-	    "enablePullDownRefresh": true,
-		"navigationBarTitleText": "新增账户",
-		"navigationBarTextStyle": "white"
-	  }
-	},
-	{
-	  "path": "pages/contract/kline",
-	  "style": {
-	    "enablePullDownRefresh": true,
-		"navigationBarTitleText": "",
-		"navigationBarTextStyle": "white"
-	  }
-	},
-  {
+    {
+      "path": "pages/home/service",
+      "style": {
+        "navigationBarTitleText": "通过二维码添加客服"
+      }
+    },
+    {
+      "path": "pages/trade/transaction",
+      "style": {
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "账单明细",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/trade/account-recharge",
+      "style": {
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "充值",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/trade/account-recharge2",
+      "style": {
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "充值",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/trade/withdraw",
+      "style": {
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "提现",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/trade/my-account",
+      "style": {
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "我的账户",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/trade/bindcard",
+      "style": {
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "新增账户",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/contract/kline",
+      "style": {
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
       "path": "pages/me/about-us",
       "style": {
         "navigationBarTitleText": "关于我们"
@@ -174,8 +173,7 @@
       "style": {
         "navigationBarTitleText": "动态详情"
       }
-    }
-    ,
+    },
     {
       "path": "pages/me/position",
       "style": {
@@ -192,34 +190,30 @@
         "navigationBarTextStyle": "white"
       }
     },
-	{
-	  "path": "pages/me/announcement",
-	  "style": {
-	    "enablePullDownRefresh": true,
-	    "navigationBarTitleText": "协议及隐私声明",
-	    "navigationBarTextStyle": "white"
-	  }
-	  
-	},
-	{
-	  "path": "pages/me/msgcenter",
-	  "style": {
-	    "enablePullDownRefresh": true,
-	    "navigationBarTitleText": "消息中心",
-	    "navigationBarTextStyle": "white"
-	  }
-	},
-	{
-	  "path": "pages/me/setter",
-	  "style": {
-	    "enablePullDownRefresh": true,
-	    "navigationBarTitleText": "设置",
-	    "navigationBarTextStyle": "white"
-	  }
-	  
-	}
-
-    
+    {
+      "path": "pages/me/announcement",
+      "style": {
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "协议及隐私声明",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/me/msgcenter",
+      "style": {
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "消息中心",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/me/setter",
+      "style": {
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "设置",
+        "navigationBarTextStyle": "white"
+      }
+    }
   ],
   "tabBar": {
     "color": "#7A7E83",

@@ -18,7 +18,7 @@
           <input type="text" :placeholder="i18n.请输入验证码" v-model="pwd" class="smsCode" style="margin-top: 6px;" />
           <button size="mini" class="uni-abs-right" :class="countdown > 0 ? 'bg-blue' : ''" @click="sendCode"
             :disabled="countdown > 0">
-            {{ countdown > 0 ? `${countdown}s后重新获取` : i18n.获取验证码 }}
+            {{ countdown > 0 ? `${countdown}s` + i18n.验证码 : i18n.获取验证码 }}
           </button>
         </view>
         <view class="uni-reguster-input">
@@ -91,6 +91,12 @@ export default {
     },
     //发送验证码
     sendCode() {
+      if (!this.phone) {
+        uni.showToast({
+          title: this.i18n.区号不能为空,
+          icon: "none"
+        }); return;
+      }
       if (this.phonenumber.length != 11) {
         uni.showToast({
           title: this.i18n.请输入正确的手机号,
@@ -130,6 +136,12 @@ export default {
       var type = this.loginWay;
       // var type = this.loginWay;
       var email = this.email;
+      if (!phone) {
+        uni.showToast({
+          title: this.i18n.区号不能为空,
+          icon: "none"
+        }); return;
+      }
       if (phonenumber.length != 11) {
         uni.showToast({
           title: this.i18n.请输入正确的手机号,

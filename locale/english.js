@@ -10,6 +10,7 @@ module.exports = {
     "手机登录": "Phone",
     "邮箱登录": "Email",
     "区号": "Area",
+    "区号不能为空": "Please input Country code",
     "请输入手机号": "Phone number",
     "请输入密码": "Password",
     "登录": "Login",
@@ -41,6 +42,7 @@ module.exports = {
     "交易品种": "Name",
     "最新价": "Last Price",
     "涨跌幅": "UpDowns",
+    "添加客服": "Add customer service"
     //"交易品种": "Matkets"
   },
   contract: {
@@ -133,6 +135,7 @@ module.exports = {
   personal: {
     "已认证": "Certified",
     "未认证": "Unauthenticated",
+    "审核中": "Pending",
     "买涨": "Buy",
     "买跌": "Sell",
     "开仓价": "Opening price",
