@@ -75,6 +75,7 @@ module.exports = {
   },
   //钱包
   wallet: {
+    "账户余额": "USDT Account",
     "充值": "Deposit",
     "提现": "Withdraw",
     "最新账单": "Latest Bill",

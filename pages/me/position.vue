@@ -118,6 +118,7 @@ export default {
       pageNum: 1,
       pageSize: 10,
       totalPages: null, //总页数
+      intervalId: null,
     }
   },
   computed: {
@@ -132,7 +133,23 @@ export default {
     uni.setNavigationBarTitle({
       title: this.$t('personal').持仓
     });
+    this.startTimer();
+    // this.intervalId = setInterval(
+    //   this.getData
+    //   , 5000);
 
+  },
+  onHide() {
+    this.stopTimer()
+  },
+  destroyed() {
+    this.stopTimer()
+  },
+  beforeDestroy() {
+    this.stopTimer()
+  },
+  onUnload() {
+    this.stopTimer()
   },
   onLoad() {
     this.getData()
@@ -146,6 +163,25 @@ export default {
     }
   },
   methods: {
+    fetchData() {
+      // 模拟请求数据的过程
+      if (this.status === '1' && this.intervalId !== null) {
+        setTimeout(() => {
+          this.pageNum = 1
+          this.pageSize = 50
+          this.getData()
+        }, 1000);
+      }
+    },
+    startTimer() {
+      this.intervalId = setInterval(this.fetchData, 3000); // 每3秒请求一次数据
+    },
+    stopTimer() {
+      if (this.intervalId) {
+        window.clearInterval(this.intervalId);
+        this.intervalId = null;
+      }
+    },
     getData() {
       let param = {
         pageNum: this.pageNum,
@@ -192,6 +228,13 @@ export default {
       this.dataList = [];
       this.status = val
       this.getData()
+      if (val == '2') {
+        // this.intervalId = null;
+        this.stopTimer()
+        //window.clearInterval(this.intervalId);
+      } else {
+        this.startTimer();
+      }
     },
     formattedDate(time) {
       if (time) {

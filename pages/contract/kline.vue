@@ -187,31 +187,37 @@ export default {
     //this.logstatrttwo();
   },
   onHide() {
-    //关闭定时器
-    this.stopTimer();
+    this.stopTimer()
   },
   destroyed() {
-    //关闭定时器
-    this.stopTimer();
+    this.stopTimer()
+  },
+  beforeDestroy() {
+    this.stopTimer()
+  },
+  onUnload() {
+    this.stopTimer()
   },
   methods: {
     fetchData() {
       // 模拟请求数据的过程
-      setTimeout(() => {
-        if (this.coinType == 'TON') {
-          this.getTonData()
-        } else {
-          this.getTopData()
-        }
-      }, 1000);
+      if (this.intervalId !== null) {
+        setTimeout(() => {
+          if (this.coinType == 'TON') {
+            this.getTonData()
+          } else {
+            this.getTopData()
+          }
+        }, 1000);
+      }
     },
     startTimer() {
       this.intervalId = setInterval(this.fetchData, 3000); // 每3秒请求一次数据
     },
     stopTimer() {
-      console.log("this.intervalId", this.intervalId)
       if (this.intervalId) {
-        clearInterval(this.intervalId);
+        window.clearInterval(this.intervalId);
+        this.intervalId = null;
       }
     },
     //获取ton价格
@@ -308,6 +314,14 @@ export default {
     },
     //买涨起
     findBuy(tag) {
+      var s = uni.getStorageSync('loginuserinfo');
+      console.log("===>>>", s)
+      if (!s) {
+        uni.navigateTo({
+          url: "/pages/login/login"
+        })
+      }
+      //判断是否登录
       this.form.type = this.coinType;
       this.form.holdType = tag;
       this.form.holdPrice = this.formData.price;

@@ -6,7 +6,7 @@
     <uni-select @localeClick="localeClick"></uni-select>
     <uni-swiper-dot :info="swiperImages" :current="current" :mode="mode" :dots-styles="dotsStyles">
       <swiper class="swiper-box" @change="change" autoplay="true" style="height: 180px;">
-        <swiper-item v-for="(item, index) in swiperImages" :key="index">
+        <swiper-item v-for="(item, index) in imagesArr" :key="index">
           <view class="swiper-item">
             <image :src="item.url" />
           </view>
@@ -45,10 +45,22 @@ export default {
   },
   data() {
     return {
+      imagesArr: [],
       swiperImages: [
         { url: "../../static/images/home/home_top_banner1.png" },
         { url: '../../static/images/home/home_top_banner2.png' },
-        { url: '../../static/images/home/home_top_banner3.png' }],
+        { url: '../../static/images/home/home_top_banner3.png' }
+      ],
+      swiperImages2: [
+        { url: "../../static/images/home/home_top_banner1.png" },
+        { url: '../../static/images/home/home_top_banner22.png' },
+        { url: '../../static/images/home/home_top_banner33.png' }
+      ],
+      swiperImages3: [
+        { url: "../../static/images/home/home_top_banner1.png" },
+        { url: '../../static/images/home/home_top_banner222.png' },
+        { url: '../../static/images/home/home_top_banner333.png' }
+      ],
       noticeList: [],
       current: 0,
       mode: 'default',
@@ -103,36 +115,47 @@ export default {
     // this.$refs.homeList.loadData();
   },
   onHide() {
-    this.stopTimer();
+    this.stopTimer()
   },
   destroyed() {
-    //关闭定时器
-    this.stopTimer();
+    this.stopTimer()
   },
-
+  beforeDestroy() {
+    this.stopTimer()
+  },
+  onUnload() {
+    this.stopTimer()
+  },
   methods: {
     //切换
     localeClick(lang) {
       this.getNotice(lang.locale)
+
     },
 
     fetchData() {
       // 模拟请求数据的过程
-      setTimeout(() => {
-        this.getData()
-      }, 1000);
+      if (this.intervalId !== null) {
+        setTimeout(() => {
+          this.getData()
+        }, 1000);
+      }
+
     },
     startTimer() {
       this.intervalId = setInterval(this.fetchData, 3000); // 每3秒请求一次数据
     },
     stopTimer() {
-      if (this.intervalId) {
-        clearInterval(this.intervalId);
+      var that = this
+      if (that.intervalId) {
+        window.clearInterval(that.intervalId);
+        that.intervalId = null;
       }
     },
     //获取公示栏
     getNotice(val) {
       let lang = val == 'china' ? 'zh-CN,zh;q=0.9' : (val == 'japan' ? 'ja' : 'en')
+      this.imagesArr = val == 'china' ? this.swiperImages : (val == 'japan' ? this.swiperImages2 : this.swiperImages3)
       console.log("langlanglang", lang)
       var that = this;
       uni.request({
