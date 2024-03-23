@@ -64,6 +64,9 @@ export default {
     i18n() {
       return this.$t('login')
     },
+    tip(){
+      return this.$t('tip')
+    }
   },
   onShow(opt) {
     uni.setNavigationBarTitle({
@@ -111,7 +114,7 @@ export default {
       const param = {
         phoneNumber: this.phone + this.phonenumber,
         orgCode: 'RSRUUEEl',
-        id: this.$t('tip').code == 'RSRUUEEl' ? 2 : 3,
+        id: this.tip.code == 'RSRUUEEl'? 2 : 3,
         smsCodeType: 'REGISTER_KEY_SMS_CODE'
       }
       api.post(api.url.createsmscode, param, res => {
