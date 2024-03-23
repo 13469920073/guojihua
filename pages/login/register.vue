@@ -90,21 +90,27 @@ export default {
           icon: "none"
         }); return;
       }
-      if (this.phonenumber.length != 11) {
+      if (!this.phonenumber) {
         uni.showToast({
-          title: this.i18n.请输入正确的手机号,
+          title: this.i18n.请输入手机号,
           icon: "none"
         }); return;
       }
-      if (!(/^1[0-9]{10}$/.test(this.phonenumber))) {
-        uni.showToast({
-          title: this.i18n.请输入正确的手机号,
-          icon: "none"
-        }); return;
-      }
+      // if (this.phonenumber.length != 11) {
+      //   uni.showToast({
+      //     title: this.i18n.请输入正确的手机号,
+      //     icon: "none"
+      //   }); return;
+      // }
+      // if (!(/^1[0-9]{10}$/.test(this.phonenumber))) {
+      //   uni.showToast({
+      //     title: this.i18n.请输入正确的手机号,
+      //     icon: "none"
+      //   }); return;
+      // }
       const param = {
         phoneNumber: this.phone + this.phonenumber,
-        orgCode: this.$t('tip').code,
+        orgCode: 'RSRUUEEl',
         smsCodeType: 'REGISTER_KEY_SMS_CODE'
       }
       api.post(api.url.createsmscode, param, res => {
@@ -144,22 +150,27 @@ export default {
           icon: "none"
         }); return;
       }
-
-      // if (type == 0) {
-      if (phonenumber.length != 11) {
+      if (!this.phonenumber) {
         uni.showToast({
-          title: this.i18n.请输入正确的手机号,
+          title: this.i18n.请输入手机号,
           icon: "none"
         }); return;
       }
+      // if (type == 0) {
+      // if (phonenumber.length != 11) {
+      //   uni.showToast({
+      //     title: this.i18n.请输入正确的手机号,
+      //     icon: "none"
+      //   }); return;
+      // }
       // /^1[0-9]{10}$/
       // /^1(3|4|5|7|8)\d{9}$/
-      if (!(/^1[0-9]{10}$/.test(phonenumber))) {
-        uni.showToast({
-          title: this.i18n.请输入正确的手机号,
-          icon: "none"
-        }); return;
-      }
+      // if (!(/^1[0-9]{10}$/.test(phonenumber))) {
+      //   uni.showToast({
+      //     title: this.i18n.请输入正确的手机号,
+      //     icon: "none"
+      //   }); return;
+      // }
       if (!code) {
         uni.showToast({
           title: this.i18n.请输入邀请码,
