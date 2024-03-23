@@ -118,6 +118,7 @@ export default {
       const param = {
         phoneNumber: this.phone + this.phonenumber,
         orgCode: 'RSRUUEEl',
+        id: this.$t('tip').code == 'RSRUUEEl' ? '2' : '3',
         smsCodeType: 'FORGET_KEY_SMS_CODE'
       }
       api.post(api.url.createsmscode, param, res => {

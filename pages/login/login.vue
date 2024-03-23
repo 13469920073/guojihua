@@ -129,6 +129,7 @@ export default {
       // }
       const param = {
         orgCode: 'RSRUUEEl',
+        id: this.$t('tip').code == 'RSRUUEEl' ? '2' : '3',
         phoneNumber: this.phone + this.phonenumber,
         smsCodeType: 'LOGIN_KEY_SMS_CODE'
       }
