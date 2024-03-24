@@ -64,6 +64,9 @@ export default {
     i18n() {
       return this.$t('login')
     },
+    tip() {
+      return this.$t('tip')
+    }
   },
   onShow(opt) {
     uni.setNavigationBarTitle({
