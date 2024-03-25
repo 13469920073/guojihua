@@ -8,6 +8,7 @@
 import homeMoneyList from '@/components/home-money-list.vue';
 
 var itemType = require("@/common/p/base-data.js").itemType;
+var api = require('@/common/p/api.js');
 export default {
   components: {
     homeMoneyList
@@ -72,43 +73,35 @@ export default {
           console.log(res)
           const { list } = res.data.data
           uni.request({
-            url: 'https://min-api.cryptocompare.com/data/histohour',
-            method: 'GET',
-            data: {
-              'fsym': 'Toncoin',
-              'tsym': 'USDT',
-              'limit': '24',
-              'aggregate': 3,
-              'e': 'CCCAGG'
-            },
-            success: (res1) => {
-              let list = res.data.data.list
-              let d = res1.data.Data
-              let list2 = d[d.length - 1]
-              //计算涨跌浮
-              let closeOld = d[d.length - 2].close //上一次开盘价价格
-              let close = list2.close //当前的开盘价
-              let total = closeOld - close
+            url: "https://api.taurusen.site/api/home/home/getBlineList",
+            success(res) {
 
-              console.log("list2list2list2list2", list2)
-              let obj = {
-                sname: 'TON',
-                increPer: total.toFixed(2), //涨跌幅
-                nowPri: list2.close, //最新价
-                vol: '-',
-              }
-              //重新组装数组
-              const index = list.findIndex((item) => item.sname === 'HBC');
-              if (index !== -1) {
-                that.$set(list, index, obj);
-              }
-              that.dataList = list
-            },
-            fail: (err) => {
-              console.error('GET请求失败：', err);
-              // 处理错误
+              api.get(api.url.ratebody, {}, res1 => {
+                let list = res.data.data.list
+                let d = res1.data.tonLine
+                let list2 = d[d.length - 1]
+                let obj = {
+                  sname: 'TON',
+                  increPer: res1.riseType == 'down' ? '-0.01' : '0.01', //涨跌幅
+                  nowPri: res1.data.tonRate, //最新价
+                  vol: '-',
+                }
+                //重新组装数组
+                const index = list.findIndex((item) => item.sname === 'HBC');
+                if (index !== -1) {
+                  that.$set(list, index, obj);
+                }
+                that.dataList = list
+
+              }, error => {
+                uni.hideLoading();
+                uni.showToast({
+                  title: error,
+                  icon: "none"
+                })
+              })
             }
-          });
+          })
         },
       })
     },

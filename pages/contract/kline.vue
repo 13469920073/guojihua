@@ -230,6 +230,25 @@ export default {
         'aggregate': 3,
         'e': 'CCCAGG'
       }
+      api.get(api.url.ratebody, {}, res => {
+        let d = res.data
+        let leng = res.data.tonLine
+        let data = leng[leng.length - 1]
+
+        that.$set(that.formData, 'price', d.tonRate); //最新价
+        that.$set(that.formData, 'ph', data.higPrice);  //最高价
+        that.$set(that.formData, 'pl', data.lowPrice);  //低价
+        that.$set(that.formData, 'vol', d.twentyfour);
+        that.$set(that.formData, 'zf', d.riseType == 'down' ? '-0.01' : '0.01');
+        that.premiumCount()
+
+      }, error => {
+        uni.hideLoading();
+        uni.showToast({
+          title: error,
+          icon: "none"
+        })
+      })
       // uni.request({
       // 	    url: 'https://min-api.cryptocompare.com/data/price',
       // 	    method: 'GET',
@@ -247,33 +266,33 @@ export default {
       // 		   console.error('GET请求失败：', err);
       // 			}
       // 		});
-      uni.request({
-        url: 'https://min-api.cryptocompare.com/data/histohour',
-        method: 'GET',
-        data: requestData,
-        success: (res) => {
-          let d = res.data.Data
-          let leng = res.data.Data.length
-          let data = d[d.length - 1]
-          console.log("data",)
-          that.$set(that.formData, 'price', data.close);
-          that.$set(that.formData, 'ph', data.high);
-          that.$set(that.formData, 'pl', data.low);
-          that.$set(that.formData, 'vol', data.volumeto);
-          //计算涨跌浮
-          let closeOld = d[d.length - 2].close //上一次开盘价价格
-          let close = data.close //当前的开盘价
-          let total = closeOld - close
-          that.formData.zf = total.toFixed(4)
-          //let total = (closeOld - close) * closeOld
-          that.premiumCount()
-          console.log("total", total)
+      // uni.request({
+      //   url: 'https://min-api.cryptocompare.com/data/histohour',
+      //   method: 'GET',
+      //   data: requestData,
+      //   success: (res) => {
+      //     let d = res.data.Data
+      //     let leng = res.data.Data.length
+      //     let data = d[d.length - 1]
+      //     console.log("data",)
+      //     that.$set(that.formData, 'price', data.close);
+      //     that.$set(that.formData, 'ph', data.high);
+      //     that.$set(that.formData, 'pl', data.low);
+      //     that.$set(that.formData, 'vol', data.volumeto);
+      //     //计算涨跌浮
+      //     let closeOld = d[d.length - 2].close //上一次开盘价价格
+      //     let close = data.close //当前的开盘价
+      //     let total = closeOld - close
+      //     that.formData.zf = total.toFixed(4)
+      //     //let total = (closeOld - close) * closeOld
+      //     that.premiumCount()
+      //     console.log("total", total)
 
-        },
-        fail: (err) => {
-          console.error('GET请求失败：', err);
-        }
-      });
+      //   },
+      //   fail: (err) => {
+      //     console.error('GET请求失败：', err);
+      //   }
+      // });
     },
     // setTon() {
 

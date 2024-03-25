@@ -31,7 +31,7 @@ var URL = {
   coinassets: 'coin/get/coinassets', //获取币种信息
   coinassetshistory: 'coin/get/coinassetshistory', //获取币种信息
   settingtoncoin: 'coin/update/settingtoncoin', //发送Ton信息
-  ratebody: 'financial/get/ratebody', //获取Ton信息
+  ratebody: 'coin/get/ratebody', //获取Ton信息
   getoperhistorylist: 'customer/member/getoperhistorylist',  //交易历史数据
   gettradelist: 'customer/member/gettradelist',  //交易列表
   getwalletbalance: 'customer/member/getwalletbalance',  //用户余额
