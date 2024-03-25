@@ -49,7 +49,7 @@ export default {
     return {
       isPassword: true,
       loginWay: 0,
-      inviteCode: '486307', //邀请码
+      inviteCode: '', //邀请码
       phonenumber: '', //手机号
       email: '', //邮箱
       passWord: '', //密码
@@ -147,6 +147,12 @@ export default {
         "phonenumber": "",
         "smsCode": smsCode,
         "smsCodeType": 'REGISTER_KEY_SMS_CODE'
+      }
+      if (!code) {
+        uni.showToast({
+          title: this.i18n.邀请码,
+          icon: "none"
+        }); return;
       }
       if (!phone) {
         uni.showToast({

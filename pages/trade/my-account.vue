@@ -40,7 +40,13 @@ export default {
   data() {
     return {
       navIndex: '0',
-      numberArray: ['未认证', '审核中', '通过', '不通过'],
+      numberArray: {
+        '1': '未认证',
+        '2': '审核中',
+        '3': '通过',
+        '4': '不通过'
+        // '未认证', '审核中', '通过', '不通过'
+      },
       obj: {},
       pageNum: 1,
       pageSize: 10,
@@ -76,7 +82,7 @@ export default {
       var d = {
         'pageNum': this.pageNum,
         'pageSize': this.pageSize,
-        'status': this.obj.tag == 'trade' ? '2' : ''
+        'status': this.obj.tag == 'trade' ? '3' : ''
       };
       uni.showLoading({
         title: this.$t('tip').加载中,
