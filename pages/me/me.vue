@@ -3,8 +3,10 @@
     <view style="padding: 10px;padding-top: 25px;">
       <view v-if="isLogined" v-on:click="login" style="display: flex; align-items: center;">
         <view style="width: 100%;align-items: center;display: flex;padding: 5px 0;">
-          <image :src="userInfo.avatar" v-if="userInfo.avatar" style="width: 60px; height: 60px;"></image>
-          <image src="../../static/images/default_avatar.png" v-else style="width: 60px; height: 60px;"></image>
+          <image :src="userInfo.avatar" v-if="userInfo.avatar" style="width: 60px; height: 60px;border-radius: 50%;">
+          </image>
+          <image src="../../static/images/default_avatar.png" v-else
+            style="width: 60px; height: 60px;border-radius: 50%;"></image>
           <text style="font-size: 15px; color: #888;margin-left: 15px;">{{ userInfo.nickName }}</text>
         </view>
 

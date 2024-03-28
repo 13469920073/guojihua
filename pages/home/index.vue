@@ -165,6 +165,9 @@ export default {
         },
         success(res) {
           const { notice } = res.data.data
+          notice.forEach((item, index) => {
+            item.content = item.content.replace('HBC', 'TON');
+          })
           that.noticeList = notice
         },
       })
@@ -185,13 +188,12 @@ export default {
         success(res) {
 
           api.get(api.url.ratebody, {}, res1 => {
+            const { riseType, middleParam, tonRate, tonLine, rise } = res1.data
             let list = res.data.data.list
-            let d = res1.data.tonLine
-            let list2 = d[d.length - 1]
             let obj = {
               sname: 'TON',
-              increPer: res1.riseType == 'down' ? '-0.01' : '0.01', //涨跌幅
-              nowPri: res1.data.tonRate, //最新价
+              increPer: riseType == 'down' ? '-' + middleParam : (riseType == 'flat' ? rise : middleParam), //涨跌幅
+              nowPri: tonRate, //最新价
               vol: '-',
             }
             //重新组装数组

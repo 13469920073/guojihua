@@ -18,7 +18,7 @@
         <view style="text-align: right;">
           <p>{{ formData.ph ? formData.ph : '0' }}</p>
           <p>{{ formData.pl ? formData.pl : '0' }}</p>
-          <p>{{ formData.vol ? formData.vol : '0' }}</p>
+          <p>{{ formData.vol ? formData.vol : '0' }}K</p>
         </view>
       </view>
     </view>
@@ -87,9 +87,9 @@
           <view class="flex buy-line"><text class="line-l">{{ i18n.价格 }}：</text><text>{{ formData.price }}</text></view>
           <view class="flex buy-line"><text class="line-l">{{ i18n.数量 }}：</text><text><input type="number"
                 @input="onInput" v-model="form.holdNum" class="buy-ipt" :placeholder="i18n.请输入数量"
-                maxlength="11" /></text></view>
+                maxlength="13" /></text></view>
           <view class="flex buy-line"><text class="line-l">{{ i18n.止盈 }}：</text><text><input type="number"
-                v-model="form.profitRatio" class="buy-ipt" :placeholder="i18n.默认无上限" maxlength="11" /></text>%</view>
+                v-model="form.profitRatio" class="buy-ipt" :placeholder="i18n.默认无上限" maxlength="13" /></text>%</view>
           <view class="flex buy-line"><text class="line-l">{{ i18n.止损 }}：
             </text>
             <text>
@@ -136,6 +136,7 @@ export default {
       option: {},
       optionone: {},
       optiontwo: {},
+      resultData: '',//当前金额
       form: {
         deposit: '',
         holdNum: '',
@@ -172,6 +173,7 @@ export default {
     if (this.coinType == 'TON') {
       this.getTonData();
       this.getData()
+      this.getMoney()
     } else {
       this.getTopData();
       this.getData()
@@ -220,6 +222,19 @@ export default {
         this.intervalId = null;
       }
     },
+    //获取当前金额
+    getMoney() {
+      api.post(api.url.getwalletbalance, {}, res => {
+        console.log("rrrrrr", res)
+        this.resultData = res.data.result
+      }, error => {
+        uni.hideLoading();
+        uni.showToast({
+          title: error,
+          icon: "none"
+        })
+      })
+    },
     //获取ton价格
     getTonData() {
       let that = this
@@ -235,11 +250,12 @@ export default {
         let leng = res.data.tonLine
         let data = leng[leng.length - 1]
 
+        let zf = d.riseType == 'down' ? '-' + d.middleParam : (d.riseType == 'flat' ? d.rise : d.middleParam)
         that.$set(that.formData, 'price', d.tonRate); //最新价
         that.$set(that.formData, 'ph', data.higPrice);  //最高价
         that.$set(that.formData, 'pl', data.lowPrice);  //低价
-        that.$set(that.formData, 'vol', d.twentyfour);
-        that.$set(that.formData, 'zf', d.riseType == 'down' ? '-0.01' : '0.01');
+        that.$set(that.formData, 'vol', Math.floor(d.twentyfour.VOLUMEDAY)); //24h成交量
+        that.$set(that.formData, 'zf', zf);
         that.premiumCount()
 
       }, error => {
@@ -305,7 +321,16 @@ export default {
     },
     //onInput数量
     onInput(e) {
-      console.log('输入的内容是：' + e.target.value);
+      let value = e.target.value;
+      if (Number(value) > Number(this.resultData)) {
+        value = this.resultData;
+      } else {
+        value = value
+      }
+      this.$nextTick(function () {
+        this.form.holdNum = value
+      })
+
       this.premiumCount()
     },
     onInput2(event) {
