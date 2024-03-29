@@ -46,6 +46,7 @@ module.exports = {
     //"交易品种": "Matkets"
   },
   contract: {
+    "数量不能大于金额": "The quantity cannot be greater than the amount",
     "高": "High",
     "低": "Low",
     "二十四小时": "24H Volume",
@@ -102,6 +103,7 @@ module.exports = {
     "下一步": "Next",
     "添加账户": "Add account",
     "删除": "Delete",
+    "是否确定删除": "Are you sure to delete?",
     "填写信息": "Information entry",
     "充值币种": "Type",
     "充值金额": "Amount",

@@ -169,11 +169,12 @@ export default {
     // this.title = opt['id'];
     this.coinType = opt['coinType'];
     uni.setNavigationBarTitle({ title: opt['coinType'] + '/USDT' });
+    this.getMoney()
     console.log(777777, opt);
     if (this.coinType == 'TON') {
       this.getTonData();
       this.getData()
-      this.getMoney()
+
     } else {
       this.getTopData();
       this.getData()
@@ -225,7 +226,6 @@ export default {
     //获取当前金额
     getMoney() {
       api.post(api.url.getwalletbalance, {}, res => {
-        console.log("rrrrrr", res)
         this.resultData = res.data.result
       }, error => {
         uni.hideLoading();
