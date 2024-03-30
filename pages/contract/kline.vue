@@ -169,11 +169,10 @@ export default {
     // this.title = opt['id'];
     this.coinType = opt['coinType'];
     uni.setNavigationBarTitle({ title: opt['coinType'] + '/USDT' });
-    this.getMoney()
     console.log(777777, opt);
     if (this.coinType == 'TON') {
-      this.getTonData();
       this.getData()
+      this.getTonData();
 
     } else {
       this.getTopData();
@@ -245,26 +244,29 @@ export default {
         'aggregate': 3,
         'e': 'CCCAGG'
       }
-      api.get(api.url.ratebody, {}, res => {
-        let d = res.data
-        let leng = res.data.tonLine
-        let data = leng[leng.length - 1]
+      uni.request({
+        url: api.url.base + 'coin/get/ratebody',
+        method: 'GET',
+        data: {},
+        success: (res) => {
+          let d = res.data.data
+          let leng = res.data.data.tonLine
+          let data = leng[leng.length - 1]
 
-        let zf = d.riseType == 'down' ? '-' + d.middleParam : (d.riseType == 'flat' ? d.rise : d.middleParam)
-        that.$set(that.formData, 'price', d.tonRate); //最新价
-        that.$set(that.formData, 'ph', data.higPrice);  //最高价
-        that.$set(that.formData, 'pl', data.lowPrice);  //低价
-        that.$set(that.formData, 'vol', Math.floor(d.twentyfour.VOLUMEDAY)); //24h成交量
-        that.$set(that.formData, 'zf', zf);
-        that.premiumCount()
+          // let zf = d.riseType == 'down' ? '-' + d.middleParam : (d.riseType == 'flat' ? d.rise : d.middleParam)
+          that.$set(that.formData, 'price', d.tonRate); //最新价
+          that.$set(that.formData, 'ph', data.higPrice);  //最高价
+          that.$set(that.formData, 'pl', data.lowPrice);  //低价
+          that.$set(that.formData, 'vol', Math.floor(d.twentyfour.VOLUMEDAY)); //24h成交量
+          that.$set(that.formData, 'zf', d.rise);
+          that.premiumCount()
 
-      }, error => {
-        uni.hideLoading();
-        uni.showToast({
-          title: error,
-          icon: "none"
-        })
-      })
+        },
+        fail: (err) => {
+          console.error('GET请求失败：', err);
+          // 处理错误
+        }
+      });
       // uni.request({
       // 	    url: 'https://min-api.cryptocompare.com/data/price',
       // 	    method: 'GET',
@@ -358,13 +360,7 @@ export default {
     },
     //买涨起
     findBuy(tag) {
-      var s = uni.getStorageSync('loginuserinfo');
-      console.log("===>>>", s)
-      if (!s) {
-        uni.navigateTo({
-          url: "/pages/login/login"
-        })
-      }
+      this.getMoney()
       //判断是否登录
       this.form.type = this.coinType;
       this.form.holdType = tag;
@@ -923,6 +919,7 @@ export default {
 .container {
   padding: 20px 16px;
   justify-content: space-between;
+  flex-wrap: nowrap;
 }
 
 .uni-left {
@@ -930,7 +927,7 @@ export default {
 }
 
 .text-xxxlg {
-  font-size: 32px
+  font-size: 28px
 }
 
 .head-nav {

@@ -183,35 +183,39 @@ export default {
       }
       var arr1 = ['BTC', 'ETH', 'TON'];
       //var arr2 = ['BTC','ETH','EOS','HBC','LTC','XRP','BCH','ADA','TRX','BNB'];
+
       uni.request({
         url: "https://api.taurusen.site/api/home/home/getBlineList",
         success(res) {
+          uni.request({
+            url: api.url.base + 'coin/get/ratebody',
+            method: 'GET',
+            data: {},
+            success: (res1) => {
+              const { riseType, middleParam, tonRate, tonLine, rise } = res1.data.data
+              let list = res.data.data.list
+              let obj = {
+                sname: 'TON',
+                increPer: rise,
+                //increPer: riseType == 'down' ? '-' + middleParam : (riseType == 'flat' ? rise : middleParam), //涨跌幅
+                nowPri: tonRate, //最新价
+                vol: '-',
+              }
+              //重新组装数组
+              const index = list.findIndex((item) => item.sname === 'HBC');
+              if (index !== -1) {
+                that.$set(list, index, obj);
+              }
+              console.log("”New Itemlistlist", list)
+              that.dataTopList = that.filter(list, arr1)
+              that.dataList = list
 
-          api.get(api.url.ratebody, {}, res1 => {
-            const { riseType, middleParam, tonRate, tonLine, rise } = res1.data
-            let list = res.data.data.list
-            let obj = {
-              sname: 'TON',
-              increPer: riseType == 'down' ? '-' + middleParam : (riseType == 'flat' ? rise : middleParam), //涨跌幅
-              nowPri: tonRate, //最新价
-              vol: '-',
+            },
+            fail: (err) => {
+              console.error('GET请求失败：', err);
+              // 处理错误
             }
-            //重新组装数组
-            const index = list.findIndex((item) => item.sname === 'HBC');
-            if (index !== -1) {
-              that.$set(list, index, obj);
-            }
-            console.log("”New Itemlistlist", list)
-            that.dataTopList = that.filter(list, arr1)
-            that.dataList = list
-
-          }, error => {
-            uni.hideLoading();
-            uni.showToast({
-              title: error,
-              icon: "none"
-            })
-          })
+          });
 
 
           // uni.request({

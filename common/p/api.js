@@ -6,7 +6,7 @@ Vue.use(VueI18n);
 //api接口定义
 var URL = {
   //base:'http://39.106.164.101:80/tt/',
-  base: 'https://banksagitarii.com/prod-api/',
+  base: 'https://sagittariusbank.com/prod-api/',
   //base: 'http://139.9.65.136:8098/',
   getsy: 'getPostList.php',
   detail: 'getSinglePost.php',
