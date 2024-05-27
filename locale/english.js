@@ -72,7 +72,12 @@ module.exports = {
     "请输入止盈率": "Please input amount",
     "请输入止损率": "Please input Stop profit",
     "默认无上限": "Please input Stop loss",
-    "默认100": "default100"
+    "默认100": "default100",
+    "开盘价": "Open",
+    "收盘价": "Close",
+    "最高价": "High",
+    "最低价": "Low",
+    "成交价": "Volume"
   },
   //钱包
   wallet: {

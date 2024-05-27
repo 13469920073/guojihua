@@ -74,6 +74,11 @@ export default {
         accountName: 'ETH（ERC-20）',
         address: '0x695c7317a67d7dc7ac2df08f17edf28b22545c11',
         photo: '../../static/images/trade/ETH-1.jpg'
+      }, {
+        type: 'DOGE',
+        accountName: 'DOGE',
+        address: '9tS1hKdzMybd7mwsH9YFVFC4k87cL1wRaj',
+        photo: '../../static/images/trade/DOGE.jpg'
       }],
       from: {
         accountName: 'USDT（TRC-20）', //账户名称
@@ -178,7 +183,7 @@ export default {
 	border-right-width: 0; */
   /* border-style: solid; */
   border: 1px solid #ccc;
-  padding: 0 16px;
+  padding: 0 14px;
   /* border-color: #E5E5E5; */
   border-radius: 6px;
   font-size: 14px;

@@ -52,12 +52,12 @@ export default {
         { url: '../../static/images/home/home_top_banner3.png' }
       ],
       swiperImages2: [
-        { url: "../../static/images/home/home_top_banner1.png" },
+        { url: "../../static/images/home/home_top_banner11.png" },
         { url: '../../static/images/home/home_top_banner22.png' },
         { url: '../../static/images/home/home_top_banner33.png' }
       ],
       swiperImages3: [
-        { url: "../../static/images/home/home_top_banner1.png" },
+        { url: "../../static/images/home/home_top_banner111.png" },
         { url: '../../static/images/home/home_top_banner222.png' },
         { url: '../../static/images/home/home_top_banner333.png' }
       ],

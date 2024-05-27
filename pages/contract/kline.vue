@@ -97,8 +97,8 @@
                 maxlength="3" @input="onInput2" />
             </text>%
           </view>
-          <view class="flex buy-line"><text class="line-l">{{ i18n.保证金 }}：</text><text>{{ form.deposit ? form.deposit :
-          '0' }}</text></view>
+          <!-- <view class="flex buy-line"><text class="line-l">{{ i18n.保证金 }}：</text><text>{{ form.deposit ? form.deposit :
+          '0' }}</text></view> -->
           <view class="flex buy-line"><text class="line-l">{{ i18n.手续费 }}：</text><text>{{ form.premiumNum ?
           form.premiumNum : '0' }}</text></view>
         </view>
@@ -138,7 +138,7 @@ export default {
       optiontwo: {},
       resultData: '',//当前金额
       form: {
-        deposit: '',
+        deposit: 0,
         holdNum: '',
         holdPrice: '',
         holdType: '',
@@ -257,7 +257,7 @@ export default {
           that.$set(that.formData, 'price', d.tonRate); //最新价
           that.$set(that.formData, 'ph', data.higPrice);  //最高价
           that.$set(that.formData, 'pl', data.lowPrice);  //低价
-          that.$set(that.formData, 'vol', Math.floor(d.twentyfour.VOLUMEDAY)); //24h成交量
+          // that.$set(that.formData, 'vol', Math.floor(d.twentyfour.VOLUMEDAY)); //24h成交量
           that.$set(that.formData, 'zf', d.rise);
           that.premiumCount()
 
@@ -267,6 +267,19 @@ export default {
           // 处理错误
         }
       });
+      let param = {
+        symbol: 'HBC',
+        type: this.navIndex,
+        tm: 1
+      }
+      uni.request({
+        url: "https://api.taurusen.site/api/shares/market/getKlineOne",
+        method: 'GET',
+        data: param,
+        success(res) {
+          that.$set(that.formData, 'vol', res.data.data.data.vol.toFixed(2)); //24h成交量
+        }
+      })
       // uni.request({
       // 	    url: 'https://min-api.cryptocompare.com/data/price',
       // 	    method: 'GET',
@@ -474,6 +487,8 @@ export default {
 
     logstatrtone(val) {
       let data = this.splitData(val);
+      console.log("datadatadata", data)
+      var that = this
       let upColor = '#00da3c';
       let downColor = '#ec0000';
       this.optionone = {
@@ -546,11 +561,11 @@ export default {
             console.log("====>>>>>param", param)
             return [
               param.name + '<hr size=1 style="margin: 3px 0">',
-              '开盘价: ' + param.data[0] + '<br/>',
-              '收盘价: ' + param.data[1] + '<br/>',
-              '最高价: ' + param.data[2] + '<br/>',
-              '最低价: ' + param.data[3] + '<br/>',
-              '成交价: ' + param.data[4] + '<br/>'
+              that.i18n.开盘价 + ': ' + param.data[1] + '<br/>',
+              that.i18n.收盘价 + ': ' + param.data[2] + '<br/>',
+              that.i18n.最低价 + ': ' + param.data[3] + '<br/>',
+              that.i18n.最高价 + ': ' + param.data[4] + '<br/>',
+              that.i18n.成交价 + ': ' + param.data[0] + '<br/>'
             ].join('');
           }
         },
@@ -827,7 +842,7 @@ export default {
     },
     //表单重置
     resetForm() {
-      this.form.deposit = '';
+      //this.form.deposit = '';
       this.form.holdNum = '';
       this.form.profitRatio = '';
       this.form.holdPrice = '';
@@ -851,8 +866,8 @@ export default {
       console.log("计算", this.form)
       if (this.form.holdNum) {
         var num1 = (this.formData.price / this.form.times) * this.form.holdNum
-        var num2 = (this.formData.price / this.form.times) / (33.3333 / this.form.holdNum)
-        this.form.deposit = num1.toFixed(4); //保证金
+        var num2 = (this.formData.price / this.form.times) / (33.3333 / (this.form.holdNum / 100))
+        // this.form.deposit = num1.toFixed(4); //保证金
         this.form.premiumNum = num2.toFixed(4); //手续费
       }
 
