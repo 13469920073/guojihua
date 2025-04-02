@@ -77,7 +77,7 @@ export default {
         sourceType: ["camera", "album"], sizeType: "compressed", count: 1,
         success: res => {
           var filesPaths = res.tempFilePaths;
-          uni.showLoading({ title: '正在上传...' });
+          uni.showLoading({ title: 'loading...' });
           console.log("filesPaths=======", filesPaths)
           if (filesPaths && filesPaths.length > 0) {
             this.voucher = filesPaths[0];
@@ -113,8 +113,8 @@ export default {
           duration: 2000
         })
         return
-
       }
+      uni.showLoading({ title: 'loading...' });
       api.post(api.url.applicationrecharge, this.from, res => {
         uni.showToast({
           title: this.$t('tip').成功,
@@ -126,6 +126,7 @@ export default {
             }, 500);
           }
         })
+        uni.hideLoading();
       })
       console.log("===")
     },

@@ -27,6 +27,7 @@ var URL = {
   smslogin: 'customer/member/smslogin', //验证码登录
   register: 'customer/member/register',  //用户注册
   changepwd: 'customer/member/changepwd',  //密码重置
+  forgetpwd: 'customer/member/forgetpwd',  //找回密码
   realnameapplication: 'customer/member/realnameapplication',  //用户实名认证
   getmemberinfo: 'customer/member/getmemberinfo',  //获取用户信息
   coinassets: 'coin/get/coinassets', //获取币种信息

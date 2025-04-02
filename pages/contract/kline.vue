@@ -130,6 +130,7 @@ export default {
       coinType: '',
       dataType: '',
       datalist: [],
+      userInfo: {},
       formData: {},
       formItem: {},
       intervalId: null,
@@ -169,6 +170,7 @@ export default {
     // this.title = opt['id'];
     this.coinType = opt['coinType'];
     uni.setNavigationBarTitle({ title: opt['coinType'] + '/USDT' });
+    this.userInfo = JSON.parse(uni.getStorageSync("loginuserinfo"));
     console.log(777777, opt);
     if (this.coinType == 'TON') {
       this.getData()
@@ -373,13 +375,26 @@ export default {
     },
     //买涨起
     findBuy(tag) {
-      this.getMoney()
-      //判断是否登录
-      this.form.type = this.coinType;
-      this.form.holdType = tag;
-      this.form.holdPrice = this.formData.price;
-      this.showPopup = !this.showPopup;
-      this.tagIndex = tag
+      //判断是否锁定状态
+      api.get(api.url.getmemberinfo, {}, res => {
+        if (res.data.lockStatus == '2') {
+          uni.showToast({
+            title: this.$t('wallet').账户已锁定,
+            icon: 'none',
+            duration: 2000
+          })
+          return
+        } else {
+          this.getMoney()
+          //判断是否登录
+          this.form.type = this.coinType;
+          this.form.holdType = tag;
+          this.form.holdPrice = this.formData.price;
+          this.showPopup = !this.showPopup;
+          this.tagIndex = tag
+        }
+      })
+
     },
     subBuyUp() {
       let that = this
@@ -403,6 +418,7 @@ export default {
         //   icon: "none"
         // }); return;
       }
+
       let param = {
         ...this.form
       }

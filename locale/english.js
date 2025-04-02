@@ -128,6 +128,7 @@ module.exports = {
     "审核中": "Pending",
     "成功": "Success",
     "失败": "Fail",
+    "账户已锁定": "Account locked, unable to operate"
 
   },
   tip: {

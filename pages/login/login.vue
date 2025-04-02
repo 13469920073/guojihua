@@ -261,6 +261,7 @@ export default {
         })
 
       }, error => {
+        // let tip = this.$t('tip').code == 'RSRUUEEl' && error == '账户已锁定，无法登录' ? error : 'アカウントはロックされています'
         uni.hideLoading();
         uni.showToast({
           title: error,

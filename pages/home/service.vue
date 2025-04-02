@@ -1,7 +1,11 @@
 <template>
   <view>
     <view class="float-image">
-      <image src="../../static/images/home/erweima.jpg"></image>
+      <image src="../../static/images/home/erweima4.jpg"></image>
+      <!-- <view style="text-align: center;">Imsk1290</view> -->
+	  <view style="text-align: center;">-</view>
+      <image src="../../static/images/home/erweima3.jpg"></image>
+      <view style="text-align: center;">Imsk2703</view>
     </view>
   </view>
 </template>
@@ -19,7 +23,7 @@ export default {
 <style>
 .float-image {
   width: 100%;
-  display: flex;
+  /* display: flex; */
 }
 
 .float-image image {
