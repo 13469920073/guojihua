@@ -170,9 +170,9 @@ export default {
     // this.title = opt['id'];
     this.coinType = opt['coinType'];
     uni.setNavigationBarTitle({ title: opt['coinType'] + '/USDT' });
-    this.userInfo = JSON.parse(uni.getStorageSync("loginuserinfo"));
+    //this.userInfo = JSON.parse(uni.getStorageSync("loginuserinfo"));
     console.log(777777, opt);
-    if (this.coinType == 'TON') {
+    if (this.coinType == 'TON' && this.userInfo) {
       this.getData()
       this.getTonData();
 
@@ -425,20 +425,19 @@ export default {
       param.profitRatio = parseInt(param.profitRatio)
       param.stopRatio = parseInt(param.stopRatio)
       api.post(api.url.createtrade, param, res => {
-        console.log("res>>>>>>: ", res.data);
         uni.hideLoading();
-        uni.showToast({
-          title: this.$t('tip').成功,
-          success: function (res) {
-            setTimeout(function () {
-              that.showPopup = false
-              uni.navigateTo({
-                url: "/pages/me/position"
-              })
-              that.resetForm() //表单重置
-            }, 500);
-          }
-        })
+			uni.showToast({
+			  title: this.$t('tip').成功,
+			  success: function (res) {
+			    setTimeout(function () {
+			      that.showPopup = false
+			      uni.navigateTo({
+			        url: "/pages/me/position"
+			      })
+			      that.resetForm() //表单重置
+			    }, 500);
+			  }
+			})
 
       }, error => {
         uni.hideLoading();

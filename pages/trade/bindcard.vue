@@ -14,6 +14,7 @@
               </select>
             </text>
           </view>
+		   <view style="width: 100%;" v-if="from.type !== 'JPY'"> 
           <view class="flex table-item">
             {{ i18n.账户名称 }}
             <text class="table-input"><input :placeholder="i18n.账户名称" v-model="from.accountName" />
@@ -24,6 +25,39 @@
             <text class="table-input"><input :placeholder="i18n.账户地址" v-model="from.address" />
             </text>
           </view>
+		  </view> 
+		  <view style="width: 100%;" v-else>
+		  <view class="flex table-item">
+		  {{ i18n.银行名称}}
+		    <text class="table-input"><input :placeholder="i18n.银行名称" v-model="from.bankName" />
+		    </text>
+		  </view>
+		  <view class="flex table-item">
+		    {{ i18n.银行支行名称}} 
+		    <text class="table-input"><input :placeholder="i18n.银行支行名称" v-model="from.bankBranchName" />
+		    </text>
+		  </view>
+		  <view class="flex table-item">
+		   {{ i18n.账户号码}}
+		    <text class="table-input"><input :placeholder="i18n.账户号码" v-model="from.accountNumber" />
+		    </text>
+		  </view>
+		  <view class="flex table-item">
+		  {{ i18n.支行编号}} 
+		    <text class="table-input"><input :placeholder="i18n.支行编号" v-model="from.branchNumber" />
+		    </text>
+		  </view>
+		  <view class="flex table-item">
+		    {{ i18n.开户人}}
+		    <text class="table-input"><input :placeholder="i18n.开户人" v-model="from.accountHolder" />
+		    </text>
+		  </view>
+		  <view class="flex table-item">
+		    {{ i18n.备注}}
+		    <text class="table-input"><input :placeholder="i18n.备注" v-model="from.remarks" />
+		    </text>
+		  </view>
+		  </view>
         </view>
       </view>
     </view>
@@ -49,7 +83,12 @@ export default {
       accountArry: [{
         table: 'USDT',
         value: '0'
-      }, {
+      },
+	  {
+        table: 'JPY',
+        value: '4'
+      }, 
+	  {
         table: 'BTC',
         value: '1'
       }, {
@@ -62,7 +101,13 @@ export default {
       from: {
         accountName: "",
         address: "",
-        type: "USDT"
+        type: "USDT",
+		bankName: "",
+		bankBranchName: "",
+		accountNumber: "",
+		branchNumber: "",
+		accountHolder: "",
+		remarks: ""
       }
     }
   },
@@ -89,18 +134,36 @@ export default {
     //下一步
     next() {
       let obj = this.from
-      if (!this.from.accountName) {
+      if (!this.from.accountName && this.from.type !== 'JPY') {
         uni.showToast({
           title: this.i18n.账户名称不能为空,
           icon: "none"
         }); return;
       }
-      if (!this.from.address) {
+      if (!this.from.address && this.from.type !== 'JPY') {
         uni.showToast({
           title: this.i18n.账户地址不能为空,
           icon: "none"
         }); return;
       }
+	  if (!this.from.bankName && this.from.type == 'JPY') {
+	    uni.showToast({
+	      title: this.i18n.银行名称不能为空,
+	      icon: "none"
+	    }); return;
+	  }
+	  if (!this.from.accountNumber && this.from.type == 'JPY') {
+	    uni.showToast({
+	      title: this.i18n.账户号码不能为空,
+	      icon: "none"
+	    }); return;
+	  }
+	  if (!this.from.accountHolder && this.from.type == 'JPY') {
+	    uni.showToast({
+	      title: this.i18n.开户人不能为空,
+	      icon: "none"
+	    }); return;
+	  }
       uni.showLoading({
         title: this.$t('tip').提交中,
         mask: true

@@ -125,7 +125,6 @@ function uniPost(url, pars, success, error) {
     dataType: "json",
     data: pars,
     success: res => {
-      console.log("====res: ", res);
       var data = res.data;
       if (data.code == 200) {
         console.log("request ok");
@@ -147,7 +146,12 @@ function uniPost(url, pars, success, error) {
         })
 
       } else {
-        if (error) error(data['message'] || '服务器返回错误');
+		   if(data.code == 2002){
+		  	uni.showToast({
+		  	  title: Vue.prototype._i18n.t('tip').余额不足,
+		  	  icon: "none"
+		  	})
+		  }else if (error) error(data['message'] || '服务器返回错误');
       }
     },
     fail: (data, code) => {

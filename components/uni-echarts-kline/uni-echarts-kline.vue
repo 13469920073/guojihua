@@ -71,6 +71,7 @@ export default {
 				      useDirtyRect: false,
 				    });
 				this.update(this.option)
+				
 			},
 			/**
 			 * 监测数据更新

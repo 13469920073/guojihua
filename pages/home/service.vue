@@ -1,11 +1,13 @@
 <template>
   <view>
     <view class="float-image">
-      <image src="../../static/images/home/erweima4.jpg"></image>
+      <!-- <image src="../../static/images/home/exc9527.jpg"></image> -->
       <!-- <view style="text-align: center;">Imsk1290</view> -->
-	  <view style="text-align: center;">-</view>
-      <image src="../../static/images/home/erweima3.jpg"></image>
-      <view style="text-align: center;">Imsk2703</view>
+	  <!-- <view style="text-align: center;">exc9527</view> -->
+      <image src="../../static/images/home/exc1956.png"></image>
+      <view style="text-align: center;">exc1956</view>
+	  <image src="../../static/images/home/exc8134.jpg"></image>
+	  <view style="text-align: center;">exc8134</view>
     </view>
   </view>
 </template>

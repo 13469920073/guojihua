@@ -1,14 +1,34 @@
 <template>
   <view class="content">
     <view v-if="list.length">
-      <view class="content_box" v-for="(item, index) in list" :key="index" @click="onpush(item)">
+      <view v-for="(item, index) in list" :key="index" @click="onpush(item)">
+		  <view class="content_box height1" v-if="item.type !== 'JPY'" >
         <view class="box1">
           {{ item.type }}&nbsp&nbsp{{ i18n[numberArray[item.status]] }}
           <text style="color: red;" v-if="obj.tag == 'me'" v-on:click="handleDel(item)">{{ i18n.删除 }}</text>
         </view>
+		<view >
         <view class="box2">{{ i18n.账户名称 }} ：{{ item.accountName }}</view>
         <view class="box3">{{ i18n.账户地址 }} ：{{ item.address }}</view>
+		</view>
+		</view>
+		<view class="content_box height2" v-else>
+		<view class="box1">
+		  {{ item.type }}&nbsp&nbsp{{ i18n[numberArray[item.status]] }}
+		  <text style="color: red;" v-if="obj.tag == 'me'" v-on:click="handleDel(item)">{{ i18n.删除 }}</text>
+		</view>
+	
+		<view  >
+		<view class="box2">{{ i18n.银行名称 }} ：{{ item.bankName }}</view>
+		<view class="box3">{{ i18n.银行支行名称 }} ：{{ item.bankBranchName }}</view>
+		<view class="box4">{{ i18n.账户号码 }} ：{{ item.accountNumber }}</view>
+		<view class="box5">{{ i18n.支行编号 }} ：{{ item.branchNumber }}</view>
+		<view class="box6">{{ i18n.开户人 }} ：{{ item.accountHolder }}</view>
+		<view class="box7">{{ i18n.备注 }} ：{{ item.remarks }}</view>
+		</view>
+		</view>
       </view>
+	  
     </view>
     <view v-else>
       <view class="img_title">
@@ -160,6 +180,12 @@ export default {
   background-color: #fafafa;
   border: 1px solid #eed9d9;
 }
+.height1{
+  height: 130px;
+}
+.height2{
+  height: 230px;
+}
 
 .content_box .box1 {
   display: flex;
@@ -183,7 +209,7 @@ export default {
 
 }
 
-.content_box .box3 {
+.content_box .box3, .content_box .box3, .content_box .box4, .content_box .box5, .content_box .box6, .content_box .box7 {
   padding-left: 20upx;
   height: 30px;
   line-height: 30px;

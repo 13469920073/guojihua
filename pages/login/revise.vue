@@ -6,6 +6,7 @@
         <view class="uni-reguster-input">
           <view class="uni-reguster-item" v-if="loginWay == 0">
             <input type="text" :placeholder="i18n.区号" v-model="phone" class="iphonel" />
+			<text class="uni-reguster-icon">-</text>
             <input type="number" :placeholder="i18n.请输入手机号" maxlength="11" v-model="phonenumber" class="iphoneNum" />
           </view>
           <!-- <input type="number" v-if="loginWay == 1" :placeholder="i18n.请输入邮箱" maxlength="11" v-model="email" />
@@ -302,13 +303,18 @@ input {
   left: 0;
   position: absolute;
 }
-
+.uni-reguster-icon{
+	    width: 16px;
+	    left: 66px;
+	    position: absolute;
+	    line-height: 49px;
+}
 .uni-reguster-item {
   color: #fff;
 }
 
 .uni-reguster-input .iphoneNum {
-  padding-left: 66px;
+  padding-left: 86px;
   padding-right: 30%;
 }
 

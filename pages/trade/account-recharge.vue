@@ -31,10 +31,10 @@
         </view>
       </view>
     </view>
-    <view class="flex" style="padding: 20px;">
+    <view class="flex" style="padding: 20px;flex-wrap: nowrap;">
       <image v-on:click="oncheck"
         :src="isCheck ? '../../static/images/trade/checked.png' : '../../static/images/trade/check.png'" mode=""
-        style="width: 20px;height: 20px;"></image>
+        style="width: 20px;height: 20px;align-self: flex-start;margin-top: 4px;"></image>
       <text>{{ i18n.转账完成 }}</text>
     </view>
     <view style="padding: 20px;">

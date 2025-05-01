@@ -102,6 +102,18 @@ module.exports = {
     "请选择提现账户": "Please select a withdrawal account",
     "账户名称不能为空": "Account name cannot be empty",
     "账户地址不能为空": "Account address cannot be empty",
+	
+	"银行名称": "Bank Name",
+	"银行支行名称": "Bank branch name",
+	"账户号码": "Account Number",
+	"支行编号": "Branch Number",
+	"开户人": "Account holder",
+	"备注": "Remarks",
+	"银行名称不能为空": "The name cannot be empty",
+	"开户人不能为空": "The account holder cannot be left blank",
+	"账户号码不能为空": "Account number cannot be empty",
+	
+	
     "注意": "*Note: Official collection account, please check the information carefully",
     "转账完成": "Transfer completed, submit payment information",
     "打款信息": "Please check submit payment information",
@@ -117,6 +129,7 @@ module.exports = {
     "提交": "Confirm",
     "上一步": "Return",
     "请输入数量": "Please input amount",
+	"请联系客服": "Please contact customer service for selecting JPY withdrawal",
     "暂无数据": "No records",
     "出金": "Out",
     "入金": "Enter",
@@ -146,6 +159,7 @@ module.exports = {
     "确定": "Confirm",
     "取消": "Cancel",
     "code": "ENGLISH",
+	"余额不足": "Insufficient Balance",
   },
   personal: {
     "平仓": "End",

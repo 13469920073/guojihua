@@ -47,9 +47,9 @@ export default {
     return {
       imagesArr: [],
       swiperImages: [
-        { url: "../../static/images/home/home_top_banner1.png" },
-        { url: '../../static/images/home/home_top_banner2.png' },
-        { url: '../../static/images/home/home_top_banner3.png' }
+        { url: "../../static/images/home/home_top_banner4.png" },
+        { url: '../../static/images/home/home_top_banner44.png' },
+        { url: '../../static/images/home/home_top_banner444.png' }
       ],
       swiperImages2: [
         { url: "../../static/images/home/home_top_banner11.png" },
@@ -158,19 +158,29 @@ export default {
       this.imagesArr = val == 'china' ? this.swiperImages : (val == 'japan' ? this.swiperImages2 : this.swiperImages3)
       console.log("langlanglang", lang)
       var that = this;
-      uni.request({
-        url: "https://api.taurusen.site/api/home/home/getHomeHot",
-        header: {
-          "Lang-Locale": lang,
-        },
-        success(res) {
-          const { notice } = res.data.data
-          notice.forEach((item, index) => {
-            item.content = item.content.replace('HBC', 'TON');
-          })
-          that.noticeList = notice
-        },
-      })
+	  const myArray = [];
+	  for (let i = 0; i < 3; i++) {
+		   myArray.push({
+			   content:val == 'china' ? '用戶NO.19401購買了TON合約' : (val == 'japan' ? 'ユーザーNO.19401がTON契約を購入' : 'User NO.19401 purchased a TON contract')
+		   })
+	  }
+	   that.noticeList = myArray
+    //   uni.request({
+    //     url: "https://api.taurusen.site/api/home/home/getHomeHot",
+    //     header: {
+    //       "Lang-Locale": lang,
+    //     },
+    //     success(res) {
+    //       const { notice } = res.data.data
+		  // console.log("noticenoticenotice",notice)
+    //       notice.forEach((item, index) => {
+			 //  item.content = val == 'china' ? '用戶NO.19401購買了TON合約' : (val == 'japan' ? 'ユーザーNO.19401がTON契約を購入' : 'User NO.19401 purchased a TON contract')
+			 //  // item.content = "用戶NO.19401購買了TON合約";
+    //         // item.content = item.content.replace('HBC', 'TON');
+    //       })
+    //       that.noticeList = notice
+    //     },
+    //   })
     },
     getData() {
       var that = this;

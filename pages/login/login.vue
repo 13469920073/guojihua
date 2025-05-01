@@ -10,7 +10,7 @@
     <view style="width: 100%; margin-top: 45px;">
       <view class="text-white" style="padding: 20px;">
         <view class="uni-login-input flex" v-if="loginWay == 0">
-          <input type="text" :placeholder="i18n.区号" maxlength="11" v-model="phone" style="width: 40px;" />
+          <input type="text" :placeholder="i18n.区号" maxlength="11" v-model="phone" style="width: 60px;padding-right: 0;" />
           <input type="number" :placeholder="i18n.请输入手机号" maxlength="11" v-model="phonenumber" style="width: 100%;" />
         </view>
         <input type="text" v-if="loginWay == 1" :placeholder="i18n.请输入邮箱" v-model="email" />

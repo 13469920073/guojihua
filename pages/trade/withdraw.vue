@@ -11,11 +11,20 @@
             <img src="../../assets/img/right.png" alt="">
           </view>
           <view class="grid-item-wrap flex" style="width: 100%;">
-            <view class="grid-item-left" v-if="form.type && form.accountName">
+            <view class="grid-item-left" v-if="form.type && form.accountName&& form.type !== 'JPY' ">
               <p>{{ form.type }}</p>
-              <p>账户名称：{{ form.accountName }}</p>
-              <p>账户地址：{{ form.address }}</p>
+              <p>{{ i18n.账户名称 }}：{{ form.accountName }}</p>
+              <p>{{ i18n.账户地址 }}：{{ form.address }}</p>
             </view>
+			<view class="grid-item-left" v-else>
+			  <p>{{ form.type }}</p>
+			  <p>{{ i18n.银行名称 }} ：{{ form.bankName }}</p>
+			  <p>{{ i18n.银行支行名称 }} ：{{ form.bankBranchName }}</p>
+			  <p>{{ i18n.账户号码 }} ：{{ form.accountNumber }}</p>
+			  <p>{{ i18n.支行编号 }} ：{{ form.branchNumber }}</p>
+			  <p>{{ i18n.开户人 }} ：{{ form.accountHolder }}</p>
+			  <p>{{ i18n.备注 }} ：{{ form.remarks }}</p>
+			</view>
           </view>
           <view class="flex" style="width:100%">{{ i18n.金额 }}:
             <input :placeholder="i18n.请输入数量" v-model="form.outlayNum" type="number" class="uni-input" />
@@ -74,7 +83,12 @@ export default {
       this.form = JSON.parse(decodeURIComponent(option.obj));
 
       console.log("====》》》》", this.form)
-      this.form.accountName = this.form.type + '(' + this.form.accountName + ')'
+	  if(this.form.type!== 'JPY'){
+		  this.form.accountName = this.form.type + '(' + this.form.accountName + ')'
+	  }else{
+		  this.form.accountName = this.form.type + '(' + this.form.bankName + ')'
+	  }
+      
       console.log("====》》》》", this.form)
     }
     // console.log("itemType: " + JSON.stringify(itemType));
@@ -96,6 +110,14 @@ export default {
     },
     //申请提现
     save() {
+	  if (this.form.type == 'JPY') {
+	    uni.showToast({
+	      title: this.i18n.请联系客服,
+	      icon: 'none',
+	      duration: 2000
+	    })
+		return
+	  }
       uni.showLoading({
         title: this.$t('tip').提交中
       });
@@ -106,6 +128,7 @@ export default {
           icon: 'none',
           duration: 2000
         })
+		return
       }
       //判断是否锁定状态
       api.get(api.url.getmemberinfo, {}, res => {
