@@ -84,10 +84,10 @@ export default {
         table: 'USDT',
         value: '0'
       },
-	  {
-        table: 'JPY',
-        value: '4'
-      }, 
+	  // {
+   //      table: 'JPY',
+   //      value: '4'
+   //    }, 
 	  {
         table: 'BTC',
         value: '1'

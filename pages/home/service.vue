@@ -4,10 +4,10 @@
       <!-- <image src="../../static/images/home/exc9527.jpg"></image> -->
       <!-- <view style="text-align: center;">Imsk1290</view> -->
 	  <!-- <view style="text-align: center;">exc9527</view> -->
-      <image src="../../static/images/home/exc1956.png"></image>
-      <view style="text-align: center;">exc1956</view>
-	  <image src="../../static/images/home/exc8134.jpg"></image>
-	  <view style="text-align: center;">exc8134</view>
+      <image src="../../static/images/home/exc2956.png"></image>
+      <view style="text-align: center;">exc2956</view>
+	  <image src="../../static/images/home/exc6658.png"></image>
+	  <view style="text-align: center;">exc6658</view>
     </view>
   </view>
 </template>

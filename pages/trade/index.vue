@@ -104,9 +104,23 @@
 			},
 			//提现
 			onCash(){
-				uni.navigateTo({
-					url:'/pages/trade/withdraw'
-				})
+				//let userInfo = JSON.parse(uni.getStorageSync("loginuserinfo"));
+				api.get(api.url.getmemberinfo, {}, res => {
+				  let userInfo = res.data
+				  if(userInfo.lockStatus == '2'){
+				  	uni.showToast({
+				  	  title: this.i18n.账户异常,
+				  	  icon: 'none',
+				  	  duration: 2000
+				  	})
+				  	return
+				  }else{
+				  	uni.navigateTo({
+				  		url:'/pages/trade/withdraw'
+				  	})
+				  }
+				});
+				
 			},
 			onClick(e){
 				//var i = e.index;

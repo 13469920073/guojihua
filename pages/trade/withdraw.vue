@@ -16,7 +16,7 @@
               <p>{{ i18n.账户名称 }}：{{ form.accountName }}</p>
               <p>{{ i18n.账户地址 }}：{{ form.address }}</p>
             </view>
-			<view class="grid-item-left" v-else>
+			<view class="grid-item-left" v-if="form.type && form.accountName&& form.type == 'JPY' ">
 			  <p>{{ form.type }}</p>
 			  <p>{{ i18n.银行名称 }} ：{{ form.bankName }}</p>
 			  <p>{{ i18n.银行支行名称 }} ：{{ form.bankBranchName }}</p>
@@ -26,7 +26,8 @@
 			  <p>{{ i18n.备注 }} ：{{ form.remarks }}</p>
 			</view>
           </view>
-          <view class="flex" style="width:100%">{{ i18n.金额 }}:
+          <view class="flex" style="width:100%" v-if="form.type && form.accountName&& form.type !== 'JPY' ">
+		  {{ i18n.金额 }}:
             <input :placeholder="i18n.请输入数量" v-model="form.outlayNum" type="number" class="uni-input" />
           </view>
         </view>
